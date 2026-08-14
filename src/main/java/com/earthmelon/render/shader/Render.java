@@ -1,4 +1,4 @@
-package com.earthmelon.shader;
+package com.earthmelon.render.shader;
 
 import com.earthmelon.hchess.Mesh;
 import org.lwjgl.opengl.GL11;

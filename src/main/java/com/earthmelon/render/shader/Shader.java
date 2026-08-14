@@ -1,4 +1,4 @@
-package com.earthmelon.shader;
+package com.earthmelon.render.shader;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -46,7 +46,7 @@ public abstract class Shader{
     private static int loadShader(String file, int type) {
         StringBuilder shaderSource = new StringBuilder();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("src/main/java/com/earthmelon/shader/"+file));
+            BufferedReader reader = new BufferedReader(new FileReader("src/main/java/com/earthmelon/render/shader/"+file));
             String line;
             while((line = reader.readLine()) !=null) {
                 shaderSource.append(line).append("\n");

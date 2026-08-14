@@ -1,4 +1,4 @@
-package com.earthmelon.shader;
+package com.earthmelon.render.shader;
 
 public class ShaderTextured extends Shader{
 
