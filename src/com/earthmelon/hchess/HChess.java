@@ -65,12 +65,22 @@ public class HChess {
 
     private void loop() {
         GL.createCapabilities();
+        float[] vertices = {-0.5f,-0.5f,0f,
+                0.5f, -0.5f, 0f,
+                0f,0.5f,0f};
+        int[] indices = {0,1,2};
+        Mesh meshmeyek = MeshLoader.createMesh(vertices,indices); //Kudos if you got that reference
 
         while(!GLFW.glfwWindowShouldClose(window)) {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
 
-            GLFW.glfwSwapBuffers(window);
+            GL30.glBindVertexArray(meshmeyek.getVaoID());
+            GL20.glEnableVertexAttribArray(0);
+            GL11.glDrawElements(GL11.GL_TRIANGLES, meshmeyek.getVertexCount(), GL11.GL_UNSIGNED_INT,0);
+            GL20.glDisableVertexAttribArray(0);
+            GL30.glBindVertexArray(0);
 
+            GLFW.glfwSwapBuffers(window);
             GLFW.glfwPollEvents();
         }
     }
