@@ -14,20 +14,21 @@ public class Texture {
     private static HashMap<String, Integer> idMap = new HashMap<String, Integer>();
 
     public static int loadTexture(String resourceName){
+        String resources_path = "src/main/resources/"+resourceName;
+
         int width;
         int height;
         ByteBuffer buffer;
         if(idMap.containsKey(resourceName)){
-            return idMap.get("res/"+resourceName);
+            return idMap.get(resources_path);
         }
         try (MemoryStack stack = MemoryStack.stackPush()){
             IntBuffer w = stack.mallocInt(1);
             IntBuffer h = stack.mallocInt(1);
             IntBuffer channels = stack.mallocInt(1);
 
-            URL url = Texture.class.getResource("res/"+resourceName);
-            File file = new File("res/"+resourceName);
-            String filePath = file.getAbsolutePath();
+            URL url = Texture.class.getResource(resources_path);
+            String filePath = new File(resources_path).getAbsolutePath();
             buffer = STBImage.stbi_load(filePath, w, h, channels, 4);
             if(buffer ==null) {
                 throw new Exception("Can't load file "+resourceName+" "+STBImage.stbi_failure_reason());

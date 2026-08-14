@@ -1,15 +1,11 @@
 package com.earthmelon.hchess;
 
-import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import java.nio.*;
 
-import static org.lwjgl.glfw.Callbacks.*;
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
@@ -72,13 +68,19 @@ public class HChess {
         float[] uvs = {0.0f, 1.0f};
         Mesh meshmeyek = MeshLoader.createMesh(vertices, uvs, indices); //Kudos if you got that reference
 
+        int texture = Texture.loadTexture("bar.png");
+
         while(!GLFW.glfwWindowShouldClose(window)) {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
 
             GL30.glBindVertexArray(meshmeyek.getVaoID());
             GL20.glEnableVertexAttribArray(0);
+            GL20.glEnableVertexAttribArray(1);
+            GL13.glActiveTexture(GL13.GL_TEXTURE0);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
             GL11.glDrawElements(GL11.GL_TRIANGLES, meshmeyek.getVertexCount(), GL11.GL_UNSIGNED_INT,0);
             GL20.glDisableVertexAttribArray(0);
+            GL20.glDisableVertexAttribArray(1);
             GL30.glBindVertexArray(0);
 
             GLFW.glfwSwapBuffers(window);

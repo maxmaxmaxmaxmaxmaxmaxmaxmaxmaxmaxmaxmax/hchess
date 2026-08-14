@@ -17,7 +17,7 @@ repositories {
 sourceSets {
     main {
         java {
-            setSrcDirs(listOf("src"))
+            setSrcDirs(listOf("src/main/java"))
         }
     }
 }
