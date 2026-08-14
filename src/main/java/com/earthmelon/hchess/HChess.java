@@ -1,5 +1,6 @@
 package com.earthmelon.hchess;
 
+import com.earthmelon.shader.Render;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
@@ -36,6 +37,9 @@ public class HChess {
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
 
+//        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 4);
+//        GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 5);
+
         window = GLFW.glfwCreateWindow(640, 480, "HChess", NULL, NULL);
         if(window == NULL) {
             throw new IllegalStateException("Unable to create GLFW Window");
@@ -66,22 +70,14 @@ public class HChess {
                 0f,0.5f,0f};
         int[] indices = {0,1,2};
         float[] uvs = {0.0f, 1.0f};
-        Mesh meshmeyek = MeshLoader.createMesh(vertices, uvs, indices); //Kudos if you got that reference
+        Mesh meshmeyek = MeshLoader.createMesh(vertices, uvs, indices).addTexture("bar.png"); //Kudos if you got that reference
 
-        int texture = Texture.loadTexture("bar.png");
-
+        Render render = new Render();
         while(!GLFW.glfwWindowShouldClose(window)) {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
 
-            GL30.glBindVertexArray(meshmeyek.getVaoID());
-            GL20.glEnableVertexAttribArray(0);
-            GL20.glEnableVertexAttribArray(1);
-            GL13.glActiveTexture(GL13.GL_TEXTURE0);
-            GL11.glBindTexture(GL11.GL_TEXTURE_2D, texture);
-            GL11.glDrawElements(GL11.GL_TRIANGLES, meshmeyek.getVertexCount(), GL11.GL_UNSIGNED_INT,0);
-            GL20.glDisableVertexAttribArray(0);
-            GL20.glDisableVertexAttribArray(1);
-            GL30.glBindVertexArray(0);
+            render.cleanup();
+            render.render(meshmeyek);
 
             GLFW.glfwSwapBuffers(window);
             GLFW.glfwPollEvents();
