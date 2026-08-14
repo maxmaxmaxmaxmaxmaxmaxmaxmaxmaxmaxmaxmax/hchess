@@ -6,6 +6,9 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+// Look at https://learnopengl.com/Getting-started/Hello-Triangle
+
+
 public class Render {
     ShaderTextured shader = new ShaderTextured();
 
