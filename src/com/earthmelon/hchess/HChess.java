@@ -40,7 +40,7 @@ public class HChess {
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
 
-        window = GLFW.glfwCreateWindow(640, 480, "LWJGL Bootcamp", NULL, NULL);
+        window = GLFW.glfwCreateWindow(640, 480, "HChess", NULL, NULL);
         if(window == NULL) {
             throw new IllegalStateException("Unable to create GLFW Window");
         }
@@ -69,7 +69,8 @@ public class HChess {
                 0.5f, -0.5f, 0f,
                 0f,0.5f,0f};
         int[] indices = {0,1,2};
-        Mesh meshmeyek = MeshLoader.createMesh(vertices,indices); //Kudos if you got that reference
+        float[] uvs = {0.0f, 1.0f};
+        Mesh meshmeyek = MeshLoader.createMesh(vertices, uvs, indices); //Kudos if you got that reference
 
         while(!GLFW.glfwWindowShouldClose(window)) {
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
