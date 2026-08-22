@@ -22,7 +22,7 @@ public class Mesh {
 
     public Mesh addTexture(String filePath) {
         this.texture = Texture.loadTexture(filePath);
-        MeshLoader.addTexture(texture);
+        MeshLoader.getInstance().addTexture(texture);
         return this;
     }
 

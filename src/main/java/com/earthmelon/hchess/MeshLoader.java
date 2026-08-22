@@ -17,7 +17,13 @@ public class MeshLoader{
     private static List<Integer> vbos = new ArrayList<Integer>();
     private static List<Integer> textures = new ArrayList<>();
 
-    public static void addTexture(Integer textureID) {
+    private static MeshLoader instance = new MeshLoader();
+
+    public static MeshLoader getInstance() {
+        return instance;
+    }
+
+    public void addTexture(Integer textureID) {
         textures.add(textureID);
     }
 
