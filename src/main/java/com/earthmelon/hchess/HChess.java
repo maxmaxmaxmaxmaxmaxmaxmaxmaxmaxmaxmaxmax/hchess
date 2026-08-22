@@ -23,11 +23,14 @@ public class HChess {
     }
 
     private void loop() {
-        float[] vertices = {-0.5f,-0.5f,0f,
-                0.5f, -0.5f, 0f,
-                0f,0.5f,0f};
-        int[] indices = {0,1,2};
-        float[] uvs = {0.0f, 1.0f};
+        float[] vertices = {0f,0f,0f,
+                            1f,0f,0f,
+                            0f,1f,0f,
+                            1f,0f,0f,
+                            0f,1f,0f,
+                            1f,1f,0f};
+        int[] indices = {0,1,2,3};
+        float[] uvs = {0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f};
         Mesh meshmeyek = MeshLoader.createMesh(vertices, uvs, indices).addTexture("bar.png"); //Kudos if you got that reference
 
         Render render = new Render();
