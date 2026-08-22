@@ -20,8 +20,9 @@ public class Mesh {
     }
 
 
-    public Mesh addTexture(String texture) {
-        this.texture = Texture.loadTexture(texture);
+    public Mesh addTexture(String filePath) {
+        this.texture = Texture.loadTexture(filePath);
+        MeshLoader.addTexture(texture);
         return this;
     }
 

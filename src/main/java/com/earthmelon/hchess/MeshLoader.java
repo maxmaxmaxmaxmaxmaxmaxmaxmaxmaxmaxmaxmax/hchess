@@ -12,8 +12,14 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 public class MeshLoader{
+    // Add to these so they get destroyed when program exits, apparently
     private static List<Integer> vaos = new ArrayList<Integer>();
     private static List<Integer> vbos = new ArrayList<Integer>();
+    private static List<Integer> textures = new ArrayList<>();
+
+    public static void addTexture(Integer textureID) {
+        textures.add(textureID);
+    }
 
     private static FloatBuffer createFloatBuffer(float[] data) {
         FloatBuffer buffer = BufferUtils.createFloatBuffer(data.length);
