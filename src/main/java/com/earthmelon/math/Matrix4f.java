@@ -1,4 +1,4 @@
-package com.earthmelon.util;
+package com.earthmelon.math;
 
 import java.nio.FloatBuffer;
 

@@ -7,7 +7,6 @@ version = "1.0-SNAPSHOT"
 
 val lwjglVersion = "3.4.2"
 val lwjglNatives = "natives-windows"
-val jomlVersion = "1.10.9"
 val joglVersion = "2.6.0"
 
 repositories {
@@ -41,9 +40,6 @@ dependencies {
     implementation("org.lwjgl:lwjgl-openal::$lwjglNatives")
     implementation("org.lwjgl:lwjgl-opengl::$lwjglNatives")
     implementation("org.lwjgl:lwjgl-stb::$lwjglNatives")
-
-    // Math library
-    implementation("org.joml:joml:$jomlVersion")
 
     // GLFW
     implementation("org.lwjgl:lwjgl-glfw")

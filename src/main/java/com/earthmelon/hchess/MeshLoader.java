@@ -5,8 +5,10 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
-import com.earthmelon.util.Vector3f;
+import com.earthmelon.math.Vector3f;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
@@ -76,11 +78,24 @@ public class MeshLoader{
         return vao;
     }
 
-    public static Mesh createQuad(Vector3f pos, Texture texture) {
+    public static Mesh createQuad(Vector3f pos) {
+        float aspect_ratio = getAspectRatio();
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
-        float[] positions;
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(1,0,0), pos.plus(0,aspect_ratio,0), pos.plus(1,0,0), pos.plus(0,aspect_ratio,0), pos.plus(1,aspect_ratio,0)};
+        float[] uvs = {0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0};
+        float[] positions = Vector3f.toFloat(vertices);
+        storeData(0,3,positions);
+        storeData(1,2,uvs);
         bindIndices(indices);
-        return null;
+        GL30.glBindVertexArray(0);
+        return new Mesh(vao, indices.length);
+    }
+
+    public static float getAspectRatio() {
+        long monitor = GLFW.glfwGetPrimaryMonitor();
+        GLFWVidMode mode = GLFW.glfwGetVideoMode(monitor);
+
+        return (float) mode.width() / mode.height();
     }
 }

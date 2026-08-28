@@ -9,8 +9,8 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
-import com.earthmelon.util.Matrix4f;
-import com.earthmelon.util.Vector3f;
+import com.earthmelon.math.Matrix4f;
+import com.earthmelon.math.Vector3f;
 
 public abstract class Shader{
     private int programID;
