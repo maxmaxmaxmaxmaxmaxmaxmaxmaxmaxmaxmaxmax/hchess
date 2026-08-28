@@ -1,10 +1,8 @@
 package com.earthmelon.render;
 
-import org.lwjgl.glfw.Callbacks;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.IntBuffer;
@@ -14,12 +12,37 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
     public long window;
+    public static Window instance;
+    public static float aspectRatio;
 
-    public Window(int width, int height) {
+    /* for resizing window */
+    private static GLFWFramebufferSizeCallback resizeWindow = new GLFWFramebufferSizeCallback(){
+        @Override
+        public void invoke(long window, int width, int height){
+            GL11.glViewport(0,0,width,height);
+            //update any other window vars you might have (aspect ratio, MVP matrices, etc)
+        }
+    };
+
+
+    private Window(int width, int height) {
         init(width, height);
     }
 
-    private void init(int width, int height){
+    public static Window createWindow(int width, int height) {
+        if (instance == null) {
+            instance = new Window(width, height);
+            return instance;
+        } else {
+            throw new IllegalStateException("Window already created!");
+        }
+    }
+
+    public static Window getInstance() {
+        return instance;
+    }
+
+    private void init(int width, int height) {
         GLFWErrorCallback.createPrint(System.err).set();
 
         if(!GLFW.glfwInit()) {
@@ -35,13 +58,23 @@ public class Window {
             throw new IllegalStateException("Unable to create GLFW Window");
         }
 
+        GLFW.glfwSetFramebufferSizeCallback(window, resizeWindow);
         GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {});
+
+        GLFW.glfwSetWindowSizeCallback(window,new GLFWWindowSizeCallback() {
+            @Override
+            public void invoke(long window, int width, int height) {
+                // Handle window resize here
+                aspectRatio = (float) width / height;
+            }
+        });
 
         try(MemoryStack stack = stackPush()){
             IntBuffer pWidth = stack.mallocInt(1);
             IntBuffer pHeight = stack.mallocInt(1);
 
             GLFW.glfwGetWindowSize(window, pWidth, pHeight);
+            aspectRatio = (float) pWidth.get() / pHeight.get();
 
             GLFWVidMode vidmode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
 
@@ -62,6 +95,7 @@ public class Window {
     public void update() {
         GLFW.glfwSwapBuffers(window);
         GLFW.glfwPollEvents();
+
     }
 
     public boolean shouldClose() {
@@ -75,4 +109,6 @@ public class Window {
         GLFW.glfwTerminate();
         GLFW.glfwSetErrorCallback(null).free();
     }
+
+
 }

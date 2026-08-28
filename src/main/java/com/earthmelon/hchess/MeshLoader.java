@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
 import com.earthmelon.math.Vector3f;
+import com.earthmelon.render.Window;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWVidMode;
@@ -13,6 +14,7 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.lwjgl.system.MemoryStack;
 
 public class MeshLoader{
     // Add to these so they get destroyed when program exits, apparently
@@ -78,11 +80,12 @@ public class MeshLoader{
         return vao;
     }
 
-    public static Mesh createQuad(Vector3f pos) {
-        float aspect_ratio = getAspectRatio();
+    public static Mesh createQuad(Vector3f pos, float scale) {
+        float aspect_ratio = Window.aspectRatio;
+        System.out.println(aspect_ratio);
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(1,0,0), pos.plus(0,aspect_ratio,0), pos.plus(1,0,0), pos.plus(0,aspect_ratio,0), pos.plus(1,aspect_ratio,0)};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,scale*aspect_ratio,0)};
         float[] uvs = {0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 0};
         float[] positions = Vector3f.toFloat(vertices);
         storeData(0,3,positions);
@@ -92,10 +95,9 @@ public class MeshLoader{
         return new Mesh(vao, indices.length);
     }
 
-    public static float getAspectRatio() {
-        long monitor = GLFW.glfwGetPrimaryMonitor();
-        GLFWVidMode mode = GLFW.glfwGetVideoMode(monitor);
-
-        return (float) mode.width() / mode.height();
+    public static Mesh createQuad(Vector3f pos) {
+        return createQuad(pos, 1);
     }
+
+
 }
