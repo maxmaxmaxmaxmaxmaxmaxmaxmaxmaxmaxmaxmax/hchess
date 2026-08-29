@@ -1,7 +1,8 @@
 package com.earthmelon.hchess;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.math.Vector4f;
+import com.earthmelon.render.Mesh;
+import com.earthmelon.render.MeshLoader;
 import com.earthmelon.render.Window;
 import com.earthmelon.render.shader.Render;
 
@@ -17,21 +18,17 @@ public class HChess {
     }
 
     private void loop() {
-        HTextBox box = new HTextBox(new Vector3f(-0.5f,1f,0), 0.8f, 0.5f)
-                .setText("My text is dynamically changing colour!", 0.08f)
-                .setTextTint(new Vector4f(0,0.6f,0.9f,1))
-                .setTint(new Vector4f(1, 1, 0, 1));
+        MeshLoader.createQuad(new Vector3f(-0.5f,-0.75f,0)).addTexture("board.png"); //Kudos if you got that reference
+        PieceGrid grid = new PieceGrid();
+        grid.renderBoard();
 
         Render render = new Render();
-        float rtri = 0;
         while(!window.shouldClose()) {
             render.cleanup();
-            render.render(box);
-            box.setTextTint(new Vector4f((float) Math.sin(rtri) / 2 + 0.5f, 0.6f, 0.9f, 1));
-//            box.setText(String.valueOf(Math.random()));
+            for (Mesh mesh : Render.toRender) {
+                render.render(mesh);
+            }
             window.update();
-            rtri += 0.01f;
-
         }
     }
 
