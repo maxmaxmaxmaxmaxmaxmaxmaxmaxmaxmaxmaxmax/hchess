@@ -8,7 +8,7 @@ import static com.earthmelon.hchess.Piece.*;
 
 public class PieceGrid {
 
-    Mesh background;
+    Mesh background = MeshLoader.createQuad(new Vector3f(-0.5f,-0.75f,0)).addTexture("board.png");;
     static Piece[] boardState = {wROOK, wKNIGHT, wBISHOP, wQUEEN, wKING, wBISHOP, wKNIGHT, wROOK,
                 wPAWN, wPAWN, wPAWN, wPAWN, wPAWN, wPAWN, wPAWN, wPAWN,
                 null, null, null, null, null, null, null, null,
@@ -28,7 +28,7 @@ public class PieceGrid {
             int col = i % 8;
             Piece piece = selectPiece(row, col);
             if (piece != null) {
-                Vector3f square = new Vector3f((float) row / 8, (float) col / 8,0);
+                Vector3f square = new Vector3f((float) col / 8 - 0.5f, (float) row / 5 - 0.75f,0);
                 MeshLoader.createQuad(square, 1f/8).addTexture(piece.getTexture());
             }
         }

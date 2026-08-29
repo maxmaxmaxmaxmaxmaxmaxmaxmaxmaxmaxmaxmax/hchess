@@ -18,7 +18,6 @@ public class HChess {
     }
 
     private void loop() {
-        MeshLoader.createQuad(new Vector3f(-0.5f,-0.75f,0)).addTexture("board.png"); //Kudos if you got that reference
         PieceGrid grid = new PieceGrid();
         grid.renderBoard();
 
