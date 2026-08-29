@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
 import com.earthmelon.math.Vector3f;
+import com.earthmelon.render.shader.Render;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -88,7 +89,9 @@ public class MeshLoader{
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new Mesh(vao, indices.length);
+        Mesh out = new Mesh(vao, indices.length);
+        Render.toRender.add(out);
+        return out;
     }
 
     public static Mesh createQuad(Vector3f pos) {

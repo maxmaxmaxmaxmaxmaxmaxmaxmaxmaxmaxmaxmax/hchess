@@ -18,13 +18,16 @@ public class HChess {
     }
 
     private void loop() {
-        Mesh quad = MeshLoader.createQuad(new Vector3f(-0.5f,-0.5f,0), 0.5f).addTexture("board.png"); //Kudos if you got that reference
+        MeshLoader.createQuad(new Vector3f(-0.5f,-0.75f,0)).addTexture("board.png"); //Kudos if you got that reference
+        PieceGrid grid = new PieceGrid();
+        grid.renderBoard();
 
         Render render = new Render();
         while(!window.shouldClose()) {
             render.cleanup();
-            render.render(quad);
-
+            for (Mesh mesh : Render.toRender) {
+                render.render(mesh);
+            }
             window.update();
         }
     }

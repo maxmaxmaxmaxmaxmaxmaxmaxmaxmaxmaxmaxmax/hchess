@@ -6,11 +6,15 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import java.util.ArrayList;
+
 // Look at https://learnopengl.com/Getting-started/Hello-Triangle
 
 
 public class Render {
     ShaderTextured shader = new ShaderTextured();
+
+    public static ArrayList<Mesh> toRender = new ArrayList<>();
 
     public void cleanup(){
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
