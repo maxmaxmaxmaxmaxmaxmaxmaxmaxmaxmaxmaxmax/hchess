@@ -1,7 +1,5 @@
-package com.earthmelon.hchess;
+package com.earthmelon.render;
 
-import java.io.File;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.HashMap;

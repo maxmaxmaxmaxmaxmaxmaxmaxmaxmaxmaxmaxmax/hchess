@@ -1,6 +1,6 @@
 package com.earthmelon.render.shader;
 
-import com.earthmelon.hchess.Mesh;
+import com.earthmelon.render.Mesh;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;

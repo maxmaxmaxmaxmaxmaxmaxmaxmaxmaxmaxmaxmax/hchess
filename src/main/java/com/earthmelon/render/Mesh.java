@@ -1,4 +1,4 @@
-package com.earthmelon.hchess;
+package com.earthmelon.render;
 
 public class Mesh {
 

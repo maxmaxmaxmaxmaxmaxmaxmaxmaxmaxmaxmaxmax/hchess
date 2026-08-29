@@ -1,4 +1,4 @@
-package com.earthmelon.hchess;
+package com.earthmelon.render;
 
 import java.nio.FloatBuffer; //The buffers that the Vertex data is ultimately stored in
 import java.nio.IntBuffer;
@@ -6,15 +6,11 @@ import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.Window;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-import org.lwjgl.system.MemoryStack;
 
 public class MeshLoader{
     // Add to these so they get destroyed when program exits, apparently

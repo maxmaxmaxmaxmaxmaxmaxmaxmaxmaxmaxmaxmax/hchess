@@ -1,6 +1,8 @@
 package com.earthmelon.hchess;
 
 import com.earthmelon.math.Vector3f;
+import com.earthmelon.render.Mesh;
+import com.earthmelon.render.MeshLoader;
 import com.earthmelon.render.Window;
 import com.earthmelon.render.shader.Render;
 
