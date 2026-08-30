@@ -31,4 +31,8 @@ public enum Piece {
     public String getTexture() {
         return texture;
     }
+
+    public Move[] getAvailableMoves() {
+        return null;
+    }
 }
