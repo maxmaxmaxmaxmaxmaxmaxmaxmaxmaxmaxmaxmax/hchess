@@ -12,13 +12,18 @@ public enum PieceType {
     bBISHOP(false,"black_bishop.png"),
     bROOK(false,"black_rook.png"),
     bQUEEN(false,"black_queen.png"),
-    bKING(false,"black_king.png");
+    bKING(false,"black_king.png"),
+    NONE(false, "");
 
-    final boolean isWhite;
     final String texture;
+    final boolean isWhite;
 
     PieceType(boolean isWhite, String texture) {
-        this.isWhite = isWhite;
         this.texture = texture;
+        this.isWhite = isWhite;
+    }
+
+    public boolean isEnemy(PieceType other) {
+        return this.name().startsWith(String.valueOf(other.name().charAt(0)));
     }
 }

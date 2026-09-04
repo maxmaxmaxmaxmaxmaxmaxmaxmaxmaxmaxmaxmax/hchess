@@ -79,7 +79,6 @@ public class MeshLoader{
 
     public static Mesh createQuad(Vector3f pos, float scale) {
         float aspect_ratio = Window.aspectRatio;
-        System.out.println(aspect_ratio);
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
         Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,scale*aspect_ratio,0)};

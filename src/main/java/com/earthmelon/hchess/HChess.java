@@ -1,14 +1,14 @@
 package com.earthmelon.hchess;
 
-import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Mesh;
-import com.earthmelon.render.MeshLoader;
 import com.earthmelon.render.Window;
 import com.earthmelon.render.shader.Render;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 
 import java.nio.DoubleBuffer;
+
+import static com.earthmelon.hchess.Board.turn;
 
 public class HChess {
 
@@ -22,12 +22,13 @@ public class HChess {
     }
 
     private void loop() {
-        PieceGrid grid = new PieceGrid();
-        grid.renderBoard();
+        Board grid = new Board();
+
 
         Render render = new Render();
         while(!window.shouldClose()) {
             render.cleanup();
+            grid.renderBoard();
             for (Mesh mesh : Render.toRender) {
                 render.render(mesh);
             }
@@ -38,6 +39,8 @@ public class HChess {
         }
     }
 
+
+    Piece selected = new Piece();
     private void gameLogic() {
         DoubleBuffer xBuffer = BufferUtils.createDoubleBuffer(1);
         DoubleBuffer yBuffer = BufferUtils.createDoubleBuffer(1);
@@ -47,7 +50,18 @@ public class HChess {
         double mouseY = yBuffer.get(0);
 
         if (GLFW.glfwGetMouseButton(window.window, GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS) {
-            System.out.println(PieceGrid.selectPiece(mouseX, mouseY));
+            System.out.println(selected);
+            if (selected.type == PieceType.NONE) {
+                selected = Board.selectPiece(mouseX, mouseY);
+            } else {
+                Piece moveSquare = Board.selectPiece(mouseX, mouseY);
+                if (selected.canMoveToSquare(moveSquare.row, moveSquare.column)) {
+                    Board.setPiece(selected, moveSquare.row, moveSquare.column);
+                    Board.setPiece(new Piece(PieceType.NONE, selected.row, selected.column), selected.row, selected.column);
+                    selected = new Piece();
+                    turn.swap();
+                }
+            }
         }
     }
 
