@@ -55,8 +55,8 @@ public class Board {
     }
 
     public static void setPiece(Piece piece, int row, int col) {
+        boardState[8*piece.row+piece.column] = NONE;
         boardState[8*row+col] = piece.type;
-        boardState[8* piece.row+piece.column] = NONE;
     }
 
     public void renderBoard() {

@@ -57,9 +57,7 @@ public class HChess {
                 Piece moveSquare = Board.selectPiece(mouseX, mouseY);
                 if (selected.canMoveToSquare(moveSquare.row, moveSquare.column)) {
                     Board.setPiece(selected, moveSquare.row, moveSquare.column);
-                    Board.setPiece(new Piece(PieceType.NONE, selected.row, selected.column), selected.row, selected.column);
                     selected = new Piece();
-                    turn.swap();
                 }
             }
         }
