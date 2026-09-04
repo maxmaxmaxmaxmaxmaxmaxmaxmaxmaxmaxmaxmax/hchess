@@ -8,8 +8,6 @@ import org.lwjgl.glfw.GLFW;
 
 import java.nio.DoubleBuffer;
 
-import static com.earthmelon.hchess.Board.turn;
-
 public class HChess {
 
     // The window handle
@@ -28,7 +26,7 @@ public class HChess {
         Render render = new Render();
         while(!window.shouldClose()) {
             render.cleanup();
-            grid.renderBoard();
+            grid.render();
             for (Mesh mesh : Render.toRender) {
                 render.render(mesh);
             }

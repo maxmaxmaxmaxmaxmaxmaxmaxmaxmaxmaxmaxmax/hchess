@@ -42,13 +42,6 @@ public class Piece {
     }
 
     public boolean canMoveToSquare(int row, int col) {
-        if (this.type.isWhite && Board.turn == Board.Turn.BLACK) {
-            return false;
-        }
-        if (!this.type.isWhite && Board.turn == Board.Turn.WHITE) {
-            return false;
-        }
-
         if (row == this.row && col == this.column) {
             return false;
         }
