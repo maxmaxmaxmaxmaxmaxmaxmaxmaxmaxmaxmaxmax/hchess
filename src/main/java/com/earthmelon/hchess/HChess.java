@@ -47,7 +47,7 @@ public class HChess {
         double mouseY = yBuffer.get(0);
 
         if (GLFW.glfwGetMouseButton(window.window, GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS) {
-            System.out.println(mouseX + ", " + mouseY);
+            System.out.println(PieceGrid.selectPiece(mouseX, mouseY));
         }
     }
 
