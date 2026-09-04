@@ -17,8 +17,14 @@ public class Piece {
         this.column = column;
     }
 
-    public boolean isWhite() {
-        return type.isWhite;
+    public Piece() {
+        type = PieceType.NONE;
+        this.row = -1;
+        this.column = -1;
+    }
+
+    public boolean isEnemy(Piece other) {
+        return type.isEnemy(other.type);
     }
 
     public String getTexture() {
@@ -36,6 +42,16 @@ public class Piece {
     }
 
     public boolean canMoveToSquare(int row, int col) {
+        if (this.type.isWhite && Board.turn == Board.Turn.BLACK) {
+            return false;
+        }
+        if (!this.type.isWhite && Board.turn == Board.Turn.WHITE) {
+            return false;
+        }
+
+        if (row == this.row && col == this.column) {
+            return false;
+        }
         return this.getAvailableMoves().contains(new Move(this,row,col));
     }
 
