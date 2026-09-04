@@ -2,37 +2,45 @@ package com.earthmelon.hchess;
 
 import com.earthmelon.render.Texture;
 
-public enum Piece {
-    wPAWN(true, "white_pawn.png"),
-    wKNIGHT(true,"white_knight.png"),
-    wBISHOP(true,"white_bishop.png"),
-    wROOK(true,"white_rook.png"),
-    wQUEEN(true,"white_queen.png"),
-    wKING(true,"white_king.png"),
-    bPAWN(false,"black_pawn.png"),
-    bKNIGHT(false,"black_knight.png"),
-    bBISHOP(false,"black_bishop.png"),
-    bROOK(false,"black_rook.png"),
-    bQUEEN(false,"black_queen.png"),
-    bKING(false,"black_king.png");
+import java.util.ArrayList;
+import java.util.Objects;
 
-    final boolean isWhite;
-    final String texture;
+public class Piece {
 
-    Piece(boolean isWhite, String texture) {
-        this.isWhite = isWhite;
-        this.texture = texture;
+    PieceType type;
+    int row;
+    int column;
+
+    public Piece(PieceType pieceType, int row, int column) {
+        type = pieceType;
+        this.row = row;
+        this.column = column;
     }
 
     public boolean isWhite() {
-        return isWhite;
+        return type.isWhite;
     }
 
     public String getTexture() {
-        return texture;
+        return type.texture;
     }
 
-    public Move[] getAvailableMoves() {
-        return null;
+    public ArrayList<Move> getAvailableMoves() {
+        ArrayList<Move> moves = new ArrayList<>();
+        for (int i=0; i<8; i++) {
+            for (int j=0; j<8; j++) {
+                moves.add(new Move(this, i, j));
+            }
+        }
+        return moves;
+    }
+
+    public boolean canMoveToSquare(int row, int col) {
+        return this.getAvailableMoves().contains(new Move(this,row,col));
+    }
+
+    @Override
+    public String toString() {
+        return "%s at (%s, %s)".formatted(type, row, column);
     }
 }
