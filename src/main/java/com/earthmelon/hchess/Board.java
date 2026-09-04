@@ -3,6 +3,7 @@ package com.earthmelon.hchess;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Mesh;
 import com.earthmelon.render.MeshLoader;
+import org.lwjgl.opengl.GL11;
 
 import static com.earthmelon.hchess.PieceType.*;
 
@@ -28,7 +29,6 @@ public class Board {
         }
     }
 
-    Mesh background = MeshLoader.createQuad(new Vector3f(-0.5f,-0.75f,0)).addTexture("board.png");
     static PieceType[] boardState = {
             wROOK, wKNIGHT, wBISHOP, wQUEEN, wKING, wBISHOP, wKNIGHT, wROOK,
             wPAWN, wPAWN, wPAWN, wPAWN, wPAWN, wPAWN, wPAWN, wPAWN,
@@ -59,7 +59,9 @@ public class Board {
         boardState[8*row+col] = piece.type;
     }
 
-    public void renderBoard() {
+    public void render() {
+        GL11.glClearColor(0,0,0,0);
+        MeshLoader.createQuad(new Vector3f(-0.5f,-0.75f,0)).addTexture("board.png");
         for (int i=0; i<boardState.length; i++) {
             int row = i / 8;
             int col = i % 8;
