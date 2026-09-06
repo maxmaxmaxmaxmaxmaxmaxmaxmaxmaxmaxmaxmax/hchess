@@ -47,8 +47,9 @@ public class HChess {
         double mouseX = xBuffer.get(0);
         double mouseY = yBuffer.get(0);
 
-        if (GLFW.glfwGetMouseButton(window.window, GLFW.GLFW_MOUSE_BUTTON_LEFT) == GLFW.GLFW_PRESS) {
-            System.out.println(selected);
+        // 7 is the Left Click action
+        if (Window.MOUSE_STATE == 7) {
+            System.out.println(Window.MOUSE_STATE);
             if (selected.type == PieceType.NONE) {
                 selected = Board.selectPiece(mouseX, mouseY);
             } else {
