@@ -14,6 +14,7 @@ public class Window {
     public long window;
     public static Window instance;
     public static float aspectRatio;
+    public static int MOUSE_STATE;
 
     /* for resizing window */
     private static GLFWFramebufferSizeCallback resizeWindow = new GLFWFramebufferSizeCallback(){
@@ -68,6 +69,7 @@ public class Window {
                 aspectRatio = (float) width / height;
             }
         });
+        GLFW.glfwSetMouseButtonCallback(window, (GLFWMouseButtonCallbackI) (window, button, action, mods) -> MOUSE_STATE = 5*button+7*action);
 
         try(MemoryStack stack = stackPush()){
             IntBuffer pWidth = stack.mallocInt(1);
