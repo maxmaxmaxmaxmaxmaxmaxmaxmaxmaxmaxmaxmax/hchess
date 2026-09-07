@@ -91,6 +91,23 @@ public class MeshLoader{
         return new Mesh(vao, indices.length);
     }
 
+    public static Mesh createQuadAtlas(Vector3f pos, float scale, int textureRatio, int hpos, int vpos) {
+        float aspect_ratio = Window.aspectRatio;
+        float hratio = (float) hpos / textureRatio;
+        float vratio = (float) vpos / textureRatio;
+        System.out.println(aspect_ratio);
+        int vao = genVAO();
+        int[] indices = {0,1,2,3,4,5};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,scale*aspect_ratio,0)};
+        float[] uvs = {0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0};
+        float[] positions = Vector3f.toFloat(vertices);
+        storeData(0,3,positions);
+        storeData(1,2,uvs);
+        bindIndices(indices);
+        GL30.glBindVertexArray(0);
+        return new Mesh(vao, indices.length);
+    }
+
     public static Mesh createQuad(Vector3f pos) {
         return createQuad(pos, 1);
     }

@@ -3,6 +3,7 @@ package com.earthmelon.hchess;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Mesh;
 import com.earthmelon.render.MeshLoader;
+import com.earthmelon.render.TextRender;
 import com.earthmelon.render.Window;
 import com.earthmelon.render.shader.Render;
 
@@ -18,12 +19,12 @@ public class HChess {
     }
 
     private void loop() {
-        Mesh quad = MeshLoader.createQuad(new Vector3f(-0.5f,-0.5f,0), 0.5f).addTexture("bar.png"); //Kudos if you got that reference
+        Mesh text = TextRender.drawChar('a', new Vector3f(-0.5f,-0.5f,0)); //Kudos if you got that reference
 
         Render render = new Render();
         while(!window.shouldClose()) {
             render.cleanup();
-            render.render(quad);
+            render.render(text);
 
             window.update();
         }
