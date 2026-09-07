@@ -89,12 +89,12 @@ public class Window {
             GLFW.glfwShowWindow(window);
         }
 
+        GL.createCapabilities();
+
         GL11.glEnable(GL11.GL_BLEND); // Enabled blending
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // selects blending method
         GL11.glEnable(GL11.GL_ALPHA_TEST); // allows alpha channels or transperancy
         GL11.glAlphaFunc(GL11.GL_GREATER, 0.1f); // sets aplha function
-
-        GL.createCapabilities();
     }
 
     public void update() {
