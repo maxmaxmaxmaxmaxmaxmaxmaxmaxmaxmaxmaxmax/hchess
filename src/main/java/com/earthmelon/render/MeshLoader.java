@@ -91,15 +91,17 @@ public class MeshLoader{
         return new Mesh(vao, indices.length);
     }
 
-    public static Mesh createQuadAtlas(Vector3f pos, float scale, int textureRatio, int hpos, int vpos) {
+    public static Mesh createQuadAtlas(Vector3f pos, int atlusSize, int hpos, int vpos, int textureSize) {
         float aspect_ratio = Window.aspectRatio;
-        float hratio = (float) hpos / textureRatio;
-        float vratio = (float) vpos / textureRatio;
-        System.out.println(aspect_ratio);
+        float sizeRatio = (float) textureSize / atlusSize;
+        float hratio = (float) textureSize * hpos / atlusSize;
+        float vratio = (float) textureSize * vpos / atlusSize;
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,scale*aspect_ratio,0)};
-        float[] uvs = {0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(0.5f,0,0), pos.plus(0,-0.5f*aspect_ratio,0), pos.plus(0.5f,0,0), pos.plus(0,-0.5f*aspect_ratio,0), pos.plus(0.5f,-0.5f*aspect_ratio,0)};
+        float[] uvs = {hratio, vratio, hratio + sizeRatio, vratio,
+                hratio, sizeRatio + vratio, hratio + sizeRatio, vratio,
+                hratio, sizeRatio + vratio, hratio + sizeRatio, sizeRatio + vratio};
         float[] positions = Vector3f.toFloat(vertices);
         storeData(0,3,positions);
         storeData(1,2,uvs);
