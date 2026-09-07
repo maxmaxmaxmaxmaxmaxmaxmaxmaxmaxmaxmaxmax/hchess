@@ -12,6 +12,8 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import static com.earthmelon.render.TextRender.TEXT_SIZE;
+
 public class MeshLoader{
     // Add to these so they get destroyed when program exits, apparently
     private static List<Integer> vaos = new ArrayList<Integer>();
@@ -98,7 +100,7 @@ public class MeshLoader{
         float vratio = (float) textureSize * vpos / atlusSize;
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(0.1f,0,0), pos.plus(0,-0.1f*aspect_ratio,0), pos.plus(0.1f,0,0), pos.plus(0,-0.1f*aspect_ratio,0), pos.plus(0.1f,-0.1f*aspect_ratio,0)};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(TEXT_SIZE,0,0), pos.plus(0,-TEXT_SIZE*aspect_ratio,0), pos.plus(TEXT_SIZE,0,0), pos.plus(0,-TEXT_SIZE*aspect_ratio,0), pos.plus(TEXT_SIZE,-TEXT_SIZE*aspect_ratio,0)};
         float[] uvs = {hratio, vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, sizeRatio + vratio};

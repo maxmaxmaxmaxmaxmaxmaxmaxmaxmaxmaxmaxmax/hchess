@@ -19,7 +19,7 @@ public class HChess {
     }
 
     private void loop() {
-        Mesh[] text = TextRender.drawString("Hello world!", new Vector3f(-0.5f,0.5f,0)); //Kudos if you got that reference
+        Mesh[] text = TextRender.drawString("I love you Yujing <3", new Vector3f(-0.5f,0.5f,0)); //Kudos if you got that reference
 
         Render render = new Render();
         while(!window.shouldClose()) {
