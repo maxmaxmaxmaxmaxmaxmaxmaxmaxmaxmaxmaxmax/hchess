@@ -98,7 +98,7 @@ public class MeshLoader{
         float vratio = (float) textureSize * vpos / atlusSize;
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(0.5f,0,0), pos.plus(0,-0.5f*aspect_ratio,0), pos.plus(0.5f,0,0), pos.plus(0,-0.5f*aspect_ratio,0), pos.plus(0.5f,-0.5f*aspect_ratio,0)};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(0.1f,0,0), pos.plus(0,-0.1f*aspect_ratio,0), pos.plus(0.1f,0,0), pos.plus(0,-0.1f*aspect_ratio,0), pos.plus(0.1f,-0.1f*aspect_ratio,0)};
         float[] uvs = {hratio, vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, sizeRatio + vratio};

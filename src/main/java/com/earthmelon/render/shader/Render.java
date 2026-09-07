@@ -30,4 +30,10 @@ public class Render {
         GL30.glBindVertexArray(0);
         shader.stop();
     }
+
+    public void render(Mesh[] meshes) {
+        for (Mesh mesh : meshes) {
+            render(mesh);
+        }
+    }
 }
