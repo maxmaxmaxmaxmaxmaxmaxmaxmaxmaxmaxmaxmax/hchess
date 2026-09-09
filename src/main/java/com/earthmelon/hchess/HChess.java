@@ -17,7 +17,7 @@ public class HChess {
     }
 
     private void loop() {
-        TextMesh[] text = TextMesh.drawString("I love you Yujing <3", new Vector3f(-0.5f,0.5f,0)); //Kudos if you got that reference
+        TextMesh[] text = TextMesh.drawString("You're \n Unstoppable \n Joyful \n Intelligent \n Nice \n Genuine", new Vector3f(-0.5f,0.5f,0)); //Kudos if you got that reference
 
         Render render = new Render();
         while(!window.shouldClose()) {

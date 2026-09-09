@@ -29,18 +29,27 @@ public class TextMesh implements MeshI, Tintable {
     }
 
     public static TextMesh[] drawString(String s, Vector3f pos) {
+        int col = 1;
+        int row = 1;
+        float kerning = textSize / 1.5f;
         TextMesh[] out = new TextMesh[s.length()];
         char[] chars = s.toCharArray();
         for (int i=0; i< out.length; i++) {
             char ith = chars[i];
-            if (belowLineLetters.contains(String.valueOf(ith))) {
+            col++;
+            if (ith == '\n') {
+                out[i] = drawChar(ith, pos);
+                pos = pos.plus(-col * kerning, - 2 * textSize, 0);
+                col = 0;
+            }
+            else if (belowLineLetters.contains(String.valueOf(ith))) {
                 pos = pos.plus(0, -textSize / 2, 0);
                 out[i] = drawChar(ith, pos).setTint(colour);
                 pos = pos.plus(0, textSize / 2, 0);
             } else {
                 out[i] = drawChar(ith, pos).setTint(colour);
             }
-            pos = pos.plus(textSize / 1.5f, 0,0);
+            pos = pos.plus(kerning, 0,0);
         }
         return out;
     }
