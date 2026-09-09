@@ -33,6 +33,8 @@ public abstract class Shader{
 
     public void start(){
         GL20.glUseProgram(programID);
+        int tintColourLocation = GL20.glGetUniformLocation(programID, "tintColour");
+        GL20.glUniform4f(tintColourLocation, 0.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public void stop(){
