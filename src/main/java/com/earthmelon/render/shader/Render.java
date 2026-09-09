@@ -1,6 +1,6 @@
 package com.earthmelon.render.shader;
 
-import com.earthmelon.render.Mesh;
+import com.earthmelon.render.BasicMesh;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -14,26 +14,26 @@ public class Render {
 
     public void cleanup(){
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(1,0,1,1);
+        GL11.glClearColor(1,1,1,1);
     }
 
-    public void render(Mesh mesh){
-        shader.start();
-        GL30.glBindVertexArray(mesh.getVaoID());
+    public void render(BasicMesh basicMesh){
+        shader.start(basicMesh);
+        GL30.glBindVertexArray(basicMesh.getVaoID());
         GL20.glEnableVertexAttribArray(0);
         GL20.glEnableVertexAttribArray(1);
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, mesh.getTexture());
-        GL11.glDrawElements(GL11.GL_TRIANGLES, mesh.getVertexCount(), GL11.GL_UNSIGNED_INT,0);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, basicMesh.getTexture());
+        GL11.glDrawElements(GL11.GL_TRIANGLES, basicMesh.getVertexCount(), GL11.GL_UNSIGNED_INT,0);
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
         shader.stop();
     }
 
-    public void render(Mesh[] meshes) {
-        for (Mesh mesh : meshes) {
-            render(mesh);
+    public void render(BasicMesh[] basicMeshes) {
+        for (BasicMesh basicMesh : basicMeshes) {
+            render(basicMesh);
         }
     }
 }

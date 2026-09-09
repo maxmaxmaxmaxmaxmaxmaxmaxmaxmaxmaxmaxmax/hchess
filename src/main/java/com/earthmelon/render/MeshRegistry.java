@@ -12,17 +12,15 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import static com.earthmelon.render.TextRender.TEXT_SIZE;
-
-public class MeshLoader{
+public class MeshRegistry {
     // Add to these so they get destroyed when program exits, apparently
     private static List<Integer> vaos = new ArrayList<Integer>();
     private static List<Integer> vbos = new ArrayList<Integer>();
     private static List<Integer> textures = new ArrayList<>();
 
-    private static MeshLoader instance = new MeshLoader();
+    private static MeshRegistry instance = new MeshRegistry();
 
-    public static MeshLoader getInstance() {
+    public static MeshRegistry getInstance() {
         return instance;
     }
 
@@ -62,13 +60,13 @@ public class MeshLoader{
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
     }
 
-    public static Mesh createMesh(float[] positions, float[] UVs, int[] indices){
+    public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices){
         int vao = genVAO();
         storeData(0,3,positions);
         storeData(1,2,UVs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new Mesh(vao,indices.length);
+        return new BasicMesh(vao,indices.length);
     }
 
     private static int genVAO() {
@@ -78,7 +76,7 @@ public class MeshLoader{
         return vao;
     }
 
-    public static Mesh createQuad(Vector3f pos, float scale) {
+    public static BasicMesh createQuad(Vector3f pos, float scale) {
         float aspect_ratio = Window.aspectRatio;
         System.out.println(aspect_ratio);
         int vao = genVAO();
@@ -90,17 +88,17 @@ public class MeshLoader{
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new Mesh(vao, indices.length);
+        return new BasicMesh(vao, indices.length);
     }
 
-    public static Mesh createQuadAtlas(Vector3f pos, int atlusSize, int hpos, int vpos, int textureSize) {
+    public static BasicMesh createQuadAtlas(Vector3f pos, float scale, int atlusSize, int hpos, int vpos, int textureSize) {
         float aspect_ratio = Window.aspectRatio;
         float sizeRatio = (float) textureSize / atlusSize;
         float hratio = (float) textureSize * hpos / atlusSize;
         float vratio = (float) textureSize * vpos / atlusSize;
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(TEXT_SIZE,0,0), pos.plus(0,-TEXT_SIZE*aspect_ratio,0), pos.plus(TEXT_SIZE,0,0), pos.plus(0,-TEXT_SIZE*aspect_ratio,0), pos.plus(TEXT_SIZE,-TEXT_SIZE*aspect_ratio,0)};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,-scale*aspect_ratio,0)};
         float[] uvs = {hratio, vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, sizeRatio + vratio};
@@ -109,10 +107,10 @@ public class MeshLoader{
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new Mesh(vao, indices.length);
+        return new BasicMesh(vao, indices.length);
     }
 
-    public static Mesh createQuad(Vector3f pos) {
+    public static BasicMesh createQuad(Vector3f pos) {
         return createQuad(pos, 1);
     }
 
