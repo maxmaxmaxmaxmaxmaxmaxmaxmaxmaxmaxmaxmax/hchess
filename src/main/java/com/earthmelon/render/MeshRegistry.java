@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
 import com.earthmelon.math.Vector3f;
+import com.earthmelon.render.meshes.BasicMesh;
+import com.earthmelon.render.meshes.MeshI;
+import com.earthmelon.render.meshes.TextMesh;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -91,7 +94,7 @@ public class MeshRegistry {
         return new BasicMesh(vao, indices.length);
     }
 
-    public static BasicMesh createQuadAtlas(Vector3f pos, float scale, int atlusSize, int hpos, int vpos, int textureSize) {
+    public static TextMesh createQuadAtlas(Vector3f pos, float scale, int atlusSize, int hpos, int vpos, int textureSize) {
         float aspect_ratio = Window.aspectRatio;
         float sizeRatio = (float) textureSize / atlusSize;
         float hratio = (float) textureSize * hpos / atlusSize;
@@ -107,10 +110,10 @@ public class MeshRegistry {
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new BasicMesh(vao, indices.length);
+        return new TextMesh(vao, indices.length);
     }
 
-    public static BasicMesh createQuad(Vector3f pos) {
+    public static MeshI createQuad(Vector3f pos) {
         return createQuad(pos, 1);
     }
 

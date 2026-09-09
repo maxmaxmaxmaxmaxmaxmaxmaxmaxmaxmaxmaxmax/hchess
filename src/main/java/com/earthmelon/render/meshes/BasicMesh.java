@@ -1,15 +1,13 @@
-package com.earthmelon.render;
+package com.earthmelon.render.meshes;
 
-import com.earthmelon.math.Vector4f;
-import com.earthmelon.render.shader.Tintable;
+import com.earthmelon.render.MeshRegistry;
+import com.earthmelon.render.Texture;
 
-public class BasicMesh implements Tintable {
+public class BasicMesh implements MeshI {
 
     private int vao;
     private int vertices;
     private int texture = 0;
-
-    private Vector4f tint = new Vector4f(1,1,1,1);
 
     public BasicMesh(int vao, int vertex) {
         this.vao = vao;
@@ -33,16 +31,5 @@ public class BasicMesh implements Tintable {
 
     public int getTexture(){
         return this.texture;
-    }
-
-    @Override
-    public Vector4f getTint() {
-        return tint;
-    }
-
-    @Override
-    public BasicMesh setTint(Vector4f tint) {
-        this.tint = tint;
-        return this;
     }
 }
