@@ -3,6 +3,8 @@ package com.earthmelon.render.meshes;
 import com.earthmelon.render.MeshRegistry;
 import com.earthmelon.render.Texture;
 
+import java.util.List;
+
 public class BasicMesh implements MeshI {
 
     private int vao;
@@ -31,5 +33,10 @@ public class BasicMesh implements MeshI {
 
     public int getTexture(){
         return this.texture;
+    }
+
+    @Override
+    public List<MeshI> getContents() {
+        return List.of();
     }
 }

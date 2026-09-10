@@ -6,6 +6,8 @@ import com.earthmelon.render.MeshRegistry;
 import com.earthmelon.render.Texture;
 import com.earthmelon.render.shader.Tintable;
 
+import java.util.List;
+
 public class TextMesh implements MeshI, Tintable {
 
     private int vao;
@@ -85,5 +87,10 @@ public class TextMesh implements MeshI, Tintable {
     @Override
     public int getTexture() {
         return texture;
+    }
+
+    @Override
+    public List<MeshI> getContents() {
+        return List.of();
     }
 }

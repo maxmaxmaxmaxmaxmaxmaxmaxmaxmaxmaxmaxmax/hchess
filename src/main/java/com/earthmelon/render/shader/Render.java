@@ -29,6 +29,9 @@ public class Render {
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
         shader.stop();
+        for (MeshI submesh : mesh.getContents()) {
+            render(submesh);
+        }
     }
 
     public void render(MeshI[] meshes) {
