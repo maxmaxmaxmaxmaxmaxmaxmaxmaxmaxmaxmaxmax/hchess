@@ -24,7 +24,7 @@ public class HTextBox implements Renderable {
         this.height = height;
         this.text = TextMesh.drawString(text, position, width, height);
 
-        this.background = MeshFactory.createQuad(position).addTexture("bar.png");
+        this.background = MeshFactory.createQuad(position, width).addTexture("bar.png");
     }
 
     @Override
@@ -34,6 +34,6 @@ public class HTextBox implements Renderable {
     }
 
     public void setText(String text) {
-        this.text = TextMesh.drawString(text, position);
+        this.text = TextMesh.drawString(text, position, width, height);
     }
 }
