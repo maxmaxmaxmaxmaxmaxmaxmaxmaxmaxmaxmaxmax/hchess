@@ -7,7 +7,7 @@ import java.util.List; //List and ArrayLists are containers for storing data, in
 
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
-import com.earthmelon.render.meshes.MeshI;
+import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
 import org.lwjgl.opengl.GL11;
@@ -15,15 +15,15 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-public class MeshRegistry {
+public class MeshFactory {
     // Add to these so they get destroyed when program exits, apparently
     private static List<Integer> vaos = new ArrayList<Integer>();
     private static List<Integer> vbos = new ArrayList<Integer>();
     private static List<Integer> textures = new ArrayList<>();
 
-    private static MeshRegistry instance = new MeshRegistry();
+    private static MeshFactory instance = new MeshFactory();
 
-    public static MeshRegistry getInstance() {
+    public static MeshFactory getInstance() {
         return instance;
     }
 
@@ -79,9 +79,8 @@ public class MeshRegistry {
         return vao;
     }
 
-    public static BasicMesh createQuad(Vector3f pos, float scale) {
+    public static Mesh createQuad(Vector3f pos, float scale) {
         float aspect_ratio = Window.aspectRatio;
-        System.out.println(aspect_ratio);
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
         Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,scale*aspect_ratio,0)};
@@ -113,7 +112,7 @@ public class MeshRegistry {
         return new TextMesh(vao, indices.length);
     }
 
-    public static MeshI createQuad(Vector3f pos) {
+    public static Mesh createQuad(Vector3f pos) {
         return createQuad(pos, 1);
     }
 

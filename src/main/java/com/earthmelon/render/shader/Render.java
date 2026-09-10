@@ -1,6 +1,6 @@
 package com.earthmelon.render.shader;
 
-import com.earthmelon.render.meshes.MeshI;
+import com.earthmelon.render.meshes.Mesh;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
@@ -17,7 +17,7 @@ public class Render {
         GL11.glClearColor(1,1,1,1);
     }
 
-    public void render(MeshI mesh){
+    public void render(Mesh mesh){
         shader.start(mesh);
         GL30.glBindVertexArray(mesh.getVaoID());
         GL20.glEnableVertexAttribArray(0);
@@ -29,13 +29,16 @@ public class Render {
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
         shader.stop();
-        for (MeshI submesh : mesh.getContents()) {
+    }
+
+    public void render(Renderable renderable) {
+        for (Mesh submesh : renderable.getRenderables()) {
             render(submesh);
         }
     }
 
-    public void render(MeshI[] meshes) {
-        for (MeshI mesh : meshes) {
+    public void render(Mesh[] meshes) {
+        for (Mesh mesh : meshes) {
             render(mesh);
         }
     }

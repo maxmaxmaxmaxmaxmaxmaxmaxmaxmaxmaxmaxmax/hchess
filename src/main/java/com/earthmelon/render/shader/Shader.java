@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 
-import com.earthmelon.render.meshes.MeshI;
+import com.earthmelon.render.meshes.Mesh;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
@@ -32,7 +32,7 @@ public abstract class Shader{
         getAllUniformLocations();
     }
 
-    public void start(MeshI mesh){
+    public void start(Mesh mesh){
         GL20.glUseProgram(programID);
         if (mesh instanceof Tintable tintMesh) {
             int tintColourLocation = GL20.glGetUniformLocation(programID, "tintColour");

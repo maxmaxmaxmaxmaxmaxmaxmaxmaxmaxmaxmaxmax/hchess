@@ -1,34 +1,30 @@
 package com.earthmelon.hchess;
 
-import com.earthmelon.render.meshes.MeshI;
+import com.earthmelon.math.Vector3f;
+import com.earthmelon.render.meshes.Mesh;
+import com.earthmelon.render.meshes.TextMesh;
+import com.earthmelon.render.shader.Renderable;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
-public class HTextBox implements MeshI {
+public class HTextBox implements Renderable {
+
+    private Mesh background;
+    Vector3f position;
+    float width;
+    float height;
+    private TextMesh[] text = TextMesh.drawString("", new Vector3f(0,0,0));
 
 
-    @Override
-    public int getVaoID() {
-        return 0;
+    public HTextBox(String text) {
+
     }
 
     @Override
-    public int getVertexCount() {
-        return 0;
-    }
-
-    @Override
-    public MeshI addTexture(String filePath) {
-        return null;
-    }
-
-    @Override
-    public int getTexture() {
-        return 0;
-    }
-
-    @Override
-    public List<MeshI> getContents() {
-        return List.of();
+    public Mesh[] getRenderables() {
+        return  Stream.concat(Arrays.stream(new Mesh[]{background}), Arrays.stream(text))
+                .toArray(Mesh[]::new);
     }
 }
