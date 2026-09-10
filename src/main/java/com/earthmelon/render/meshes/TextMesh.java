@@ -26,7 +26,11 @@ public class TextMesh extends Mesh implements Tintable {
     }
 
     public static TextMesh[] drawString(String s, Vector3f pos) {
-        int col = 1;
+        return drawString(s, pos, Integer.MAX_VALUE, Integer.MAX_VALUE);
+    }
+
+    public static TextMesh[] drawString(String s, Vector3f pos, float width, float height) {
+        int col = 0;
         int row = 1;
         float kerning = textSize / 1.5f;
         TextMesh[] out = new TextMesh[s.length()];
@@ -34,10 +38,11 @@ public class TextMesh extends Mesh implements Tintable {
         for (int i=0; i< out.length; i++) {
             char ith = chars[i];
             col++;
-            if (ith == '\n') {
+            if (ith == '\n' || (col+1) * kerning > width) {
                 out[i] = drawChar(ith, pos);
                 pos = pos.plus(-col * kerning, - 2 * textSize, 0);
                 col = 0;
+                row++;
             }
             else if (belowLineLetters.contains(String.valueOf(ith))) {
                 pos = pos.plus(0, -textSize / 2, 0);

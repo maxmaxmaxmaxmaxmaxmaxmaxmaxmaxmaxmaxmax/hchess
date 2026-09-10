@@ -83,8 +83,8 @@ public class MeshFactory {
         float aspect_ratio = Window.aspectRatio;
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,scale*aspect_ratio,0), pos.plus(scale,scale*aspect_ratio,0)};
-        float[] uvs = {0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,-scale*aspect_ratio,0)};
+        float[] uvs = {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1};
         float[] positions = Vector3f.toFloat(vertices);
         storeData(0,3,positions);
         storeData(1,2,uvs);

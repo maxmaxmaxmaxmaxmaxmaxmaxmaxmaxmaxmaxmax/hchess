@@ -1,7 +1,6 @@
 package com.earthmelon.hchess;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.meshes.TextMesh;
 import com.earthmelon.render.Window;
 import com.earthmelon.render.shader.Render;
 
@@ -17,12 +16,13 @@ public class HChess {
     }
 
     private void loop() {
-        TextMesh[] text = TextMesh.drawString("You're \n Unstoppable \n Joyful \n Intelligent \n Nice \n Genuine", new Vector3f(-0.5f,0.5f,0)); //Kudos if you got that reference
+        HTextBox box = new HTextBox("I love you Yujing, with all my heart and body. Look at my text fitting in the box! Sort of...", new Vector3f(-0.5f,1f,0), 1f, 1f);
+
 
         Render render = new Render();
         while(!window.shouldClose()) {
             render.cleanup();
-            render.render(text);
+            render.render(box);
 
             window.update();
         }
