@@ -1,6 +1,7 @@
 package com.earthmelon.hchess;
 
 import com.earthmelon.math.Vector3f;
+import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
@@ -13,16 +14,16 @@ public class HTextBox implements Renderable {
     Vector3f position;
     float width;
     float height;
+
     private TextMesh[] text;
 
     Mesh background;
 
 
-    public HTextBox(String text, Vector3f position, float width, float height) {
+    public HTextBox(Vector3f position, float width, float height) {
         this.position = position;
         this.width = width;
         this.height = height;
-        this.text = TextMesh.drawString(text, position, width, height);
 
         // Todo: change this method to allow for scaling in both directions separately.
 
@@ -38,7 +39,15 @@ public class HTextBox implements Renderable {
                 .toArray(Mesh[]::new);
     }
 
-    public void setText(String text) {
-        this.text = TextMesh.drawString(text, position, width, height);
+    public HTextBox setText(String text, float size) {
+        this.text = TextMesh.drawString(text, position, width, height, size);
+        return this;
+    }
+
+    public HTextBox setColour(Vector4f colour) {
+        for (TextMesh letter : text) {
+            letter.setTint(colour);
+        }
+        return this;
     }
 }

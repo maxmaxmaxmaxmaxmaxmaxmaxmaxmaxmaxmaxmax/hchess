@@ -11,9 +11,7 @@ import java.util.List;
 
 public class TextMesh extends Mesh implements Tintable {
 
-    public static float textSize = 0.08f;
-
-    private static Vector4f colour = new Vector4f(1.0f, 0.0f, 1.0f, 1.0f);
+    private static Vector4f colour = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
 
     private static String belowLineLetters = "qypgj";
 
@@ -21,16 +19,16 @@ public class TextMesh extends Mesh implements Tintable {
         super(vao, vertices);
     }
 
-    public static TextMesh drawChar(char c, Vector3f pos) {
+    public static TextMesh drawChar(char c, Vector3f pos, float textSize) {
         TextMesh letter = MeshFactory.createQuadAtlas(pos, textSize, 256, (c-1) % 32, (c-1) / 32, 8);
         return letter.addTexture("hfont.png");
     }
 
-    public static TextMesh[] drawString(String s, Vector3f pos) {
-        return drawString(s, pos, Integer.MAX_VALUE, Integer.MAX_VALUE);
+    public static TextMesh[] drawString(String s, Vector3f pos, float textSize) {
+        return drawString(s, pos, Integer.MAX_VALUE, Integer.MAX_VALUE, textSize);
     }
 
-    public static TextMesh[] drawString(String s, Vector3f pos, float width, float height) {
+    public static TextMesh[] drawString(String s, Vector3f pos, float width, float height, float textSize) {
         int col = 0;
         int row = 0;
         float kerning = textSize / 1.5f;
@@ -43,17 +41,17 @@ public class TextMesh extends Mesh implements Tintable {
             char ith = chars[i];
             col++;
             if (ith == '\n' || (col+1) * kerning > width) {
-                out[i] = drawChar(ith, pos);
+                out[i] = drawChar(ith, pos, textSize);
                 pos = pos.plus(-col * kerning, - 2 * textSize, 0);
                 col = 0;
                 row++;
             }
             else if (belowLineLetters.contains(String.valueOf(ith))) {
                 pos = pos.plus(0, -textSize / 2, 0);
-                out[i] = drawChar(ith, pos).setTint(colour);
+                out[i] = drawChar(ith, pos, textSize).setTint(colour);
                 pos = pos.plus(0, textSize / 2, 0);
             } else {
-                out[i] = drawChar(ith, pos).setTint(colour);
+                out[i] = drawChar(ith, pos, textSize).setTint(colour);
             }
             pos = pos.plus(kerning, 0,0);
         }
