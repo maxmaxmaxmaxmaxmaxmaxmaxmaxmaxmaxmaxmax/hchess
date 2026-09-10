@@ -6,11 +6,12 @@ import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Texture;
 import com.earthmelon.render.shader.Tintable;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class TextMesh extends Mesh implements Tintable {
 
-    public static float textSize = 0.1f;
+    public static float textSize = 0.08f;
 
     private static Vector4f colour = new Vector4f(1.0f, 0.0f, 1.0f, 1.0f);
 
@@ -31,11 +32,14 @@ public class TextMesh extends Mesh implements Tintable {
 
     public static TextMesh[] drawString(String s, Vector3f pos, float width, float height) {
         int col = 0;
-        int row = 1;
+        int row = 0;
         float kerning = textSize / 1.5f;
         TextMesh[] out = new TextMesh[s.length()];
         char[] chars = s.toCharArray();
         for (int i=0; i< out.length; i++) {
+            if (2 * (row-2) * textSize > height) {
+                return Arrays.copyOf(out, i);
+            }
             char ith = chars[i];
             col++;
             if (ith == '\n' || (col+1) * kerning > width) {

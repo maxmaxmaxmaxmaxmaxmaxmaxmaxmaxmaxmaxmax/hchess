@@ -10,12 +10,12 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class HTextBox implements Renderable {
-
-    private Mesh background;
     Vector3f position;
     float width;
     float height;
     private TextMesh[] text;
+
+    Mesh background;
 
 
     public HTextBox(String text, Vector3f position, float width, float height) {
@@ -25,11 +25,15 @@ public class HTextBox implements Renderable {
         this.text = TextMesh.drawString(text, position, width, height);
 
         // Todo: change this method to allow for scaling in both directions separately.
-        this.background = MeshFactory.createQuad(position, width).addTexture("bar.png");
+
+        background = MeshFactory.createQuad(position, width, height).addTexture("bar.png");
     }
 
     @Override
     public Mesh[] getRenderables() {
+        if (background == null) {
+            return new Mesh[0];
+        }
         return  Stream.concat(Arrays.stream(new Mesh[]{background}), Arrays.stream(text))
                 .toArray(Mesh[]::new);
     }

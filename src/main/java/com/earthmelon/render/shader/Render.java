@@ -18,6 +18,7 @@ public class Render {
     }
 
     public void render(Mesh mesh){
+        if (mesh == null) return;
         shader.start(mesh);
         GL30.glBindVertexArray(mesh.getVaoID());
         GL20.glEnableVertexAttribArray(0);
