@@ -24,6 +24,7 @@ public class HTextBox implements Renderable {
         this.height = height;
         this.text = TextMesh.drawString(text, position, width, height);
 
+        // Todo: change this method to allow for scaling in both directions separately.
         this.background = MeshFactory.createQuad(position, width).addTexture("bar.png");
     }
 

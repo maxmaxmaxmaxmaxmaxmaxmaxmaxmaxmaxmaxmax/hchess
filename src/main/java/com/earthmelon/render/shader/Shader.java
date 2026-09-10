@@ -34,9 +34,11 @@ public abstract class Shader{
 
     public void start(Mesh mesh){
         GL20.glUseProgram(programID);
+        int tintColourLocation = GL20.glGetUniformLocation(programID, "tintColour");
         if (mesh instanceof Tintable tintMesh) {
-            int tintColourLocation = GL20.glGetUniformLocation(programID, "tintColour");
             GL20.glUniform4f(tintColourLocation, tintMesh.getRed(), tintMesh.getGreen(), tintMesh.getBlue(), tintMesh.getAlpha());
+        } else {
+            GL20.glUniform4f(tintColourLocation, 1, 1, 1, 1);
         }
     }
 
