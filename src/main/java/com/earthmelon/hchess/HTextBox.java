@@ -31,8 +31,8 @@ public class HTextBox implements Renderable, Tintable {
 
     @Override
     public Mesh[] getRenderables() {
-        if (background == null) {
-            return new Mesh[0];
+        if (text == null) {
+            return new Mesh[]{background};
         }
         return  Stream.concat(Arrays.stream(new Mesh[]{background}), Arrays.stream(text))
                 .toArray(Mesh[]::new);
