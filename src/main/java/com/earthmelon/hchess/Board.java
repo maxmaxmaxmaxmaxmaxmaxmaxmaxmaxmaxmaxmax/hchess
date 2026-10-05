@@ -1,13 +1,15 @@
 package com.earthmelon.hchess;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.Mesh;
-import com.earthmelon.render.MeshLoader;
+import com.earthmelon.render.MeshFactory;
+import com.earthmelon.render.meshes.BasicMesh;
+import com.earthmelon.render.meshes.Mesh;
+import com.earthmelon.render.shader.Renderable;
 import org.lwjgl.opengl.GL11;
 
 import static com.earthmelon.hchess.PieceType.*;
 
-public class Board {
+public class Board implements Renderable {
 
     // Size of one square in pixels
     public static final int gridSize = 80;
@@ -16,6 +18,8 @@ public class Board {
     public static final int topLeftHeight = 60;
 
     public static Turn turn = Turn.WHITE;
+
+    public static Mesh background = MeshFactory.createQuad(new Vector3f(-0.5f,0.65f,0)).addTexture("board.png");
 
     public enum Turn {
         WHITE,
@@ -59,17 +63,19 @@ public class Board {
         boardState[8*row+col] = piece.type;
     }
 
-    public void render() {
-        GL11.glClearColor(0,0,0,0);
-        MeshLoader.createQuad(new Vector3f(-0.5f,-0.75f,0)).addTexture("board.png");
+    @Override
+    public Mesh[] getRenderables() {
+        Mesh[] out = new Mesh[65];
+        out[0] = background;
         for (int i=0; i<boardState.length; i++) {
             int row = i / 8;
             int col = i % 8;
             Piece piece = getPiece(row, col);
             if (piece.type != NONE) {
                 Vector3f square = new Vector3f((float) col / 8 - 0.5f, (float) row / 5 - 0.75f,0);
-                MeshLoader.createQuad(square, 1f/8).addTexture(piece.getTexture());
+                out[i+1] = MeshFactory.createQuad(square, 1f/8, 1f/8).addTexture(piece.getTexture());
             }
         }
+        return out;
     }
 }

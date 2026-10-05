@@ -1,6 +1,6 @@
 package com.earthmelon.hchess;
 
-import com.earthmelon.render.Mesh;
+import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.Window;
 import com.earthmelon.render.shader.Render;
 import org.lwjgl.BufferUtils;
@@ -26,10 +26,7 @@ public class HChess {
         Render render = new Render();
         while(!window.shouldClose()) {
             render.cleanup();
-            grid.render();
-            for (Mesh mesh : Render.toRender) {
-                render.render(mesh);
-            }
+            render.render(grid);
 
             gameLogic();
 
@@ -49,7 +46,6 @@ public class HChess {
 
         // 7 is the Left Click action
         if (Window.MOUSE_STATE == 7) {
-            System.out.println(Window.MOUSE_STATE);
             if (selected.type == PieceType.NONE) {
                 selected = Board.selectPiece(mouseX, mouseY);
             } else {
