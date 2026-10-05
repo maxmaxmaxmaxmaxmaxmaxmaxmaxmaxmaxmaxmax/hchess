@@ -3,8 +3,6 @@ package com.earthmelon.render.meshes;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Texture;
 
-import java.util.List;
-
 public abstract class Mesh {
 
     protected int vao;
@@ -32,9 +30,5 @@ public abstract class Mesh {
 
     public int getTexture() {
         return texture;
-    }
-
-    public List<Mesh> getRenderables() {
-        return List.of(this);
     }
 }

@@ -6,11 +6,12 @@ import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
 import com.earthmelon.render.shader.Renderable;
+import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-public class HTextBox implements Renderable {
+public class HTextBox implements Renderable, Tintable {
     Vector3f position;
     float width;
     float height;
@@ -18,15 +19,13 @@ public class HTextBox implements Renderable {
     private TextMesh[] text;
 
     Mesh background;
+    Vector4f tint = new Vector4f(1,1,1,1);
 
 
     public HTextBox(Vector3f position, float width, float height) {
         this.position = position;
         this.width = width;
         this.height = height;
-
-        // Todo: change this method to allow for scaling in both directions separately.
-
         background = MeshFactory.createQuad(position, width, height).addTexture("bar.png");
     }
 
@@ -44,7 +43,16 @@ public class HTextBox implements Renderable {
         return this;
     }
 
-    public HTextBox setColour(Vector4f colour) {
+    public HTextBox setTint(Vector4f colour) {
+        this.tint = colour;
+        return this;
+    }
+
+    public Vector4f getTint() {
+        return tint;
+    }
+
+    public HTextBox setTextTint(Vector4f colour) {
         for (TextMesh letter : text) {
             letter.setTint(colour);
         }
