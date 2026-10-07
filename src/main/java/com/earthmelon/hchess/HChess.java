@@ -13,7 +13,6 @@ public class HChess {
 
     public void run() {
         window = Window.createWindow(1280, 800);
-        fpsCounter = new HTextBox(new Vector3f(-0.9f, 0.9f, 0), 0.2f, 0.1f);
         loop();
         window.terminate();
     }
@@ -27,17 +26,11 @@ public class HChess {
 
         Render render = new Render();
         float rtri = 0;
-        long time = System.currentTimeMillis();
-        int frames =0;
+
         while(!window.shouldClose()) {
             render.cleanup();
-
-            if (System.currentTimeMillis() - time > 1000) {
-                fpsCounter.setText(String.valueOf(frames), 0.05f);
-                time = System.currentTimeMillis();
-                frames=0;
-            }
-            render.render(fpsCounter);
+            UIElement.calculateFrames();
+            render.render(UIElement.getFPSBox());
 
 
             render.render(box);
@@ -45,8 +38,6 @@ public class HChess {
 //            box.setText(String.valueOf(Math.random()));
             window.update();
             rtri += 0.01f;
-            frames++;
-
         }
     }
 
