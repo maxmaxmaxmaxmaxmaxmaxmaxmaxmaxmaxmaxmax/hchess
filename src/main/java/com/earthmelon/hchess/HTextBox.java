@@ -5,6 +5,7 @@ import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
+import com.earthmelon.render.shader.Render;
 import com.earthmelon.render.shader.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
@@ -27,6 +28,7 @@ public class HTextBox implements Renderable, Tintable {
         this.width = width;
         this.height = height;
         background = MeshFactory.createQuad(position, width, height).addTexture("bar.png");
+        Render.notifyRender(getRenderables());
     }
 
     @Override

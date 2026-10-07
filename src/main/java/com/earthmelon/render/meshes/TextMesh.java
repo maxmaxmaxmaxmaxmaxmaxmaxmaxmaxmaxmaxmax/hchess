@@ -4,12 +4,12 @@ import com.earthmelon.math.Vector3f;
 import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Texture;
+import com.earthmelon.render.shader.Render;
 import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
-import java.util.List;
 
-public class TextMesh extends Mesh implements Tintable {
+public class TextMesh extends BasicMesh implements Tintable {
 
     private static Vector4f colour = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
 
@@ -17,15 +17,12 @@ public class TextMesh extends Mesh implements Tintable {
 
     public TextMesh(int vao, int vertices) {
         super(vao, vertices);
+        Render.notifyRender(this);
     }
 
     public static TextMesh drawChar(char c, Vector3f pos, float textSize) {
         TextMesh letter = MeshFactory.createQuadAtlas(pos, textSize, 256, (c-1) % 32, (c-1) / 32, 8);
         return letter.addTexture("hfont.png");
-    }
-
-    public static TextMesh[] drawString(String s, Vector3f pos, float textSize) {
-        return drawString(s, pos, Integer.MAX_VALUE, Integer.MAX_VALUE, textSize);
     }
 
     public static TextMesh[] drawString(String s, Vector3f pos, float width, float height, float textSize) {
