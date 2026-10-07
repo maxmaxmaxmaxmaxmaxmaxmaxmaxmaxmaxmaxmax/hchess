@@ -10,7 +10,10 @@ import com.earthmelon.render.shader.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
+
+import static com.earthmelon.hchess.HChess.OBJECTS;
 
 public class HTextBox implements Renderable, Tintable {
     Vector3f position;
@@ -28,7 +31,7 @@ public class HTextBox implements Renderable, Tintable {
         this.width = width;
         this.height = height;
         background = MeshFactory.createQuad(position, width, height).addTexture("bar.png");
-        Render.notifyRender(getRenderables());
+        OBJECTS.add(this);
     }
 
     @Override

@@ -17,7 +17,6 @@ public class TextMesh extends BasicMesh implements Tintable {
 
     public TextMesh(int vao, int vertices) {
         super(vao, vertices);
-        Render.notifyRender(this);
     }
 
     public static TextMesh drawChar(char c, Vector3f pos, float textSize) {

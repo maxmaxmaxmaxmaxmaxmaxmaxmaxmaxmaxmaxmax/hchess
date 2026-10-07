@@ -7,10 +7,9 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.PriorityQueue;
+import java.util.*;
+
+import static com.earthmelon.hchess.HChess.OBJECTS;
 
 // Look at https://learnopengl.com/Getting-started/Hello-Triangle
 
@@ -18,15 +17,7 @@ import java.util.PriorityQueue;
 public class Render {
     static ShaderTextured shader = new ShaderTextured();
 
-    private static final LinkedList<Mesh> visibleMeshes = new LinkedList<>();
-
-    public static void notifyRender(Mesh mesh) {
-        visibleMeshes.add(mesh);
-    }
-
-    public static void notifyRender(Mesh[] meshes) {
-        visibleMeshes.addAll(Arrays.asList(meshes));
-    }
+    private static final Stack<Mesh> visibleMeshes = new Stack<>();
 
     public void cleanup(){
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
@@ -34,12 +25,18 @@ public class Render {
     }
 
     public void render() {
-        while (!visibleMeshes.isEmpty()) {
-            render(visibleMeshes.poll());
+        for (Renderable obj : OBJECTS) {
+            render(obj.getRenderables());
         }
     }
 
-    public static void render(Mesh mesh){
+    public void render(Mesh[] meshes) {
+        for (Mesh mesh : meshes) {
+            render(mesh);
+        }
+    }
+
+    public void render(Mesh mesh){
         if (mesh == null) return;
         shader.start(mesh);
         GL30.glBindVertexArray(mesh.getVaoID());
