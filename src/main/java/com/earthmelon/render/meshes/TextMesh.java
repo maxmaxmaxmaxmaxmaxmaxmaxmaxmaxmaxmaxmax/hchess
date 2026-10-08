@@ -2,6 +2,7 @@ package com.earthmelon.render.meshes;
 
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.math.Vector4f;
+import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Texture;
 import com.earthmelon.render.shader.Render;
@@ -13,7 +14,7 @@ import static com.earthmelon.hchess.HChess.RENDERABLES;
 
 public class TextMesh extends Mesh implements Tintable {
 
-    private static Vector4f colour = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
+    private static Colour colour = Colour.BLACK;
 
     private static String belowLineLetters = "qypgj";
 
@@ -57,12 +58,12 @@ public class TextMesh extends Mesh implements Tintable {
     }
 
     @Override
-    public Vector4f getTint() {
+    public Colour getTint() {
         return colour;
     }
 
     @Override
-    public TextMesh setTint(Vector4f tint) {
+    public TextMesh setTint(Colour tint) {
         colour = tint;
         return this;
     }

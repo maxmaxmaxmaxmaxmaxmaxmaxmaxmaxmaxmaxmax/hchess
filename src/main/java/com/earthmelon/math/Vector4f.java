@@ -19,4 +19,11 @@ public class Vector4f {
         this.z = z;
         this.a = a;
     }
+
+    public Vector4f(Vector3f xyz, float a) {
+        this.x = xyz.x;
+        this.y = xyz.y;
+        this.z = xyz.z;
+        this.a = a;
+    }
 }

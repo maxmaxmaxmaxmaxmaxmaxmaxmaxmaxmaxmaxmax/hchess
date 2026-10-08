@@ -1,14 +1,15 @@
 package com.earthmelon.render.meshes;
 
 import com.earthmelon.math.Vector4f;
-import com.earthmelon.render.shader.Renderable;
+import com.earthmelon.render.Colour;
+import com.earthmelon.render.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
 import static com.earthmelon.hchess.HChess.RENDERABLES;
 
 public class BasicMesh extends Mesh implements Renderable, Tintable {
 
-    private Vector4f colour = new Vector4f(1,1,1,1);
+    private Colour colour = Colour.WHITE;
 
     public BasicMesh(int vao, int vertex) {
         super(vao, vertex);
@@ -16,12 +17,12 @@ public class BasicMesh extends Mesh implements Renderable, Tintable {
     }
 
     @Override
-    public Vector4f getTint() {
+    public Colour getTint() {
         return colour;
     }
 
     @Override
-    public BasicMesh setTint(Vector4f tint) {
+    public BasicMesh setTint(Colour tint) {
         colour = tint;
         return this;
     }

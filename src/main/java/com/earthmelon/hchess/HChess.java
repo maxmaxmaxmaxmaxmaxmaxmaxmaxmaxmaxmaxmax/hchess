@@ -5,7 +5,7 @@ import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.*;
 import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.shader.Render;
-import com.earthmelon.render.shader.Renderable;
+import com.earthmelon.render.Renderable;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class HChess {
 
     public void run() {
         window = Window.createWindow(1280, 800);
-        BasicMesh box = MeshFactory.createQuad(new Vector3f(0,0,0)).setTint(new Vector4f(1,1,0,1));
+        BasicMesh box = MeshFactory.createQuad(new Vector3f(0,0,0)).setTint(Colour.YELLOW);
         loop();
         window.terminate();
     }

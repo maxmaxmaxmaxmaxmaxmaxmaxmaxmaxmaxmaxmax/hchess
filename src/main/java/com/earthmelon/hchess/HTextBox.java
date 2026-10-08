@@ -2,11 +2,12 @@ package com.earthmelon.hchess;
 
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.math.Vector4f;
+import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
-import com.earthmelon.render.shader.Renderable;
+import com.earthmelon.render.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
@@ -22,14 +23,12 @@ public class HTextBox implements Renderable, Tintable {
     private TextMesh[] text;
 
     BasicMesh background;
-    Vector4f tint = new Vector4f(1,1,1,1);
-
 
     public HTextBox(Vector3f position, float width, float height) {
         this.position = position;
         this.width = width;
         this.height = height;
-        background = MeshFactory.createQuad(position, width, height).setTint(new Vector4f(0.8f, 0.8f, 0.8f, 1f));
+        background = MeshFactory.createQuad(position, width, height).setTint(Colour.GREY);
         RENDERABLES.add(this);
     }
 
@@ -47,16 +46,16 @@ public class HTextBox implements Renderable, Tintable {
         return this;
     }
 
-    public HTextBox setTint(Vector4f colour) {
-        this.tint = colour;
+    public HTextBox setTint(Colour colour) {
+        background.setTint(colour);
         return this;
     }
 
-    public Vector4f getTint() {
-        return tint;
+    public Colour getTint() {
+        return background.getTint();
     }
 
-    public HTextBox setTextTint(Vector4f colour) {
+    public HTextBox setTextTint(Colour colour) {
         for (TextMesh letter : text) {
             letter.setTint(colour);
         }

@@ -1,27 +1,28 @@
 package com.earthmelon.render.shader;
 
 import com.earthmelon.math.Vector4f;
+import com.earthmelon.render.Colour;
 
 public interface Tintable {
 
-    Vector4f getTint();
+    Colour getTint();
 
-    Tintable setTint(Vector4f tint);
+    Tintable setTint(Colour tint);
 
     default float getRed() {
-        return getTint().x;
+        return getTint().getVector().x;
     }
 
     default float getGreen() {
-        return getTint().y;
+        return getTint().getVector().y;
     }
 
     default float getBlue() {
-        return getTint().z;
+        return getTint().getVector().z;
     }
 
     default float getAlpha() {
-        return getTint().a;
+        return getTint().getVector().a;
     }
 
 }

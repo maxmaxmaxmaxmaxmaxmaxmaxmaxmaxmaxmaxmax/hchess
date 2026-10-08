@@ -1,12 +1,11 @@
 package com.earthmelon.render.shader;
 
+import com.earthmelon.render.Renderable;
 import com.earthmelon.render.meshes.Mesh;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
-
-import java.util.*;
 
 import static com.earthmelon.hchess.HChess.RENDERABLES;
 
