@@ -2,11 +2,11 @@
 
 in vec2 pass_texCoords;
 
-out vec4 out_Color;
+out vec4 out_Colour;
 
 uniform sampler2D textureSampler;
 uniform vec4 tintColour;
 
 void main(){
-	out_Color = texture(textureSampler,pass_texCoords) * tintColour;
+	out_Colour = texture(textureSampler,pass_texCoords) * tintColour;
 }

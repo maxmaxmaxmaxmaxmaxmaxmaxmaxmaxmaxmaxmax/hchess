@@ -5,15 +5,13 @@ import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
-import com.earthmelon.render.shader.Render;
 import com.earthmelon.render.shader.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
-import static com.earthmelon.hchess.HChess.OBJECTS;
+import static com.earthmelon.hchess.HChess.RENDERABLES;
 
 public class HTextBox implements Renderable, Tintable {
     Vector3f position;
@@ -31,7 +29,7 @@ public class HTextBox implements Renderable, Tintable {
         this.width = width;
         this.height = height;
         background = MeshFactory.createQuad(position, width, height).addTexture("bar.png");
-        OBJECTS.add(this);
+        RENDERABLES.add(this);
     }
 
     @Override

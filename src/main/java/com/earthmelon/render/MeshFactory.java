@@ -79,7 +79,7 @@ public class MeshFactory {
         return vao;
     }
 
-    public static Mesh createQuad(Vector3f pos, float scaleX, float scaleY) {
+    public static BasicMesh createQuad(Vector3f pos, float scaleX, float scaleY) {
         float aspect_ratio = Window.aspectRatio;
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
@@ -112,7 +112,7 @@ public class MeshFactory {
         return new TextMesh(vao, indices.length);
     }
 
-    public static Mesh createQuad(Vector3f pos) {
+    public static BasicMesh createQuad(Vector3f pos) {
         return createQuad(pos, 1, 1);
     }
 

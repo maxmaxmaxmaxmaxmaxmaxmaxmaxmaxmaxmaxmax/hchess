@@ -4,7 +4,7 @@ import com.earthmelon.math.Vector3f;
 
 public class UIElement {
 
-    static HTextBox fpsCounter = new HTextBox(new Vector3f(-0.9f, 0.9f, 0), 0.2f, 0.1f);
+    static HTextBox fpsCounter = new HTextBox(new Vector3f(-0.99f, 0.99f, 0), 0.15f, 0.05f);
     static long time = System.currentTimeMillis();
     static int frames =0;
 
@@ -18,7 +18,4 @@ public class UIElement {
         }
     }
 
-    public static HTextBox getFPSBox() {
-        return fpsCounter;
-    }
 }
