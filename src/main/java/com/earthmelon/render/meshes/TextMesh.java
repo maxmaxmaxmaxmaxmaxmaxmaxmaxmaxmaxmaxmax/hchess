@@ -9,7 +9,9 @@ import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
 
-public class TextMesh extends BasicMesh implements Tintable {
+import static com.earthmelon.hchess.HChess.RENDERABLES;
+
+public class TextMesh extends Mesh implements Tintable {
 
     private static Vector4f colour = new Vector4f(0.0f, 0.0f, 0.0f, 1.0f);
 

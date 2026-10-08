@@ -3,6 +3,7 @@ package com.earthmelon.hchess;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.MeshFactory;
+import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
 import com.earthmelon.render.shader.Renderable;
@@ -20,7 +21,7 @@ public class HTextBox implements Renderable, Tintable {
 
     private TextMesh[] text;
 
-    Mesh background;
+    BasicMesh background;
     Vector4f tint = new Vector4f(1,1,1,1);
 
 
@@ -28,7 +29,7 @@ public class HTextBox implements Renderable, Tintable {
         this.position = position;
         this.width = width;
         this.height = height;
-        background = MeshFactory.createQuad(position, width, height).addTexture("bar.png");
+        background = MeshFactory.createQuad(position, width, height).setTint(new Vector4f(0.8f, 0.8f, 0.8f, 1f));
         RENDERABLES.add(this);
     }
 
