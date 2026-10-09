@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class Piece {
 
-    PieceType type;
-    int row;
-    int column;
+    public PieceType type;
+    public int row;
+    public int column;
 
     public Piece(PieceType pieceType, int row, int column) {
         type = pieceType;

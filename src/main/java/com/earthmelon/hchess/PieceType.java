@@ -24,6 +24,6 @@ public enum PieceType {
     }
 
     public boolean isEnemy(PieceType other) {
-        return this.name().startsWith(String.valueOf(other.name().charAt(0)));
+        return !this.name().startsWith(String.valueOf(other.name().charAt(0)));
     }
 }

@@ -21,20 +21,24 @@ public class HChess {
     // The window handle
     private static Window window;
     public static ArrayList<Renderable> RENDERABLES = new ArrayList<>();
+    public static HTextBox INFO_DISPLAY;
 
     public void run() {
         window = Window.createWindow(1280, 800);
+        Board grid = new Board();
+        INFO_DISPLAY = new HTextBox(new Vector3f(-0.99f, 0.8f, 0), 0.4f, 1);
+
         loop();
         window.terminate();
     }
 
     private void loop() {
-        Board grid = new Board();
         Render render = new Render();
         while(!window.shouldClose()) {
             UIElement.calculateFrames();
 
             render.render();
+            gameLogic();
 
             window.update();
             render.cleanup();

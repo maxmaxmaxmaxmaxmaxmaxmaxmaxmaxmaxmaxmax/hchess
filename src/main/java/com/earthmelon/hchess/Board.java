@@ -4,9 +4,9 @@ import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.meshes.Mesh;
-import com.earthmelon.render.shader.Renderable;
-import org.lwjgl.opengl.GL11;
+import com.earthmelon.render.Renderable;
 
+import static com.earthmelon.engine.HChess.RENDERABLES;
 import static com.earthmelon.hchess.PieceType.*;
 
 public class Board implements Renderable {
@@ -20,6 +20,10 @@ public class Board implements Renderable {
     public static Turn turn = Turn.WHITE;
 
     public static Mesh background = MeshFactory.createQuad(new Vector3f(-0.5f,0.65f,0)).addTexture("board.png");
+
+    public Board() {
+        RENDERABLES.add(this);
+    }
 
     public enum Turn {
         WHITE,
