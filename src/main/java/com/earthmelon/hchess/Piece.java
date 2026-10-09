@@ -50,6 +50,9 @@ public class Piece {
 
     @Override
     public String toString() {
-        return "%s at (%s, %s)".formatted(type, row, column);
+        if (type == PieceType.NONE) {
+            return "";
+        }
+        return "%s at %s%s".formatted(type, (char) (column + 97),  row + 1);
     }
 }

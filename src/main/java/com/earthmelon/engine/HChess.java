@@ -4,11 +4,8 @@ import com.earthmelon.hchess.Board;
 import com.earthmelon.hchess.Piece;
 import com.earthmelon.hchess.PieceType;
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.Colour;
-import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Renderable;
 import com.earthmelon.render.Window;
-import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.shader.Render;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
@@ -50,6 +47,8 @@ public class HChess {
     private void gameLogic() {
         DoubleBuffer xBuffer = BufferUtils.createDoubleBuffer(1);
         DoubleBuffer yBuffer = BufferUtils.createDoubleBuffer(1);
+
+        INFO_DISPLAY.setText(selected.toString(), 0.05f);
 
         GLFW.glfwGetCursorPos(window.window, xBuffer, yBuffer);
         double mouseX = xBuffer.get(0);

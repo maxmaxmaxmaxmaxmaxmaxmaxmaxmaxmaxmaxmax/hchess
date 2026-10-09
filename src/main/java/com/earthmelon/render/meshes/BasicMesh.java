@@ -6,8 +6,6 @@ import com.earthmelon.render.Renderable;
 import com.earthmelon.render.Texture;
 import com.earthmelon.render.shader.Tintable;
 
-import static com.earthmelon.engine.HChess.RENDERABLES;
-
 public class BasicMesh extends Mesh implements Renderable, Tintable {
 
     private Colour colour = Colour.WHITE;

@@ -10,6 +10,7 @@ import com.earthmelon.render.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static com.earthmelon.engine.HChess.RENDERABLES;
@@ -19,7 +20,8 @@ public class HTextBox implements Renderable, Tintable {
     float width;
     float height;
 
-    private TextMesh[] text;
+    private TextMesh[] textMeshes;
+    private String heldText = "";
 
     BasicMesh background;
 
@@ -33,15 +35,18 @@ public class HTextBox implements Renderable, Tintable {
 
     @Override
     public Mesh[] getRenderables() {
-        if (text == null) {
+        if (textMeshes == null) {
             return new Mesh[]{background};
         }
-        return  Stream.concat(Arrays.stream(new Mesh[]{background}), Arrays.stream(text))
+        return  Stream.concat(Arrays.stream(new Mesh[]{background}), Arrays.stream(textMeshes))
                 .toArray(Mesh[]::new);
     }
 
     public HTextBox setText(String text, float size) {
-        this.text = TextMesh.drawString(text, position, width, height, size);
+        if (!Objects.equals(heldText, text)) {
+            heldText = text;
+            this.textMeshes = TextMesh.drawString(text, position, width, height, size);
+        }
         return this;
     }
 
@@ -55,7 +60,7 @@ public class HTextBox implements Renderable, Tintable {
     }
 
     public HTextBox setTextTint(Colour colour) {
-        for (TextMesh letter : text) {
+        for (TextMesh letter : textMeshes) {
             letter.setTint(colour);
         }
         return this;
