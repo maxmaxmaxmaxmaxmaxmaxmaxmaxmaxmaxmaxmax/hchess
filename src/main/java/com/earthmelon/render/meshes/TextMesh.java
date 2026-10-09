@@ -1,16 +1,14 @@
 package com.earthmelon.render.meshes;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Texture;
-import com.earthmelon.render.shader.Render;
 import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
 
-import static com.earthmelon.hchess.HChess.RENDERABLES;
+import static com.earthmelon.engine.HChess.RENDERABLES;
 
 public class TextMesh extends Mesh implements Tintable {
 

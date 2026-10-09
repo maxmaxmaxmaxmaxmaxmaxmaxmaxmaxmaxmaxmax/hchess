@@ -1,11 +1,10 @@
 package com.earthmelon.render.meshes;
 
-import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
-import static com.earthmelon.hchess.HChess.RENDERABLES;
+import static com.earthmelon.engine.HChess.RENDERABLES;
 
 public class BasicMesh extends Mesh implements Renderable, Tintable {
 

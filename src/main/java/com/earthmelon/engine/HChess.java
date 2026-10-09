@@ -1,17 +1,26 @@
-package com.earthmelon.hchess;
+package com.earthmelon.engine;
 
-import com.earthmelon.render.meshes.Mesh;
+import com.earthmelon.hchess.Board;
+import com.earthmelon.hchess.Piece;
+import com.earthmelon.hchess.PieceType;
+import com.earthmelon.math.Vector3f;
+import com.earthmelon.render.Colour;
+import com.earthmelon.render.MeshFactory;
+import com.earthmelon.render.Renderable;
 import com.earthmelon.render.Window;
+import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.shader.Render;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 
 import java.nio.DoubleBuffer;
+import java.util.ArrayList;
 
 public class HChess {
 
     // The window handle
     private static Window window;
+    public static ArrayList<Renderable> RENDERABLES = new ArrayList<>();
 
     public void run() {
         window = Window.createWindow(1280, 800);
@@ -21,16 +30,14 @@ public class HChess {
 
     private void loop() {
         Board grid = new Board();
-
-
         Render render = new Render();
         while(!window.shouldClose()) {
-            render.cleanup();
-            render.render(grid);
+            UIElement.calculateFrames();
 
-            gameLogic();
+            render.render();
 
             window.update();
+            render.cleanup();
         }
     }
 
