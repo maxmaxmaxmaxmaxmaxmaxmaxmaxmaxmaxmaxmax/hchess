@@ -1,40 +1,27 @@
 package com.earthmelon.render.shader;
 
-import com.earthmelon.render.Renderable;
 import com.earthmelon.render.meshes.Mesh;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import static com.earthmelon.hchess.HChess.RENDERABLES;
+import java.util.ArrayList;
 
 // Look at https://learnopengl.com/Getting-started/Hello-Triangle
 
-public class Render {
 
-    Shader[] shaders = new Shader[]{new ShaderTextured(), new ShaderUntextured()};
+public class Render {
+    ShaderTextured shader = new ShaderTextured();
+
+    public static ArrayList<Mesh> toRender = new ArrayList<>();
 
     public void cleanup(){
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glClearColor(1,1,1,1);
     }
 
-    public void render() {
-        for (Renderable obj : RENDERABLES) {
-            render(obj.getRenderables());
-        }
-    }
-
-    public void render(Mesh[] meshes) {
-        for (Mesh mesh : meshes) {
-            render(mesh);
-        }
-    }
-
     public void render(Mesh mesh){
-        Shader shader = (mesh.getTexture() == 0 ? shaders[1] : shaders[0]);
-
         if (mesh == null) return;
         shader.start(mesh);
         GL30.glBindVertexArray(mesh.getVaoID());
@@ -47,5 +34,17 @@ public class Render {
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
         shader.stop();
+    }
+
+    public void render(Renderable renderable) {
+        for (Mesh submesh : renderable.getRenderables()) {
+            render(submesh);
+        }
+    }
+
+    public void render(Mesh[] meshes) {
+        for (Mesh mesh : meshes) {
+            render(mesh);
+        }
     }
 }
