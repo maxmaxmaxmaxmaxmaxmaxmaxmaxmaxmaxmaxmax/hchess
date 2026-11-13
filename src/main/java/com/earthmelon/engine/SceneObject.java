@@ -13,9 +13,27 @@ public class SceneObject {
     String id;
     Vector3f position = new Vector3f(0,0,0);
 
-    Vector3f[] vertices = new Vector3f[]{position, position.plus(1,0,0), position.plus(0, -Window.aspectRatio,0), position.plus(1,0,0), position.plus(0,-Window.aspectRatio,0), position.plus(1,-Window.aspectRatio,0)};
-    float[] uvs = {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1};
-    int[] indices = {0,1,2,3,4,5};
+    Vector3f[] vertices = new Vector3f[]{position,
+            /*1*/position.plus(1,0,0),
+            /*2*/position.plus(0,1,0),
+            /*3*/position.plus(1,1,0),
+            /*4*/position.plus(0,0,1),
+            /*5*/position.plus(1,0,1),
+            /*6*/position.plus(0,1,1),
+            /*7*/position.plus(1,1,1)};
+    float[] uvs = new float[0];
+    int[] indices = {0,1,2,
+            1,2,3,
+            7,6,5,
+            6,5,4,
+            3,2,6,
+            2,6,7,
+            4,0,3,
+            0,3,7,
+            4,5,1,
+            5,1,0,
+            1,5,6,
+            5,6,2};
 
     Transform transform;
     Vector3f[] transformedVertices;
