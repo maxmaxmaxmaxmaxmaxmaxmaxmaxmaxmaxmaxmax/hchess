@@ -5,9 +5,9 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
+import com.earthmelon.engine.Window;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
-import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.TextMesh;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
 import org.lwjgl.opengl.GL11;

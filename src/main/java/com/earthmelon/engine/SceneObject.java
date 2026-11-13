@@ -4,9 +4,7 @@ import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Transform;
-import com.earthmelon.render.Window;
 import com.earthmelon.render.meshes.BasicMesh;
-import com.earthmelon.render.meshes.Mesh;
 
 import java.util.Arrays;
 

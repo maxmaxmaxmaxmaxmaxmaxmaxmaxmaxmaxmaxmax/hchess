@@ -1,4 +1,4 @@
-package com.earthmelon.render;
+package com.earthmelon.engine;
 
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.GL;

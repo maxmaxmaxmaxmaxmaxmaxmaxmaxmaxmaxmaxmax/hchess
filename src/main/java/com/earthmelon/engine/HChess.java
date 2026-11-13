@@ -1,10 +1,7 @@
 package com.earthmelon.engine;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.*;
-import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.shader.Render;
-import com.earthmelon.render.Renderable;
 
 import java.util.ArrayList;
 
@@ -14,9 +11,11 @@ public class HChess {
     private static Window window;
     public static ArrayList<SceneObject> SCENE_OBJECTS = new ArrayList<>();
 
+    SceneObject box;
+
     public void run() {
         window = Window.createWindow(1280, 800);
-        SceneObject box = new SceneObject("box");
+        box = new SceneObject("box");
         box.getTransform().translate(new Vector3f(-0.5f, -0.5f, 0));
         loop();
         window.terminate();
@@ -31,6 +30,8 @@ public class HChess {
 
             window.update();
             render.cleanup();
+
+            box.getTransform().translate(new Vector3f(0, 0.0001f, 0));
         }
     }
 
