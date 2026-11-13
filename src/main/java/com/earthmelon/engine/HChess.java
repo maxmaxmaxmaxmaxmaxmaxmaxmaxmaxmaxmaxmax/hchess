@@ -1,7 +1,6 @@
-package com.earthmelon.hchess;
+package com.earthmelon.engine;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.*;
 import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.shader.Render;

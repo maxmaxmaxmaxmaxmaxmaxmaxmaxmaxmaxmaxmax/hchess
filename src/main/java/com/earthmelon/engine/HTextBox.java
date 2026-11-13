@@ -1,7 +1,6 @@
-package com.earthmelon.hchess;
+package com.earthmelon.engine;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.meshes.BasicMesh;
@@ -13,7 +12,7 @@ import com.earthmelon.render.shader.Tintable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static com.earthmelon.hchess.HChess.RENDERABLES;
+import static com.earthmelon.engine.HChess.RENDERABLES;
 
 public class HTextBox implements Renderable, Tintable {
     Vector3f position;

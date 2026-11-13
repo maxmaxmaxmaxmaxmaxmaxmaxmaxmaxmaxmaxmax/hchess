@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import static com.earthmelon.hchess.HChess.RENDERABLES;
+import static com.earthmelon.engine.HChess.RENDERABLES;
 
 // Look at https://learnopengl.com/Getting-started/Hello-Triangle
 

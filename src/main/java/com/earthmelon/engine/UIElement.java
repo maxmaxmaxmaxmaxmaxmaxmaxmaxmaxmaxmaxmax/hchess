@@ -1,4 +1,4 @@
-package com.earthmelon.hchess;
+package com.earthmelon.engine;
 
 import com.earthmelon.math.Vector3f;
 
