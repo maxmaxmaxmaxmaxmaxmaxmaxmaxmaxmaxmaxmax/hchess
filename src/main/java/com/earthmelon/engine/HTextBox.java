@@ -12,8 +12,8 @@ import com.earthmelon.render.shader.Tintable;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static com.earthmelon.engine.HChess.RENDERABLES;
 
+// Todo: make this work with scene object
 public class HTextBox implements Renderable, Tintable {
     Vector3f position;
     float width;
@@ -28,7 +28,6 @@ public class HTextBox implements Renderable, Tintable {
         this.width = width;
         this.height = height;
         background = MeshFactory.createQuad(position, width, height).setTint(Colour.GREY);
-        RENDERABLES.add(this);
     }
 
     @Override

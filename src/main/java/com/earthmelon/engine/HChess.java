@@ -12,11 +12,12 @@ public class HChess {
 
     // The window handle
     private static Window window;
-    public static ArrayList<Renderable> RENDERABLES = new ArrayList<>();
+    public static ArrayList<SceneObject> SCENE_OBJECTS = new ArrayList<>();
 
     public void run() {
         window = Window.createWindow(1280, 800);
         SceneObject box = new SceneObject("box");
+        box.getTransform().translate(new Vector3f(-0.5f, -0.5f, 0));
         loop();
         window.terminate();
     }

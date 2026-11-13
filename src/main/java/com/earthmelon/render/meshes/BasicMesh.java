@@ -4,15 +4,12 @@ import com.earthmelon.render.Colour;
 import com.earthmelon.render.Renderable;
 import com.earthmelon.render.shader.Tintable;
 
-import static com.earthmelon.engine.HChess.RENDERABLES;
-
 public class BasicMesh extends Mesh implements Renderable, Tintable {
 
     private Colour colour = Colour.WHITE;
 
     public BasicMesh(int vao, int vertex) {
         super(vao, vertex);
-        RENDERABLES.add(this);
     }
 
     @Override

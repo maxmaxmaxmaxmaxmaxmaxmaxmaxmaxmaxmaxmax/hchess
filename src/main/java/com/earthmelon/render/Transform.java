@@ -46,6 +46,7 @@ public class Transform {
     }
 
     public void translate(Vector3f translation) {
+        this.translation = this.translation.plus(translation);
         attachedObject.updateTransform();
     }
 

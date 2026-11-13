@@ -1,5 +1,7 @@
 package com.earthmelon.render.shader;
 
+import com.earthmelon.engine.SceneObject;
+import com.earthmelon.engine.UIElement;
 import com.earthmelon.render.Renderable;
 import com.earthmelon.render.meshes.Mesh;
 import org.lwjgl.opengl.GL11;
@@ -7,7 +9,7 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import static com.earthmelon.engine.HChess.RENDERABLES;
+import static com.earthmelon.engine.HChess.SCENE_OBJECTS;
 
 // Look at https://learnopengl.com/Getting-started/Hello-Triangle
 
@@ -21,8 +23,9 @@ public class Render {
     }
 
     public void render() {
-        for (Renderable obj : RENDERABLES) {
-            render(obj.getRenderables());
+        render(UIElement.fpsCounter.getRenderables());
+        for (SceneObject obj : SCENE_OBJECTS) {
+            render(obj.getMesh());
         }
     }
 
