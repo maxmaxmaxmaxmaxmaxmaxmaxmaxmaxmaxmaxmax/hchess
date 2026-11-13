@@ -16,7 +16,7 @@ public class HChess {
 
     public void run() {
         window = Window.createWindow(1280, 800);
-        BasicMesh box = MeshFactory.createQuad(new Vector3f(0,0,0)).setTint(Colour.YELLOW);
+        SceneObject box = new SceneObject("box");
         loop();
         window.terminate();
     }
@@ -36,5 +36,6 @@ public class HChess {
     public static void main(String[] args) {
         new HChess().run();
     }
+
 
 }

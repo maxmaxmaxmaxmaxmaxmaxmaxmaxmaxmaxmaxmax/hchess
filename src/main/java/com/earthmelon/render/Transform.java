@@ -1,11 +1,18 @@
 package com.earthmelon.render;
 
+import com.earthmelon.engine.SceneObject;
 import com.earthmelon.math.Vector3f;
 
 public class Transform {
-    Vector3f translation;
-    Vector3f rotation;
-    float scale;
+    private Vector3f translation = new Vector3f(0,0,0);
+    private Vector3f rotation = new Vector3f(0,0,0);
+    private float scale = 1.0f;
+
+    private final SceneObject attachedObject;
+
+    public Transform(SceneObject attachedObject) {
+        this.attachedObject = attachedObject;
+    }
 
     public Vector3f getRotation() {
         return rotation;
@@ -21,25 +28,28 @@ public class Transform {
 
     public void setRotation(Vector3f rotation) {
         this.rotation = rotation;
+        attachedObject.updateTransform();
     }
 
     public void setTranslation(Vector3f translation) {
         this.translation = translation;
+        attachedObject.updateTransform();
     }
 
     public void setScale(float scale) {
         this.scale = scale;
+        attachedObject.updateTransform();
     }
 
     public void rotate(Vector3f rotation) {
-
+        attachedObject.updateTransform();
     }
 
     public void translate(Vector3f translation) {
-
+        attachedObject.updateTransform();
     }
 
     public void scale(float scale) {
-
+        attachedObject.updateTransform();
     }
 }
