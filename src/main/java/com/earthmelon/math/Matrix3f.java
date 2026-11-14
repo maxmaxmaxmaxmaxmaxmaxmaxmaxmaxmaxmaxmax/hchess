@@ -23,8 +23,8 @@ public class Matrix3f {
     }
 
     public Vector3f multiply(Vector3f vector) {
-        return new Vector3f(vector.x * m11 + vector.y * m12 + vector.z * m13,
-                vector.x * m21 + vector.y * m22 + vector.z * m23,
-                vector.x * m31 + vector.y * m32 + vector.z * m33);
+        return new Vector3f(vector.getX() * m11 + vector.getY() * m12 + vector.getZ() * m13,
+                vector.getX() * m21 + vector.getY() * m22 + vector.getZ() * m23,
+                vector.getX() * m31 + vector.getY() * m32 + vector.getZ() * m33);
     }
 }

@@ -2,10 +2,26 @@ package com.earthmelon.math;
 
 public class Vector4f {
 
-    public final float x;
-    public final float y;
-    public final float z;
-    public final float a;
+    private final float x;
+    private final float y;
+    private final float z;
+    private final float a;
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getZ() {
+        return z;
+    }
+
+    public float getA() {
+        return a;
+    }
 
     /**
      * Immutable 3-dimensional vector class.
@@ -21,9 +37,9 @@ public class Vector4f {
     }
 
     public Vector4f(Vector3f xyz, float a) {
-        this.x = xyz.x;
-        this.y = xyz.y;
-        this.z = xyz.z;
+        this.x = xyz.getX();
+        this.y = xyz.getY();
+        this.z = xyz.getZ();
         this.a = a;
     }
 }

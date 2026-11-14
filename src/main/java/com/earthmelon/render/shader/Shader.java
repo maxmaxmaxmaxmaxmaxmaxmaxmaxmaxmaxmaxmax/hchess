@@ -84,7 +84,7 @@ public abstract class Shader{
     }
 
     protected void loadVector(int location, Vector3f vector) {
-        GL20.glUniform3f(location, vector.x, vector.y, vector.z);
+        GL20.glUniform3f(location, vector.getX(), vector.getY(), vector.getZ());
     }
 
     protected void loadBoolean(int location, boolean value) {

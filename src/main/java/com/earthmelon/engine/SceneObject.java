@@ -76,9 +76,9 @@ public class SceneObject {
 
     private void applyRotation(Vector3f[] vertices) {
         ArrayList<Vector3f> rotated = new ArrayList<>();
-        float yaw = transform.getRotation().x;
-        float pitch = transform.getRotation().y;
-        float roll = transform.getRotation().z;
+        float yaw = transform.getRotation().getX();
+        float pitch = transform.getRotation().getY();
+        float roll = transform.getRotation().getZ();
         Matrix3f yawRotate = new Matrix3f(new float[]{
                 1,0,0,
                 0, (float) Math.cos(yaw), (float) -Math.sin(yaw),

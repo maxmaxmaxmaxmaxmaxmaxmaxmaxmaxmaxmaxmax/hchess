@@ -2,15 +2,27 @@ package com.earthmelon.math;
 
 public class Vector3f {
 
-    public final float x;
-    public final float y;
-    public final float z;
+    private final float x;
+    private final float y;
+    private final float z;
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
+    }
+
+    public float getZ() {
+        return z;
+    }
 
     /**
      * Immutable 3-dimensional vector class.
      * @param x is the first direction of the vector.
-     * @param y
-     * @param z
+     * @param y is the second direction of the vector.
+     * @param z is the third direction of the vector.
      */
     public Vector3f(float x, float y, float z) {
         this.x = x;
