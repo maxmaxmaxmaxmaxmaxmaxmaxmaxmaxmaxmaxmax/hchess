@@ -79,12 +79,23 @@ public class SceneObject {
         float yaw = transform.getRotation().x;
         float pitch = transform.getRotation().y;
         float roll = transform.getRotation().z;
-        Matrix3f yawRotate = new Matrix3f(new float[]{1,0,0,
-                                                        0, (float) Math.cos(yaw), (float) -Math.sin(yaw),
-                                                        0, (float) Math.sin(yaw), (float) Math.cos(yaw)});
+        Matrix3f yawRotate = new Matrix3f(new float[]{
+                1,0,0,
+                0, (float) Math.cos(yaw), (float) -Math.sin(yaw),
+                0, (float) Math.sin(yaw), (float) Math.cos(yaw)});
+        Matrix3f pitchRotate = new Matrix3f(new float[]{
+                (float) Math.cos(pitch), 0, (float) -Math.sin(pitch),
+                0, 1, 0,
+                (float) Math.sin(pitch), 0, (float) Math.cos(pitch)});
+        Matrix3f rollRotate = new Matrix3f(new float[]{
+                (float) Math.cos(roll), (float) -Math.sin(roll), 0,
+                (float) Math.sin(roll), (float) Math.cos(roll), 0,
+                0, 0, 1});
 
         for (Vector3f point : vertices) {
-            rotated.add(yawRotate.multiply(point.minus(pointOfRotation)).plus(pointOfRotation));
+            rotated.add(rollRotate.multiply(pitchRotate.multiply(
+                    yawRotate.multiply(point.minus(pointOfRotation))))
+                    .plus(pointOfRotation));
         }
         transformedVertices = rotated.toArray(transformedVertices);
     }
