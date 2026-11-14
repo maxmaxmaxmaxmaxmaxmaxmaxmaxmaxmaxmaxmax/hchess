@@ -42,6 +42,7 @@ public class Transform {
     }
 
     public void rotate(Vector3f rotation) {
+        this.rotation = this.rotation.plus(rotation);
         attachedObject.updateTransform();
     }
 

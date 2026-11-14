@@ -1,11 +1,13 @@
 package com.earthmelon.engine;
 
+import com.earthmelon.math.Matrix3f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Transform;
 import com.earthmelon.render.meshes.BasicMesh;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SceneObject {
@@ -37,13 +39,15 @@ public class SceneObject {
             5,6,2};
 
     Transform transform;
-    Vector3f[] transformedVertices;
+    Vector3f[] transformedVertices = new Vector3f[vertices.length];
 
     BasicMesh mesh;
 
     public SceneObject(String id) {
         this.id = id;
-        pointOfRotation = vertices[0];
+
+        // temp value
+        pointOfRotation = new Vector3f(0.5f, 0.5f, 0.5f);
 
         attachTransform();
         HChess.SCENE_OBJECTS.add(this);
@@ -65,16 +69,24 @@ public class SceneObject {
     }
 
     public void updateTransform() {
-        transformedVertices = applyRotation(Arrays.copyOf(vertices, vertices.length));
+        applyRotation(Arrays.copyOf(vertices, vertices.length));
         Arrays.setAll(transformedVertices, i -> transformedVertices[i].plus(getTransform().getTranslation()));
         mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(Colour.YELLOW);
     }
 
-    private Vector3f[] applyRotation(Vector3f[] vertices) {
-        Vector3f[] rotated = new Vector3f[vertices.length];
+    private void applyRotation(Vector3f[] vertices) {
+        ArrayList<Vector3f> rotated = new ArrayList<>();
+        float yaw = transform.getRotation().x;
+        float pitch = transform.getRotation().y;
+        float roll = transform.getRotation().z;
+        Matrix3f yawRotate = new Matrix3f(new float[]{1,0,0,
+                                                        0, (float) Math.cos(yaw), (float) -Math.sin(yaw),
+                                                        0, (float) Math.sin(yaw), (float) Math.cos(yaw)});
 
-
-        return transformedVertices;
+        for (Vector3f point : vertices) {
+            rotated.add(yawRotate.multiply(point.minus(pointOfRotation)).plus(pointOfRotation));
+        }
+        transformedVertices = rotated.toArray(transformedVertices);
     }
 
     public BasicMesh getMesh() {
