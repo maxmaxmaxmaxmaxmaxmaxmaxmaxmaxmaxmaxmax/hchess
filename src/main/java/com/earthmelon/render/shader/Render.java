@@ -36,9 +36,11 @@ public class Render {
     }
 
     public void render(Mesh mesh){
+        if (mesh == null) return;
+
+        // Meshes with no texture can still be coloured.
         Shader shader = (mesh.getTexture() == 0 ? shaders[1] : shaders[0]);
 
-        if (mesh == null) return;
         shader.start(mesh);
         GL30.glBindVertexArray(mesh.getVaoID());
         GL20.glEnableVertexAttribArray(0);

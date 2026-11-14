@@ -63,10 +63,15 @@ public class MeshFactory {
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
     }
 
-    public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices){
+    public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices) {
+        float[] normals = new float[positions.length / 3];
+        for (int i=0; i< normals.length; i++) {
+            normals[i] += (float) Math.random();
+        }
         int vao = genVAO();
         storeData(0,3,positions);
         storeData(1,2,UVs);
+        storeData(2, 1, normals);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
         return new BasicMesh(vao,indices.length);

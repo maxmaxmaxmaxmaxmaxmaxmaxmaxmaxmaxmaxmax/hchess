@@ -13,17 +13,10 @@ import java.util.Arrays;
 public class SceneObject {
 
     String id;
-    Vector3f position = new Vector3f(0,0,0);
+    Vector3f position;
     Vector3f pointOfRotation;
 
-    Vector3f[] vertices = new Vector3f[]{position,
-            /*1*/position.plus(1,0,0),
-            /*2*/position.plus(0,1,0),
-            /*3*/position.plus(1,1,0),
-            /*4*/position.plus(0,0,1),
-            /*5*/position.plus(1,0,1),
-            /*6*/position.plus(0,1,1),
-            /*7*/position.plus(1,1,1)};
+    Vector3f[] vertices;
     float[] uvs = new float[0];
     int[] indices = {0,1,2,
             1,2,3,
@@ -39,12 +32,22 @@ public class SceneObject {
             5,6,2};
 
     Transform transform;
-    Vector3f[] transformedVertices = new Vector3f[vertices.length];
+    Vector3f[] transformedVertices;
 
     BasicMesh mesh;
 
-    public SceneObject(String id) {
+    public SceneObject(String id, Vector3f position) {
         this.id = id;
+        this.position = position;
+
+        setVertices(new Vector3f[]{position,
+                /*1*/position.plus(1,0,0),
+                /*2*/position.plus(0,1,0),
+                /*3*/position.plus(1,1,0),
+                /*4*/position.plus(0,0,1),
+                /*5*/position.plus(1,0,1),
+                /*6*/position.plus(0,1,1),
+                /*7*/position.plus(1,1,1)});
 
         // temp value
         pointOfRotation = new Vector3f(0.5f, 0.5f, 0.5f);
@@ -54,6 +57,11 @@ public class SceneObject {
 
         // Default until .obj conversion works.
         mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(Colour.YELLOW);
+    }
+
+    private void setVertices(Vector3f[] vertices) {
+        this.vertices = vertices;
+        this.transformedVertices = new Vector3f[vertices.length];
     }
 
     public Transform getTransform() {
@@ -71,7 +79,7 @@ public class SceneObject {
     public void updateTransform() {
         applyRotation(Arrays.copyOf(vertices, vertices.length));
         Arrays.setAll(transformedVertices, i -> transformedVertices[i].plus(getTransform().getTranslation()));
-        mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(Colour.YELLOW);
+        mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(Colour.RED);
     }
 
     private void applyRotation(Vector3f[] vertices) {
