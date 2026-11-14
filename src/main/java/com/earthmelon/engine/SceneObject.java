@@ -35,6 +35,7 @@ public class SceneObject {
     Vector3f[] transformedVertices;
 
     BasicMesh mesh;
+    Colour colour = Colour.RED;
 
     public SceneObject(String id, Vector3f position) {
         this.id = id;
@@ -56,7 +57,7 @@ public class SceneObject {
         HChess.SCENE_OBJECTS.add(this);
 
         // Default until .obj conversion works.
-        mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(Colour.YELLOW);
+        mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(colour);
     }
 
     private void setVertices(Vector3f[] vertices) {
@@ -79,7 +80,7 @@ public class SceneObject {
     public void updateTransform() {
         applyRotation(Arrays.copyOf(vertices, vertices.length));
         Arrays.setAll(transformedVertices, i -> transformedVertices[i].plus(getTransform().getTranslation()));
-        mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(Colour.RED);
+        mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(colour);
     }
 
     private void applyRotation(Vector3f[] vertices) {

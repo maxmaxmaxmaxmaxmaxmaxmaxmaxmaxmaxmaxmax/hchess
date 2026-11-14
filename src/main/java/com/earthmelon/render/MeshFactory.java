@@ -3,6 +3,7 @@ package com.earthmelon.render;
 import java.nio.FloatBuffer; //The buffers that the Vertex data is ultimately stored in
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
 import com.earthmelon.engine.Window;
@@ -64,17 +65,23 @@ public class MeshFactory {
     }
 
     public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices) {
-        float[] normals = new float[positions.length / 3];
-        for (int i=0; i< normals.length; i++) {
-            normals[i] += (float) Math.random();
-        }
+        float[] normals = lightUsingNormals(positions, indices, 36);
         int vao = genVAO();
-        storeData(0,3,positions);
+        storeData(0,3, positions);
         storeData(1,2,UVs);
         storeData(2, 1, normals);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
         return new BasicMesh(vao,indices.length);
+    }
+
+    private static float[] lightUsingNormals(float[] positions, int[] indices, int length) {
+        float[] normals = new float[length];
+        ArrayList<Float> reconstructedVertices = new ArrayList<>();
+        for (int index : indices) {
+            reconstructedVertices.add(positions[index]);
+        }
+        return normals;
     }
 
     private static int genVAO() {
