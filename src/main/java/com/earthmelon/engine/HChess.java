@@ -31,7 +31,7 @@ public class HChess {
             window.update();
             render.cleanup();
 
-            box.getTransform().rotate(new Vector3f(0.00001f, 0.0001f, 0.001f));
+            box.getTransform().translate(new Vector3f(0, 0, -0.0001f));
         }
     }
 

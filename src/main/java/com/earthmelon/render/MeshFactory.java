@@ -3,7 +3,6 @@ package com.earthmelon.render;
 import java.nio.FloatBuffer; //The buffers that the Vertex data is ultimately stored in
 import java.nio.IntBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
 import com.earthmelon.engine.Window;
@@ -65,7 +64,7 @@ public class MeshFactory {
     }
 
     public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices) {
-        float[] normals = lightUsingNormals(positions, indices, 36);
+        float[] normals = lightUsingNormals(positions, indices);
         int vao = genVAO();
         storeData(0,3, positions);
         storeData(1,2,UVs);
@@ -75,11 +74,20 @@ public class MeshFactory {
         return new BasicMesh(vao,indices.length);
     }
 
-    private static float[] lightUsingNormals(float[] positions, int[] indices, int length) {
-        float[] normals = new float[length];
-        ArrayList<Float> reconstructedVertices = new ArrayList<>();
-        for (int index : indices) {
-            reconstructedVertices.add(positions[index]);
+    // This doesn't work even a little bit
+    private static float[] lightUsingNormals(float[] positions, int[] indices) {
+        float[] reconstructedPos = new float[indices.length];
+        float[] normals = new float[indices.length / 3];
+        for (int i=0; i< indices.length;i++) {
+            reconstructedPos[i] = positions[indices[i]];
+        }
+        Vector3f[] vectors = Vector3f.fromFloat(reconstructedPos);
+        for (int i=0; i<normals.length; i++) {
+            if (i % 3 == 0) {
+                normals[i] = new Vector3f(0, 0, 1).normalisedDot(Vector3f.cross(vectors[i + 1].minus(vectors[i]), vectors[i + 2].minus(vectors[i])));
+            } else {
+                normals[i] = normals[i - i % 3];
+            }
         }
         return normals;
     }

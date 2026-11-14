@@ -52,6 +52,33 @@ public class Vector3f {
         return out;
     }
 
+    public static Vector3f[] fromFloat(float[] floats) {
+        if (floats.length % 3 != 0) {
+            throw new IllegalArgumentException("Float array must have a length divisible by 3.");
+        }
+        Vector3f[] outVectors = new Vector3f[floats.length / 3];
+        for (int i=0; i<outVectors.length; i++) {
+            outVectors[i] = new Vector3f(floats[3*i], floats[3*i+1], floats[3*i+2]);
+        }
+        return outVectors;
+    }
+
+    public float magnitude() {
+        return (float) Math.sqrt(x*x+y*y+z*z);
+    }
+
+    public static Vector3f cross(Vector3f a, Vector3f b) {
+        return new Vector3f(a.y*b.z-a.z*b.y, a.z*b.x- a.x*b.z, a.x*b.y-a.y-b.x);
+    }
+
+    public float dot(Vector3f other) {
+        return x*other.x+y*other.y+z*other.z;
+    }
+
+    public float normalisedDot(Vector3f other) {
+        return dot(other) / (magnitude() * other.magnitude());
+    }
+
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof Vector3f vec)) {

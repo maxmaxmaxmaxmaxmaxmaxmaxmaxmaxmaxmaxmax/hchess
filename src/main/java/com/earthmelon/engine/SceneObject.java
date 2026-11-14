@@ -22,14 +22,14 @@ public class SceneObject {
             1,2,3,
             7,6,5,
             6,5,4,
-            3,2,6,
-            2,6,7,
-            4,0,3,
-            0,3,7,
-            4,5,1,
+            3,2,7,
+            2,7,6,
+            4,0,2,
+            1,3,7,
+            4,5,0,
             5,1,0,
-            1,5,6,
-            5,6,2};
+            1,5,7,
+            4,6,2};
 
     Transform transform;
     Vector3f[] transformedVertices;
