@@ -12,6 +12,7 @@ public class SceneObject {
 
     String id;
     Vector3f position = new Vector3f(0,0,0);
+    Vector3f pointOfRotation;
 
     Vector3f[] vertices = new Vector3f[]{position,
             /*1*/position.plus(1,0,0),
@@ -42,6 +43,8 @@ public class SceneObject {
 
     public SceneObject(String id) {
         this.id = id;
+        pointOfRotation = vertices[0];
+
         attachTransform();
         HChess.SCENE_OBJECTS.add(this);
 
@@ -62,9 +65,16 @@ public class SceneObject {
     }
 
     public void updateTransform() {
-        transformedVertices = Arrays.copyOf(vertices, vertices.length);
+        transformedVertices = applyRotation(Arrays.copyOf(vertices, vertices.length));
         Arrays.setAll(transformedVertices, i -> transformedVertices[i].plus(getTransform().getTranslation()));
         mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(Colour.YELLOW);
+    }
+
+    private Vector3f[] applyRotation(Vector3f[] vertices) {
+        Vector3f[] rotated = new Vector3f[vertices.length];
+
+
+        return transformedVertices;
     }
 
     public BasicMesh getMesh() {

@@ -75,10 +75,6 @@ public abstract class Shader{
         return ID;
     }
 
-    protected int getUniformLocation(String uniformName) {
-        return GL20.glGetUniformLocation(programID, uniformName);
-    }
-
     protected void bindAttribute(int attribute, String variableName) {
         GL20.glBindAttribLocation(programID, attribute, variableName);
     }
