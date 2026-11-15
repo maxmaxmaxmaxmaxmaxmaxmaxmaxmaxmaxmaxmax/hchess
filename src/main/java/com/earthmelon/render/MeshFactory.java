@@ -5,6 +5,7 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
+import com.earthmelon.engine.Triangle;
 import com.earthmelon.engine.Window;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
@@ -82,13 +83,11 @@ public class MeshFactory {
             reconstructedPos[i] = positions[indices[i]];
         }
         Vector3f[] vectors = Vector3f.fromFloat(reconstructedPos);
-        for (int i=0; i<normals.length; i++) {
-            if (i % 3 == 0) {
-                normals[i] = new Vector3f(0, 0, 1).normalisedDot(Vector3f.cross(vectors[i + 1].minus(vectors[i]), vectors[i + 2].minus(vectors[i])));
-            } else {
-                normals[i] = normals[i - i % 3];
-            }
+        for (int i=0; i<vectors.length; i+=3) {
+            Vector3f faceNormal = new Triangle(vectors[i], vectors[i+1], vectors[i+2]).getNormal();
+            normals[i] = new Vector3f(1,0,0).normalisedDot(faceNormal);
         }
+
         return normals;
     }
 

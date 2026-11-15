@@ -42,6 +42,8 @@ public class Vector3f {
         return new Vector3f(x - vec.x, y - vec.y, z - vec.z);
     }
 
+    public Vector3f divide(float dividend) {return new Vector3f(x / dividend, y / dividend, z / dividend); }
+
     public static float[] toFloat(Vector3f[] vecs) {
         float[] out = new float[3* vecs.length];
         for (int i=0; i< vecs.length; i++) {
