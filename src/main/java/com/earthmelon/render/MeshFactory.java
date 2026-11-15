@@ -85,7 +85,10 @@ public class MeshFactory {
         Vector3f[] vectors = Vector3f.fromFloat(reconstructedPos);
         for (int i=0; i<vectors.length; i+=3) {
             Vector3f faceNormal = new Triangle(vectors[i], vectors[i+1], vectors[i+2]).getNormal();
-            normals[i] = new Vector3f(1,0,0).normalisedDot(faceNormal);
+            float faceDirectionFromCamera = new Vector3f(0,0,1).normalisedDot(faceNormal);
+            normals[i] = faceDirectionFromCamera;
+            normals[i+1] = faceDirectionFromCamera;
+            normals[i+2] = faceDirectionFromCamera;
         }
 
         return normals;

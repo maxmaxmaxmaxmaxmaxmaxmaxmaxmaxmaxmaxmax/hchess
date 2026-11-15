@@ -19,13 +19,13 @@ public class SceneObject {
     Vector3f[] vertices;
     float[] uvs = new float[0];
     int[] indices = {0,1,2,
-            1,2,3,
+            1,3,2,
             7,6,5,
-            6,5,4,
-            3,2,7,
+            6,4,5,
+            3,7,2,
             2,7,6,
             4,0,2,
-            1,3,7,
+            1,7,3,
             4,5,0,
             5,1,0,
             1,5,7,
@@ -80,6 +80,7 @@ public class SceneObject {
     public void updateTransform() {
         applyRotation(Arrays.copyOf(vertices, vertices.length));
         Arrays.setAll(transformedVertices, i -> transformedVertices[i].plus(getTransform().getTranslation()));
+        pointOfRotation.plus(getTransform().getTranslation());
         mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(colour);
     }
 
