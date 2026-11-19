@@ -1,7 +1,7 @@
 package com.earthmelon.engine;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.shader.Render;
+import com.earthmelon.render.Render;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class HChess {
             window.update();
             render.cleanup();
 
-            box.getTransform().rotate(new Vector3f(0, 0.001f, 0.004f));
+            box.getTransform().rotate(new Vector3f(0.01f, 0.001f, 0.004f));
         }
     }
 

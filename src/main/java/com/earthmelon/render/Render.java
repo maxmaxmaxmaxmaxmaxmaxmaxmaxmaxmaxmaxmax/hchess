@@ -1,9 +1,10 @@
-package com.earthmelon.render.shader;
+package com.earthmelon.render;
 
 import com.earthmelon.engine.SceneObject;
-import com.earthmelon.engine.UIElement;
-import com.earthmelon.render.Renderable;
 import com.earthmelon.render.meshes.Mesh;
+import com.earthmelon.render.shader.Shader;
+import com.earthmelon.render.shader.ShaderTextured;
+import com.earthmelon.render.shader.ShaderUntextured;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;

@@ -65,33 +65,12 @@ public class MeshFactory {
     }
 
     public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices) {
-        float[] normals = lightUsingNormals(positions, indices);
         int vao = genVAO();
         storeData(0,3, positions);
         storeData(1,2,UVs);
-        storeData(2, 1, normals);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
         return new BasicMesh(vao,indices.length);
-    }
-
-    // This doesn't work even a little bit
-    private static float[] lightUsingNormals(float[] positions, int[] indices) {
-        float[] reconstructedPos = new float[indices.length];
-        float[] normals = new float[indices.length / 3];
-        for (int i=0; i< indices.length;i++) {
-            reconstructedPos[i] = positions[indices[i]];
-        }
-        Vector3f[] vectors = Vector3f.fromFloat(reconstructedPos);
-        for (int i=0; i<vectors.length; i+=3) {
-            Vector3f faceNormal = new Triangle(vectors[i], vectors[i+1], vectors[i+2]).getNormal();
-            float faceDirectionFromCamera = new Vector3f(0,0,1).normalisedDot(faceNormal);
-            normals[i] = faceDirectionFromCamera;
-            normals[i+1] = faceDirectionFromCamera;
-            normals[i+2] = faceDirectionFromCamera;
-        }
-
-        return normals;
     }
 
     private static int genVAO() {
