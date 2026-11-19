@@ -59,7 +59,7 @@ public class Window {
         }
 
         GLFW.glfwSetFramebufferSizeCallback(window, resizeWindow);
-        GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {});
+        GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> HChess.calculateKeyInput(key, action));
 
         GLFW.glfwSetWindowSizeCallback(window,new GLFWWindowSizeCallback() {
             @Override
