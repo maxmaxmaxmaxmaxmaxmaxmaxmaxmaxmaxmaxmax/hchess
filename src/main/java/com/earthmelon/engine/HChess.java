@@ -1,5 +1,6 @@
 package com.earthmelon.engine;
 
+import com.earthmelon.math.Matrix4f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Render;
 
@@ -13,11 +14,26 @@ public class HChess {
 
     SceneObject box;
 
+    public static Matrix4f makeViewFrustum(float fovX, float aspectRatio, float front, float back) {
+
+        float degreeToRadians = (float) (Math.PI / 180);
+
+        float tangent = (float) Math.tan(fovX/2 * degreeToRadians);
+        float right = front * tangent;
+        float top = right / aspectRatio;
+
+        return new Matrix4f(new float[]{
+                front / right,0,0,0,
+                0,front / top,0,0,
+                0,0,-(back+front) / (back-front),-1,
+                0,0,-(2 * back * front) / (back - front),0});
+    }
+
     public void run() {
         window = Window.createWindow(1280, 800);
         Light light = new Light("light", new Vector3f(0.5f, 0.5f, 0.5f));
         box = new SceneObject("box", new Vector3f(0,0,0));
-//        box.getTransform().translate(new Vector3f(-0.5f, -0.5f, 0.5f));
+        box.getTransform().translate(new Vector3f(-0.5f, -0.5f, -50f));
         loop();
         window.terminate();
     }

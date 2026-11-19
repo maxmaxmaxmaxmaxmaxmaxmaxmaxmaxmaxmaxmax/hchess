@@ -42,16 +42,16 @@ public class SceneObject {
         this.position = position;
 
         setVertices(new Vector3f[]{position,
-                /*1*/position.plus(0.25f,0,0),
-                /*2*/position.plus(0,0.25f,0),
-                /*3*/position.plus(0.25f,0.25f,0),
-                /*4*/position.plus(0,0,0.25f),
-                /*5*/position.plus(0.25f,0,0.25f),
-                /*6*/position.plus(0,0.25f,0.25f),
-                /*7*/position.plus(0.25f,0.25f,0.25f)});
+                /*1*/position.plus(10,0,0),
+                /*2*/position.plus(0,10,0),
+                /*3*/position.plus(10f,10f,0),
+                /*4*/position.plus(0,0,10),
+                /*5*/position.plus(10,0,10),
+                /*6*/position.plus(0,10f,10),
+                /*7*/position.plus(10,10,10)});
 
         // temp value
-        pointOfRotation = new Vector3f(0.125f, 0.125f, 0.125f);
+        pointOfRotation = new Vector3f(5, 5, 5);
 
         attachTransform();
         HChess.SCENE_OBJECTS.add(this);
