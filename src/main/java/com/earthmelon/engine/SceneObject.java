@@ -35,7 +35,7 @@ public class SceneObject {
     Vector3f[] transformedVertices;
 
     BasicMesh mesh;
-    Colour colour = Colour.RED;
+    Colour colour = Colour.GREY;
 
     public SceneObject(String id, Vector3f position) {
         this.id = id;
@@ -112,5 +112,9 @@ public class SceneObject {
 
     public BasicMesh getMesh() {
         return mesh;
+    }
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
     }
 }

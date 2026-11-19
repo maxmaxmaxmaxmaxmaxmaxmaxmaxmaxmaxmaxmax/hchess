@@ -15,6 +15,7 @@ public class HChess {
 
     public void run() {
         window = Window.createWindow(1280, 800);
+        Light light = new Light("light", new Vector3f(0.5f, 0.5f, 0.5f));
         box = new SceneObject("box", new Vector3f(0,0,0));
 //        box.getTransform().translate(new Vector3f(-0.5f, -0.5f, 0.5f));
         loop();
