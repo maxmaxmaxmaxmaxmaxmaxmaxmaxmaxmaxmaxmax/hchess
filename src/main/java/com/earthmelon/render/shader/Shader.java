@@ -44,7 +44,7 @@ public abstract class Shader{
         } else {
             GL20.glUniform4f(tintColourLocation, 1, 1, 1, 1);
         }
-        GL20.glUniformMatrix4fv(perspectiveMatrixLocation, false, HChess.makeViewFrustum(90.0f, Window.aspectRatio, 1f, 100f).elems());
+        GL20.glUniformMatrix4fv(perspectiveMatrixLocation, false, HChess.makeViewFrustum(45.0f, Window.aspectRatio, 1f, 100f).elems());
     }
 
     public void stop(){

@@ -24,7 +24,7 @@ public class SceneObject {
             6,4,5,
             3,2,7,
             2,6,7,
-            4,0,2,
+            4,2,0,
             1,3,7,
             4,0,5,
             5,0,1,
@@ -51,7 +51,7 @@ public class SceneObject {
                 /*7*/position.plus(10,10,10)});
 
         // temp value
-        pointOfRotation = new Vector3f(5, 5, 5);
+        pointOfRotation = new Vector3f(position.getX() + 5, position.getY() + 5, position.getZ() + 5);
 
         attachTransform();
         HChess.SCENE_OBJECTS.add(this);
@@ -114,7 +114,8 @@ public class SceneObject {
         return mesh;
     }
 
-    public void setColour(Colour colour) {
+    public SceneObject setColour(Colour colour) {
         this.colour = colour;
+        return this;
     }
 }

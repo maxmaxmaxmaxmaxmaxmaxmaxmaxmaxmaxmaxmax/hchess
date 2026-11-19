@@ -2,6 +2,7 @@ package com.earthmelon.engine;
 
 import com.earthmelon.math.Matrix4f;
 import com.earthmelon.math.Vector3f;
+import com.earthmelon.render.Colour;
 import com.earthmelon.render.Render;
 import org.lwjgl.glfw.GLFW;
 
@@ -14,6 +15,8 @@ public class HChess {
     public static ArrayList<SceneObject> SCENE_OBJECTS = new ArrayList<>();
 
     SceneObject box;
+    SceneObject box2;
+    SceneObject box3;
 
     public static Matrix4f makeViewFrustum(float fovX, float aspectRatio, float front, float back) {
 
@@ -50,8 +53,10 @@ public class HChess {
     public void run() {
         window = Window.createWindow(1280, 800);
 //        Light light = new Light("light", new Vector3f(0.5f, 0.5f, 0.5f));
-        box = new SceneObject("box", new Vector3f(0,0,0));
-        box.getTransform().translate(new Vector3f(-0.5f, -0.5f, -50f));
+        box = new SceneObject("box", new Vector3f(0,0,-50f));
+        box2 = new SceneObject("box2", new Vector3f(10,10,-30f)).setColour(Colour.CYAN);
+        box3 = new SceneObject("box3", new Vector3f(-20,-10,-100f)).setColour(Colour.RED);
+
         loop();
         window.terminate();
     }
@@ -67,6 +72,8 @@ public class HChess {
             render.cleanup();
 
             box.getTransform().rotate(new Vector3f(0.01f, 0.001f, 0.004f));
+            box2.getTransform().rotate(new Vector3f(-0.01f, 0.01f, -0.04f));
+            box3.getTransform().rotate(new Vector3f(0.1f, 0.001f, -0.004f));
         }
     }
 
