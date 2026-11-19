@@ -52,6 +52,7 @@ public class Transform {
     }
 
     public void scale(float scale) {
+        this.scale *= scale;
         attachedObject.updateTransform();
     }
 }

@@ -19,8 +19,8 @@ public class SceneObject {
     Vector3f[] vertices;
     float[] uvs = new float[0];
     int[] indices = {0,1,2,
-            1,3,2,
-            7,6,5,
+            1,2,3,
+            7,5,6,
             6,4,5,
             3,7,2,
             2,7,6,
@@ -29,7 +29,7 @@ public class SceneObject {
             4,5,0,
             5,1,0,
             1,5,7,
-            4,6,2};
+            4,2,6};
 
     Transform transform;
     Vector3f[] transformedVertices;
@@ -42,16 +42,16 @@ public class SceneObject {
         this.position = position;
 
         setVertices(new Vector3f[]{position,
-                /*1*/position.plus(1,0,0),
-                /*2*/position.plus(0,1,0),
-                /*3*/position.plus(1,1,0),
-                /*4*/position.plus(0,0,1),
-                /*5*/position.plus(1,0,1),
-                /*6*/position.plus(0,1,1),
-                /*7*/position.plus(1,1,1)});
+                /*1*/position.plus(0.25f,0,0),
+                /*2*/position.plus(0,0.25f,0),
+                /*3*/position.plus(0.25f,0.25f,0),
+                /*4*/position.plus(0,0,0.25f),
+                /*5*/position.plus(0.25f,0,0.25f),
+                /*6*/position.plus(0,0.25f,0.25f),
+                /*7*/position.plus(0.25f,0.25f,0.25f)});
 
         // temp value
-        pointOfRotation = new Vector3f(0.5f, 0.5f, 0.5f);
+        pointOfRotation = new Vector3f(0.125f, 0.125f, 0.125f);
 
         attachTransform();
         HChess.SCENE_OBJECTS.add(this);
