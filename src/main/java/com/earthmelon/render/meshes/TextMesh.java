@@ -8,7 +8,7 @@ import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
 
-public class TextMesh extends Mesh implements Tintable {
+public class TextMesh extends Mesh2D implements Tintable {
 
     private static Colour colour = Colour.BLACK;
 
