@@ -51,7 +51,4 @@ public class TextMesh extends Mesh2D implements Tintable {
         }
         return out;
     }
-
-
-
 }

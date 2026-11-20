@@ -11,7 +11,6 @@ public class ShaderUntextured extends Shader {
     protected void bindAttributes() {
         super.bindAttribute(0, "position");
         super.bindAttribute(1, "texCoords");
-        super.bindAttribute(2, "normal");
     }
 
     @Override

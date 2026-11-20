@@ -80,10 +80,9 @@ public class MeshFactory {
     }
 
     public static Mesh2D create2DQuad(Vector3f pos, float scaleX, float scaleY) {
-        float aspect_ratio = Window.aspectRatio;
         int vao = genVAO();
-        int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scaleX,0,0), pos.plus(0,-scaleY*aspect_ratio,0), pos.plus(scaleX,0,0), pos.plus(0,-scaleY*aspect_ratio,0), pos.plus(scaleX,-scaleY*aspect_ratio,0)};
+        int[] indices = {0,1,2,1,2,3};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scaleX,0,0), pos.plus(0,-scaleY,0), pos.plus(scaleX,-scaleY,0)};
         float[] uvs = {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1};
         float[] positions = Vector3f.toFloat(vertices);
         storeData(0,3,positions);
@@ -99,8 +98,8 @@ public class MeshFactory {
         float hratio = (float) textureSize * hpos / atlusSize;
         float vratio = (float) textureSize * vpos / atlusSize;
         int vao = genVAO();
-        int[] indices = {0,1,2,3,4,5};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,-scale*aspect_ratio,0)};
+        int[] indices = {0,1,2,1,2,3};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,-scale*aspect_ratio,0)};
         float[] uvs = {hratio, vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, sizeRatio + vratio};
@@ -111,10 +110,5 @@ public class MeshFactory {
         GL30.glBindVertexArray(0);
         return new Mesh2D(vao, indices.length);
     }
-
-    public static Mesh2D create2DQuad(Vector3f pos) {
-        return create2DQuad(pos, 1, 1);
-    }
-
 
 }
