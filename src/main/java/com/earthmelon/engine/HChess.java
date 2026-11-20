@@ -41,6 +41,8 @@ public class HChess {
                 case GLFW.GLFW_KEY_D -> moveDir = new Vector3f(-0.1f, 0, 0);
                 case GLFW.GLFW_KEY_W -> moveDir = new Vector3f(0, 0, 0.1f);
                 case GLFW.GLFW_KEY_S -> moveDir = new Vector3f(0, 0, -0.1f);
+                case GLFW.GLFW_KEY_Q -> moveDir = new Vector3f(0, 0.1f, 0);
+                case GLFW.GLFW_KEY_E -> moveDir = new Vector3f(0, -0.1f, 0);
             }
 
             for (SceneObject object : SCENE_OBJECTS) {
@@ -53,7 +55,8 @@ public class HChess {
     public void run() {
         window = Window.createWindow(1280, 800);
 //        Light light = new Light("light", new Vector3f(0.5f, 0.5f, 0.5f));
-        box = OBJHandler.importFromOBJ("box", "cube.obj").setColour(Colour.BLUE);
+        box = OBJHandler.importFromOBJ("box", "teapot.obj").setColour(Colour.BLUE);
+        box.getTransform().translate(new Vector3f(0,0,-40));
         box2 = new SceneObject("box2", new Vector3f(10,10,-30f)).setColour(Colour.CYAN);
         box3 = new SceneObject("box3", new Vector3f(-20,-10,-100f)).setColour(Colour.RED);
 
@@ -67,6 +70,9 @@ public class HChess {
             UIElement.calculateFrames();
 
             render.render();
+
+            box2.getTransform().rotate(new Vector3f(0.0001f, 0.01f, -0.02f));
+            box.getTransform().setScale(40);
 
             window.update();
             render.cleanup();

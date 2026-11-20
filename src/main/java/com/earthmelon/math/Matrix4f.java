@@ -45,4 +45,11 @@ public class Matrix4f {
     public float[] elems() {
         return new float[]{m11,m12,m13,m14,m21,m22,m23,m24,m31,m32,m33,m34,m41,m42,m43,m44};
     }
+
+    public Vector4f multiply(Vector4f vec) {
+        return new Vector4f(m11*vec.getX()+m12*vec.getY()+m13*vec.getZ()+m14*vec.getW(),
+                m21*vec.getX()+m22*vec.getY()+m23*vec.getZ()+m24*vec.getW(),
+                m31*vec.getX()+m32*vec.getY()+m33*vec.getZ()+m34*vec.getW(),
+                m41*vec.getX()+m42*vec.getY()+m43*vec.getZ()+m44*vec.getW());
+    }
 }

@@ -21,7 +21,7 @@ public interface Tintable {
     }
 
     default float getAlpha() {
-        return getTint().getVector().getA();
+        return getTint().getVector().getW();
     }
 
 }

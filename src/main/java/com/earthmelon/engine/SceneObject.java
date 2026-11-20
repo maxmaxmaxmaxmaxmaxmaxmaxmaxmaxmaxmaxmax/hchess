@@ -1,7 +1,8 @@
 package com.earthmelon.engine;
 
-import com.earthmelon.math.Matrix3f;
+import com.earthmelon.math.Matrix4f;
 import com.earthmelon.math.Vector3f;
+import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.Transform;
@@ -9,6 +10,9 @@ import com.earthmelon.render.meshes.BasicMesh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static java.lang.Math.cos;
+import static java.lang.Math.sin;
 
 public class SceneObject {
 
@@ -93,34 +97,30 @@ public class SceneObject {
     }
 
     public void updateTransform() {
-        applyRotation(transformedVertices);
-        Arrays.setAll(transformedVertices, i -> transformedVertices[i].plus(getTransform().getTranslation()));
+        applyTransformation(Arrays.copyOf(vertices, vertices.length));
         pointOfRotation.plus(getTransform().getTranslation());
         mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(colour);
     }
 
-    private void applyRotation(Vector3f[] vertices) {
+    private void applyTransformation(Vector3f[] vertices) {
         ArrayList<Vector3f> rotated = new ArrayList<>();
         float yaw = transform.getRotation().getX();
         float pitch = transform.getRotation().getY();
         float roll = transform.getRotation().getZ();
-        Matrix3f yawRotate = new Matrix3f(new float[]{
-                1,0,0,
-                0, (float) Math.cos(yaw), (float) -Math.sin(yaw),
-                0, (float) Math.sin(yaw), (float) Math.cos(yaw)});
-        Matrix3f pitchRotate = new Matrix3f(new float[]{
-                (float) Math.cos(pitch), 0, (float) -Math.sin(pitch),
-                0, 1, 0,
-                (float) Math.sin(pitch), 0, (float) Math.cos(pitch)});
-        Matrix3f rollRotate = new Matrix3f(new float[]{
-                (float) Math.cos(roll), (float) -Math.sin(roll), 0,
-                (float) Math.sin(roll), (float) Math.cos(roll), 0,
-                0, 0, 1});
+
+        Matrix4f transformMatrix = new Matrix4f(new float[]{
+                (float) (getTransform().getScale() * (cos(roll) * cos(pitch))), (float) (cos(roll)*sin(pitch)*sin(yaw)-sin(roll)*cos(yaw)), (float) (cos(roll)*sin(pitch)*cos(yaw)+sin(roll)*sin(yaw)), getTransform().getTranslation().getX(),
+                (float) (sin(roll)*cos(pitch)), (float) (getTransform().getScale() * (sin(roll)*sin(pitch)*sin(yaw)+cos(roll)*cos(yaw))), (float) (sin(roll)*sin(pitch)*cos(yaw)-cos(roll)*sin(yaw)), getTransform().getTranslation().getY(),
+                (float) -sin(pitch), (float) (cos(pitch)*sin(yaw)), (float) (getTransform().getScale() * (cos(pitch)*cos(yaw))), getTransform().getTranslation().getZ(),
+                0,0,0,1
+        });
 
         for (Vector3f point : vertices) {
-            rotated.add(rollRotate.multiply(pitchRotate.multiply(
-                    yawRotate.multiply(point.minus(pointOfRotation))))
-                    .plus(pointOfRotation));
+            Vector4f homogenised = new Vector4f(point.minus(pointOfRotation), 1);
+            Vector4f transformed = transformMatrix.multiply(homogenised);
+            rotated.add(new Vector3f(transformed.getX() + pointOfRotation.getX(),
+                    transformed.getY() + pointOfRotation.getY(),
+                    transformed.getZ() + pointOfRotation.getZ()));
         }
         transformedVertices = rotated.toArray(transformedVertices);
     }

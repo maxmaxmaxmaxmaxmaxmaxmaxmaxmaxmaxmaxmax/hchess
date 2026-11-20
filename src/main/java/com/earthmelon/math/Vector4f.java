@@ -5,7 +5,7 @@ public class Vector4f {
     private final float x;
     private final float y;
     private final float z;
-    private final float a;
+    private final float w;
 
     public float getX() {
         return x;
@@ -19,8 +19,8 @@ public class Vector4f {
         return z;
     }
 
-    public float getA() {
-        return a;
+    public float getW() {
+        return w;
     }
 
     /**
@@ -29,17 +29,17 @@ public class Vector4f {
      * @param y
      * @param z
      */
-    public Vector4f(float x, float y, float z, float a) {
+    public Vector4f(float x, float y, float z, float w) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.a = a;
+        this.w = w;
     }
 
-    public Vector4f(Vector3f xyz, float a) {
+    public Vector4f(Vector3f xyz, float w) {
         this.x = xyz.getX();
         this.y = xyz.getY();
         this.z = xyz.getZ();
-        this.a = a;
+        this.w = w;
     }
 }
