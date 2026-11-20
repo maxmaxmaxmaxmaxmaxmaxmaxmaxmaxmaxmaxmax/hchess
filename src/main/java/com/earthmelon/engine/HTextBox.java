@@ -3,8 +3,8 @@ package com.earthmelon.engine;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
-import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.meshes.Mesh;
+import com.earthmelon.render.meshes.Mesh2D;
 import com.earthmelon.render.meshes.TextMesh;
 import com.earthmelon.render.Renderable;
 import com.earthmelon.render.shader.Tintable;
@@ -19,15 +19,15 @@ public class HTextBox implements Renderable, Tintable {
     float width;
     float height;
 
-    private TextMesh[] text;
+    private Mesh2D[] text;
 
-    BasicMesh background;
+    Mesh2D background;
 
     public HTextBox(Vector3f position, float width, float height) {
         this.position = position;
         this.width = width;
         this.height = height;
-        background = MeshFactory.createQuad(position, width, height).setTint(Colour.GREY);
+        background = MeshFactory.create2DQuad(position, width, height).setTint(Colour.GREY);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class HTextBox implements Renderable, Tintable {
     }
 
     public HTextBox setTextTint(Colour colour) {
-        for (TextMesh letter : text) {
+        for (Mesh2D letter : text) {
             letter.setTint(colour);
         }
         return this;

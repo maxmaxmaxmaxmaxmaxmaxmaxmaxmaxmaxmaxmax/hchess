@@ -10,7 +10,6 @@ import java.util.Arrays;
 
 public class TextMesh extends Mesh2D implements Tintable {
 
-    private static Colour colour = Colour.BLACK;
 
     private static String belowLineLetters = "qypgj";
 
@@ -18,16 +17,16 @@ public class TextMesh extends Mesh2D implements Tintable {
         super(vao, vertices);
     }
 
-    public static TextMesh drawChar(char c, Vector3f pos, float textSize) {
-        TextMesh letter = MeshFactory.createQuadAtlas(pos, textSize, 256, (c-1) % 32, (c-1) / 32, 8);
+    public static Mesh2D drawChar(char c, Vector3f pos, float textSize) {
+        Mesh2D letter = MeshFactory.createQuadAtlas(pos, textSize, 256, (c-1) % 32, (c-1) / 32, 8);
         return letter.addTexture("hfont.png");
     }
 
-    public static TextMesh[] drawString(String s, Vector3f pos, float width, float height, float textSize) {
+    public static Mesh2D[] drawString(String s, Vector3f pos, float width, float height, float textSize) {
         int col = 0;
         int row = 0;
         float kerning = textSize / 1.5f;
-        TextMesh[] out = new TextMesh[s.length()];
+        Mesh2D[] out = new TextMesh[s.length()];
         char[] chars = s.toCharArray();
         for (int i=0; i< out.length; i++) {
             if (2 * (row-2) * textSize > height) {
@@ -53,21 +52,6 @@ public class TextMesh extends Mesh2D implements Tintable {
         return out;
     }
 
-    @Override
-    public Colour getTint() {
-        return colour;
-    }
 
-    @Override
-    public TextMesh setTint(Colour tint) {
-        colour = tint;
-        return this;
-    }
 
-    @Override
-    public TextMesh addTexture(String filePath) {
-        this.texture = Texture.loadTexture(filePath);
-        MeshFactory.getInstance().addTexture(texture);
-        return this;
-    }
 }

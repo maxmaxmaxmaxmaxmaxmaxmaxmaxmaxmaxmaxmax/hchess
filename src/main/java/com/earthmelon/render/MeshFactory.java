@@ -5,11 +5,10 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
-import com.earthmelon.engine.Triangle;
 import com.earthmelon.engine.Window;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
-import com.earthmelon.render.meshes.TextMesh;
+import com.earthmelon.render.meshes.Mesh2D;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
@@ -80,7 +79,7 @@ public class MeshFactory {
         return vao;
     }
 
-    public static BasicMesh createQuad(Vector3f pos, float scaleX, float scaleY) {
+    public static Mesh2D create2DQuad(Vector3f pos, float scaleX, float scaleY) {
         float aspect_ratio = Window.aspectRatio;
         int vao = genVAO();
         int[] indices = {0,1,2,3,4,5};
@@ -91,10 +90,10 @@ public class MeshFactory {
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new BasicMesh(vao, indices.length);
+        return new Mesh2D(vao, indices.length);
     }
 
-    public static TextMesh createQuadAtlas(Vector3f pos, float scale, int atlusSize, int hpos, int vpos, int textureSize) {
+    public static Mesh2D createQuadAtlas(Vector3f pos, float scale, int atlusSize, int hpos, int vpos, int textureSize) {
         float aspect_ratio = Window.aspectRatio;
         float sizeRatio = (float) textureSize / atlusSize;
         float hratio = (float) textureSize * hpos / atlusSize;
@@ -110,11 +109,11 @@ public class MeshFactory {
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new TextMesh(vao, indices.length);
+        return new Mesh2D(vao, indices.length);
     }
 
-    public static BasicMesh createQuad(Vector3f pos) {
-        return createQuad(pos, 1, 1);
+    public static Mesh2D create2DQuad(Vector3f pos) {
+        return create2DQuad(pos, 1, 1);
     }
 
 
