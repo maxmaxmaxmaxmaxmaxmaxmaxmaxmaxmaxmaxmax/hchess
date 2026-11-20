@@ -53,7 +53,7 @@ public class HChess {
     public void run() {
         window = Window.createWindow(1280, 800);
 //        Light light = new Light("light", new Vector3f(0.5f, 0.5f, 0.5f));
-        box = new SceneObject("box", new Vector3f(0,0,-50f));
+        box = OBJHandler.importFromOBJ("box", "cube.obj").setColour(Colour.BLUE);
         box2 = new SceneObject("box2", new Vector3f(10,10,-30f)).setColour(Colour.CYAN);
         box3 = new SceneObject("box3", new Vector3f(-20,-10,-100f)).setColour(Colour.RED);
 
@@ -70,10 +70,6 @@ public class HChess {
 
             window.update();
             render.cleanup();
-
-            box.getTransform().rotate(new Vector3f(0.01f, 0.001f, 0.004f));
-            box2.getTransform().rotate(new Vector3f(-0.01f, 0.01f, -0.04f));
-            box3.getTransform().rotate(new Vector3f(0.1f, 0.001f, -0.004f));
         }
     }
 

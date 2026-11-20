@@ -52,12 +52,27 @@ public class SceneObject {
 
         // temp value
         pointOfRotation = new Vector3f(position.getX() + 5, position.getY() + 5, position.getZ() + 5);
+        this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
 
         attachTransform();
         HChess.SCENE_OBJECTS.add(this);
 
         // Default until .obj conversion works.
         mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(colour);
+    }
+
+    public SceneObject(String id, Vector3f[] vertices, float[] uvs, int[] indices) {
+        this.id = id;
+        this.vertices = vertices;
+        this.position = new Vector3f(0,0,0);
+        this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
+
+        mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(colour);
+
+        pointOfRotation = new Vector3f(position.getX() + 5, position.getY() + 5, position.getZ() + 5);
+
+        attachTransform();
+        HChess.SCENE_OBJECTS.add(this);
     }
 
     private void setVertices(Vector3f[] vertices) {
@@ -78,7 +93,7 @@ public class SceneObject {
     }
 
     public void updateTransform() {
-        applyRotation(Arrays.copyOf(vertices, vertices.length));
+        applyRotation(transformedVertices);
         Arrays.setAll(transformedVertices, i -> transformedVertices[i].plus(getTransform().getTranslation()));
         pointOfRotation.plus(getTransform().getTranslation());
         mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(colour);
