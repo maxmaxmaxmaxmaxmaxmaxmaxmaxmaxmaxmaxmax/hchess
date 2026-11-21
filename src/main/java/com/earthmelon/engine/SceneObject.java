@@ -18,22 +18,10 @@ public class SceneObject {
 
     String id;
     Vector3f position;
-    Vector3f pointOfRotation;
 
     Vector3f[] vertices;
-    float[] uvs = new float[0];
-    int[] indices = {0,2,1,
-            1,2,3,
-            7,6,5,
-            6,4,5,
-            3,2,7,
-            2,6,7,
-            4,2,0,
-            1,3,7,
-            4,0,5,
-            5,0,1,
-            1,7,5,
-            4,6,2};
+    float[] uvs;
+    int[] indices;
 
     Transform transform;
     Vector3f[] transformedVertices;
@@ -46,11 +34,11 @@ public class SceneObject {
         this.position = position;
 
         // temp value
-        pointOfRotation = new Vector3f(position.getX() + 5, position.getY() + 5, position.getZ() + 5);
         this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
 
         attachTransform();
-        HChess.SCENE_OBJECTS.add(this);
+        if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
+        HChess.SCENE_OBJECTS.put(id, this);
 
         // Default until .obj conversion works.
         mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(colour);
@@ -62,15 +50,28 @@ public class SceneObject {
         this.uvs = uvs;
         this.indices = indices;
 
-        this.position = new Vector3f(0,0,0);
+        this.position = new Vector3f(calculateCentre(vertices, 0),calculateCentre(vertices, 1),calculateCentre(vertices, 2));
         this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
 
         mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(colour);
 
-        pointOfRotation = new Vector3f(position.getX(), position.getY()+1, position.getZ());
-
         attachTransform();
-        HChess.SCENE_OBJECTS.add(this);
+        if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
+        HChess.SCENE_OBJECTS.put(id, this);
+    }
+
+    private float calculateCentre(Vector3f[] vertices, int axis) {
+        float centre = 0.0f;
+
+        for (Vector3f vertex : vertices) {
+            centre += switch(axis) {
+                case 0 -> vertex.getX();
+                case 1 -> vertex.getY();
+                case 2 -> vertex.getZ();
+                default -> throw new IllegalArgumentException();
+            };
+        }
+        return centre / vertices.length;
     }
 
     private void setVertices(Vector3f[] vertices) {
@@ -92,7 +93,7 @@ public class SceneObject {
 
     public void updateTransform() {
         applyTransformation(Arrays.copyOf(vertices, vertices.length));
-        pointOfRotation.plus(getTransform().getTranslation());
+        position.plus(getTransform().getTranslation());
         mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(colour);
     }
 
@@ -110,11 +111,11 @@ public class SceneObject {
         });
 
         for (Vector3f point : vertices) {
-            Vector4f homogenised = new Vector4f(point.minus(pointOfRotation), 1);
+            Vector4f homogenised = new Vector4f(point.minus(position), 1);
             Vector4f transformed = transformMatrix.multiply(homogenised);
-            rotated.add(new Vector3f(transformed.getX() + pointOfRotation.getX(),
-                    transformed.getY() + pointOfRotation.getY(),
-                    transformed.getZ() + pointOfRotation.getZ()));
+            rotated.add(new Vector3f(transformed.getX() + position.getX(),
+                    transformed.getY() + position.getY(),
+                    transformed.getZ() + position.getZ()));
         }
         transformedVertices = rotated.toArray(transformedVertices);
     }
@@ -127,4 +128,6 @@ public class SceneObject {
         this.colour = colour;
         return this;
     }
+
+
 }

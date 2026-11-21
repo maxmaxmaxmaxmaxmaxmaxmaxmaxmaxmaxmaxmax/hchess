@@ -90,4 +90,9 @@ public class Vector3f {
         }
         return x == vec.x && y == vec.y && z == vec.z;
     }
+
+    @Override
+    public String toString() {
+        return "(%s, %s, %s)".formatted(x,y,z);
+    }
 }

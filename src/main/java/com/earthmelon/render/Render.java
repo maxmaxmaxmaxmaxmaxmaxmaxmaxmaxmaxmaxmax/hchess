@@ -28,7 +28,7 @@ public class Render {
 
     public void render() {
         render(UIElement.fpsCounter.getRenderables());
-        for (SceneObject obj : SCENE_OBJECTS) {
+        for (SceneObject obj : SCENE_OBJECTS.values()) {
             render(obj.getMesh());
         }
     }

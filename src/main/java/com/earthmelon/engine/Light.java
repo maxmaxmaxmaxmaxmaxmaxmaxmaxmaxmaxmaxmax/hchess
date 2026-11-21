@@ -6,8 +6,10 @@ public class Light extends SceneObject {
 
     public Light(String id, Vector3f position) {
         super(id, position);
-        pointOfRotation = position;
 
-        HChess.SCENE_OBJECTS.add(this);
+
+        attachTransform();
+        if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
+        HChess.SCENE_OBJECTS.put(id, this);
     }
 }

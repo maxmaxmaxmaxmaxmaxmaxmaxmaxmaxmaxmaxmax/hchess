@@ -7,12 +7,13 @@ import com.earthmelon.render.Render;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HChess {
 
     // The window handle
     private static Window window;
-    public static ArrayList<SceneObject> SCENE_OBJECTS = new ArrayList<>();
+    public static HashMap<String, SceneObject> SCENE_OBJECTS = new HashMap<>();
 
     public static float cameraMoveSpeed = 1.5f;
 
@@ -47,7 +48,7 @@ public class HChess {
                 case GLFW.GLFW_KEY_E -> moveDir = new Vector3f(0, -cameraMoveSpeed, 0);
             }
 
-            for (SceneObject object : SCENE_OBJECTS) {
+            for (SceneObject object : SCENE_OBJECTS.values()) {
                 object.getTransform().translate(moveDir);
             }
         }
@@ -63,6 +64,7 @@ public class HChess {
         box3 = OBJHandler.importFromOBJ("box3", "cube.obj").setColour(Colour.RED);
         box3.getTransform().translate(new Vector3f(-20, -10, -100f));
 
+        System.out.println(box.position);
 
         loop();
         window.terminate();
