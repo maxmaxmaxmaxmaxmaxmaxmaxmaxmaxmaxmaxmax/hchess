@@ -29,9 +29,16 @@ public class OBJHandler {
                         }
                         for (int i=1; i<split.length; i++) {
                             String[] slashSplit = split[i].split("/");
-                            indices.add(Integer.parseInt(slashSplit[0])-1);
-                            indices.add(Integer.parseInt(slashSplit[1])-1);
-                            indices.add(Integer.parseInt(slashSplit[2])-1);
+                            if (i > 3) {
+                                String[] prev1 = split[i-1].split("/");
+                                String[] prev2 = split[i-3].split("/");
+                                indices.add(Integer.parseInt(prev1[0])-1);
+                                indices.add(Integer.parseInt(slashSplit[0])-1);
+                                indices.add(Integer.parseInt(prev2[0])-1);
+                            } else {
+                                indices.add(Integer.parseInt(slashSplit[0])-1);
+
+                            }
                         }
                     }
                     case "vt" -> {

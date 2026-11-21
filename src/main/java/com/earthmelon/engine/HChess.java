@@ -41,8 +41,8 @@ public class HChess {
     public void run() {
         window = Window.createWindow(1280, 800);
 //        Light light = new Light("light", new Vector3f(0.5f, 0.5f, 0.5f));
-        teapot = OBJHandler.importFromOBJ("teapot", "sphere.obj").setColour(Colour.BLUE);
-        teapot.getTransform().scale(10f);
+        teapot = OBJHandler.importFromOBJ("teapot", "iphone_13_toilet.obj").setColour(Colour.BLUE);
+        teapot.getTransform().scale(1);
 
         System.out.println(teapot.position);
 
@@ -57,7 +57,7 @@ public class HChess {
 
             render.render();
 
-            teapot.getTransform().rotate(new Vector3f(0f, 0.01f, 0));
+            teapot.getTransform().rotate(new Vector3f(0.01f, 0, 0));
 
             window.update();
             render.cleanup();
