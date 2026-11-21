@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 
-import com.earthmelon.engine.HChess;
 import com.earthmelon.engine.Window;
 import com.earthmelon.render.meshes.Mesh;
 import org.lwjgl.BufferUtils;
@@ -13,10 +12,9 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 
 import com.earthmelon.math.Matrix4f;
-import com.earthmelon.math.Vector3f;
 
 public abstract class Shader{
-    private int programID;
+    private final int programID;
     private int vertexID;
     private int fragmentID;
 
@@ -44,7 +42,7 @@ public abstract class Shader{
         } else {
             GL20.glUniform4f(tintColourLocation, 1, 1, 1, 1);
         }
-        GL20.glUniformMatrix4fv(perspectiveMatrixLocation, false, HChess.makeViewFrustum(45.0f, Window.aspectRatio, 1f, 100f).elems());
+        GL20.glUniformMatrix4fv(perspectiveMatrixLocation, false, makeViewFrustum(45.0f, Window.aspectRatio, 1f, 100f).elems());
     }
 
     public void stop(){
@@ -84,25 +82,18 @@ public abstract class Shader{
         GL20.glBindAttribLocation(programID, attribute, variableName);
     }
 
-    protected void loadFloat(int location, float value) {
-        GL20.glUniform1f(location, value);
-    }
+    public Matrix4f makeViewFrustum(float fovX, float aspectRatio, float front, float back) {
 
-    protected void loadVector(int location, Vector3f vector) {
-        GL20.glUniform3f(location, vector.getX(), vector.getY(), vector.getZ());
-    }
+        float degreeToRadians = (float) (Math.PI / 180);
 
-    protected void loadBoolean(int location, boolean value) {
-        float tovec = 0;
-        if(value) {
-            tovec = 1;
-        }
-        GL20.glUniform1f(location, tovec);
-    }
+        float tangent = (float) Math.tan(fovX/2 * degreeToRadians);
+        float right = front * tangent;
+        float top = right / aspectRatio;
 
-    protected void loadMatrix(int location, Matrix4f value) {
-        value.store(matrix);
-        matrix.flip();
-        GL20.glUniformMatrix4fv(location, false, matrix);
+        return new Matrix4f(new float[]{
+                front / right,0,0,0,
+                0,front / top,0,0,
+                0,0,-(back+front) / (back-front),-1,
+                0,0,-(2 * back * front) / (back - front),0});
     }
 }

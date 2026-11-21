@@ -22,14 +22,21 @@ public class OBJHandler {
                 switch (split[0]) {
                     case "v" -> vertices.add(new Vector3f(Float.parseFloat(split[1]), Float.parseFloat(split[2]), Float.parseFloat(split[3])));
                     case "f" -> {
-                        indices.add(Integer.parseInt(split[1]));
-                        indices.add(Integer.parseInt(split[2]));
-                        indices.add(Integer.parseInt(split[3]));
+                        if (!split[1].contains("/")) {
+                            indices.add(Integer.parseInt(split[1]));
+                            indices.add(Integer.parseInt(split[2]));
+                            indices.add(Integer.parseInt(split[3]));
+                        }
+                        for (int i=1; i<split.length; i++) {
+                            String[] slashSplit = split[i].split("/");
+                            indices.add(Integer.parseInt(slashSplit[0])-1);
+                            indices.add(Integer.parseInt(slashSplit[1])-1);
+                            indices.add(Integer.parseInt(slashSplit[2])-1);
+                        }
                     }
                     case "vt" -> {
                         uvs.add(Float.parseFloat(split[1]));
                         uvs.add(Float.parseFloat(split[2]));
-                        uvs.add(Float.parseFloat(split[3]));
 
                     }
                 }

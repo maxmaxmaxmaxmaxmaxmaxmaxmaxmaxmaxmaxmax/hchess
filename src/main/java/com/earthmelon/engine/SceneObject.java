@@ -104,9 +104,9 @@ public class SceneObject {
         float roll = transform.getRotation().getZ();
 
         Matrix4f transformMatrix = new Matrix4f(new float[]{
-                (float) (getTransform().getScale() * (cos(roll) * cos(pitch))), (float) (cos(roll)*sin(pitch)*sin(yaw)-sin(roll)*cos(yaw)), (float) (cos(roll)*sin(pitch)*cos(yaw)+sin(roll)*sin(yaw)), getTransform().getTranslation().getX(),
-                (float) (sin(roll)*cos(pitch)), (float) (getTransform().getScale() * (sin(roll)*sin(pitch)*sin(yaw)+cos(roll)*cos(yaw))), (float) (sin(roll)*sin(pitch)*cos(yaw)-cos(roll)*sin(yaw)), getTransform().getTranslation().getY(),
-                (float) -sin(pitch), (float) (cos(pitch)*sin(yaw)), (float) (getTransform().getScale() * (cos(pitch)*cos(yaw))), getTransform().getTranslation().getZ(),
+                (float) (getTransform().getScale() * (cos(roll) * cos(pitch))), (float) (getTransform().getScale() * cos(roll)*sin(pitch)*sin(yaw)-sin(roll)*cos(yaw)), (float) (getTransform().getScale() * cos(roll)*sin(pitch)*cos(yaw)+sin(roll)*sin(yaw)), getTransform().getTranslation().getX(),
+                (float) (getTransform().getScale() * sin(roll)*cos(pitch)), (float) (getTransform().getScale() * (sin(roll)*sin(pitch)*sin(yaw)+cos(roll)*cos(yaw))), (float) (getTransform().getScale() * sin(roll)*sin(pitch)*cos(yaw)-cos(roll)*sin(yaw)), getTransform().getTranslation().getY(),
+                (float) (getTransform().getScale() * -sin(pitch)), (float) (getTransform().getScale() * cos(pitch)*sin(yaw)), (float) (getTransform().getScale() * (cos(pitch)*cos(yaw))), getTransform().getTranslation().getZ(),
                 0,0,0,1
         });
 
