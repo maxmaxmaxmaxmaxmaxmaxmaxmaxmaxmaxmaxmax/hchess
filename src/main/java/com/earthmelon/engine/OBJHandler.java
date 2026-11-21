@@ -14,6 +14,7 @@ public class OBJHandler {
         ArrayList<Vector3f> vertices = new ArrayList<>();
         ArrayList<Float> uvs = new ArrayList<>();
         ArrayList<Integer> indices = new ArrayList<>();
+        ArrayList<Float> normals = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String nextLine = reader.readLine();
@@ -37,7 +38,6 @@ public class OBJHandler {
                                 indices.add(Integer.parseInt(original[0])-1);
                             } else {
                                 indices.add(Integer.parseInt(slashSplit[0])-1);
-
                             }
                         }
                     }
@@ -65,7 +65,7 @@ public class OBJHandler {
             outIndices[i] = indices.get(i);
         }
 
-        return new SceneObject(id, vertices.toArray(outVerts), outUVs, outIndices);
+        return new SceneObject(id, vertices.toArray(outVerts), outUVs, outIndices, new int[]{});
     }
 
 }

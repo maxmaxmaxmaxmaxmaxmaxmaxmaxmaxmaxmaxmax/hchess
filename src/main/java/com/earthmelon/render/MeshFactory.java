@@ -5,6 +5,7 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
+import com.earthmelon.engine.Triangle;
 import com.earthmelon.engine.Window;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
@@ -64,12 +65,32 @@ public class MeshFactory {
     }
 
     public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices) {
+        float[] normals = generateNormals(positions);
         int vao = genVAO();
         storeData(0,3, positions);
         storeData(1,2,UVs);
+        storeData(2, 3, normals);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
         return new BasicMesh(vao,indices.length);
+    }
+
+    private static float[] generateNormals(float[] positions) {
+        float[] normals = new float[positions.length];
+        Vector3f[] vectors = Vector3f.fromFloat(positions);
+        for (int i=0; i< vectors.length; i+=9) {
+            Vector3f normal = new Triangle(vectors[i / 3], vectors[i / 3 +1], vectors[i / 3 +2]).getNormal();
+            normals[i] = normal.getX();
+            normals[i+1] = normal.getY();
+            normals[i+2] = normal.getZ();
+            normals[i+3] = normal.getX();
+            normals[i+4] = normal.getY();
+            normals[i+5] = normal.getZ();
+            normals[i+6] = normal.getX();
+            normals[i+7] = normal.getY();
+            normals[i+8] = normal.getZ();
+        }
+        return normals;
     }
 
     private static int genVAO() {

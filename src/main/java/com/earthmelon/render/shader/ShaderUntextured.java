@@ -38,6 +38,7 @@ public class ShaderUntextured extends Shader {
     @Override
     public void stop() {
         GL20.glDisableVertexAttribArray(2);
+
         super.stop();
     }
 }
