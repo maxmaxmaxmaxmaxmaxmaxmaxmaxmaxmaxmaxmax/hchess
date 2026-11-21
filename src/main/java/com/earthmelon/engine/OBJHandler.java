@@ -31,10 +31,10 @@ public class OBJHandler {
                             String[] slashSplit = split[i].split("/");
                             if (i > 3) {
                                 String[] prev1 = split[i-1].split("/");
-                                String[] prev2 = split[i-3].split("/");
+                                String[] original = split[1].split("/");
                                 indices.add(Integer.parseInt(prev1[0])-1);
                                 indices.add(Integer.parseInt(slashSplit[0])-1);
-                                indices.add(Integer.parseInt(prev2[0])-1);
+                                indices.add(Integer.parseInt(original[0])-1);
                             } else {
                                 indices.add(Integer.parseInt(slashSplit[0])-1);
 
@@ -42,8 +42,8 @@ public class OBJHandler {
                         }
                     }
                     case "vt" -> {
-                        uvs.add(Float.parseFloat(split[1]));
-                        uvs.add(Float.parseFloat(split[2]));
+//                        uvs.add(Float.parseFloat(split[1]));
+//                        uvs.add(Float.parseFloat(split[2]));
 
                     }
                 }

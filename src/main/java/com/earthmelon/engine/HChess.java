@@ -16,8 +16,8 @@ public class HChess {
     public static float cameraMoveSpeed = 1.5f;
 
     SceneObject teapot;
-    SceneObject box2;
-    SceneObject box3;
+    SceneObject iphone;
+    SceneObject ship;
 
     public static void calculateKeyInput(int key, int action) {
         Vector3f moveDir = new Vector3f(0,0,0);
@@ -41,8 +41,11 @@ public class HChess {
     public void run() {
         window = Window.createWindow(1280, 800);
 //        Light light = new Light("light", new Vector3f(0.5f, 0.5f, 0.5f));
-        teapot = OBJHandler.importFromOBJ("teapot", "iphone_13_toilet.obj").setColour(Colour.BLUE);
-        teapot.getTransform().scale(1);
+        teapot = OBJHandler.importFromOBJ("teapot", "teapot.obj").setColour(Colour.BLUE);
+        teapot.getTransform().translate(new Vector3f(5, 10, 20));
+        iphone = OBJHandler.importFromOBJ("iphone", "iphone_13_toilet.obj").setColour(Colour.RED);
+        ship = OBJHandler.importFromOBJ("ship", "EverGiven.obj").setColour(Colour.GREEN);
+        ship.getTransform().scale(0.03f).translate(new Vector3f(70, 0 ,0));
 
         System.out.println(teapot.position);
 
@@ -57,7 +60,9 @@ public class HChess {
 
             render.render();
 
-            teapot.getTransform().rotate(new Vector3f(0.01f, 0, 0));
+            teapot.getTransform().rotate(new Vector3f(0.0f, 0.01f, 0));
+            iphone.getTransform().rotate(new Vector3f(0.01f, 0, 0.001f));
+            ship.getTransform().rotate(new Vector3f(0, 0.01f, 0.05f));
 
             window.update();
             render.cleanup();

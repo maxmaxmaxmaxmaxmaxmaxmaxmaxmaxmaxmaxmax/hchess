@@ -17,7 +17,7 @@ import static java.lang.Math.sin;
 public class SceneObject {
 
     String id;
-    Vector3f position;
+    public Vector3f position;
 
     Vector3f[] vertices;
     float[] uvs;
@@ -104,8 +104,8 @@ public class SceneObject {
         float roll = transform.getRotation().getZ();
 
         Matrix4f transformMatrix = new Matrix4f(new float[]{
-                (float) (getTransform().getScale() * (cos(roll) * cos(pitch))), (float) (getTransform().getScale() * cos(roll)*sin(pitch)*sin(yaw)-sin(roll)*cos(yaw)), (float) (getTransform().getScale() * cos(roll)*sin(pitch)*cos(yaw)+sin(roll)*sin(yaw)), getTransform().getTranslation().getX(),
-                (float) (getTransform().getScale() * sin(roll)*cos(pitch)), (float) (getTransform().getScale() * (sin(roll)*sin(pitch)*sin(yaw)+cos(roll)*cos(yaw))), (float) (getTransform().getScale() * sin(roll)*sin(pitch)*cos(yaw)-cos(roll)*sin(yaw)), getTransform().getTranslation().getY(),
+                (float) (getTransform().getScale() * (cos(roll) * cos(pitch))), (float) (getTransform().getScale() * (cos(roll)*sin(pitch)*sin(yaw)-sin(roll)*cos(yaw))), (float) (getTransform().getScale() * (cos(roll)*sin(pitch)*cos(yaw)+sin(roll)*sin(yaw))), getTransform().getTranslation().getX(),
+                (float) (getTransform().getScale() * sin(roll)*cos(pitch)), (float) (getTransform().getScale() * (sin(roll)*sin(pitch)*sin(yaw)+cos(roll)*cos(yaw))), (float) (getTransform().getScale() * (sin(roll)*sin(pitch)*cos(yaw)-cos(roll)*sin(yaw))), getTransform().getTranslation().getY(),
                 (float) (getTransform().getScale() * -sin(pitch)), (float) (getTransform().getScale() * cos(pitch)*sin(yaw)), (float) (getTransform().getScale() * (cos(pitch)*cos(yaw))), getTransform().getTranslation().getZ(),
                 0,0,0,1
         });
