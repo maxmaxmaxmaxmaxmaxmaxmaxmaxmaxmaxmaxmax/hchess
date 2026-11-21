@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL20;
 import com.earthmelon.math.Matrix4f;
 
 public abstract class Shader{
-    private final int programID;
+    protected final int programID;
     private int vertexID;
     private int fragmentID;
 
@@ -35,14 +35,12 @@ public abstract class Shader{
     public void start(Mesh mesh){
         GL20.glUseProgram(programID);
         int tintColourLocation = GL20.glGetUniformLocation(programID, "tintColour");
-        int perspectiveMatrixLocation = GL20.glGetUniformLocation(programID, "ppmatrix");
 
         if (mesh instanceof Tintable tintMesh) {
             GL20.glUniform4f(tintColourLocation, tintMesh.getRed(), tintMesh.getGreen(), tintMesh.getBlue(), tintMesh.getAlpha());
         } else {
             GL20.glUniform4f(tintColourLocation, 1, 1, 1, 1);
         }
-        GL20.glUniformMatrix4fv(perspectiveMatrixLocation, false, makeViewFrustum(45.0f, Window.aspectRatio, 1f, 100f).elems());
     }
 
     public void stop(){

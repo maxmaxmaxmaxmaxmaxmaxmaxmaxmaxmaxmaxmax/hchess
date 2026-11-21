@@ -95,4 +95,8 @@ public class Vector3f {
     public String toString() {
         return "(%s, %s, %s)".formatted(x,y,z);
     }
+
+    public float[] values() {
+        return new float[]{x,y,z};
+    }
 }

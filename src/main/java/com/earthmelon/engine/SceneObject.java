@@ -10,6 +10,7 @@ import com.earthmelon.render.meshes.BasicMesh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -29,19 +30,18 @@ public class SceneObject {
     BasicMesh mesh;
     Colour colour = Colour.GREY;
 
+    /**
+     * Used for when there is no associated mesh.
+     * @param id
+     * @param position
+     */
     public SceneObject(String id, Vector3f position) {
         this.id = id;
         this.position = position;
 
-        // temp value
-        this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
-
         attachTransform();
         if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
         HChess.SCENE_OBJECTS.put(id, this);
-
-        // Default until .obj conversion works.
-        mesh = MeshFactory.createMesh(Vector3f.toFloat(vertices), uvs, indices).setTint(colour);
     }
 
     public SceneObject(String id, Vector3f[] vertices, float[] uvs, int[] indices) {
