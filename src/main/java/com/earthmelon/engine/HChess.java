@@ -44,8 +44,8 @@ public class HChess {
         teapot = OBJHandler.importFromOBJ("teapot", "teapot.obj").setColour(Colour.BLUE);
         teapot.getTransform().translate(new Vector3f(5, 10, 20));
         iphone = OBJHandler.importFromOBJ("iphone", "iphone_13_toilet.obj").setColour(Colour.RED);
-        ship = OBJHandler.importFromOBJ("ship", "EverGiven.obj").setColour(Colour.GREEN);
-        ship.getTransform().scale(0.03f).translate(new Vector3f(70, 0 ,0));
+        ship = OBJHandler.importFromOBJ("ship", "sphere.obj").setColour(Colour.GREEN);
+        ship.getTransform().scale(new Vector3f(5, 1, 2)).translate(new Vector3f(7, 0 ,0));
 
         System.out.println(teapot.position);
 
@@ -62,7 +62,7 @@ public class HChess {
 
             teapot.getTransform().rotate(new Vector3f(0.0f, 0.01f, 0));
             iphone.getTransform().rotate(new Vector3f(0.01f, 0, 0.001f));
-            ship.getTransform().rotate(new Vector3f(0, 0.01f, 0.05f));
+            ship.getTransform().rotate(new Vector3f(.1f, 0.01f, 0.1f));
 
             window.update();
             render.cleanup();
