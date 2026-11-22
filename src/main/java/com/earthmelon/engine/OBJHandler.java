@@ -14,7 +14,8 @@ public class OBJHandler {
         ArrayList<Vector3f> vertices = new ArrayList<>();
         ArrayList<Float> uvs = new ArrayList<>();
         ArrayList<Integer> indices = new ArrayList<>();
-        ArrayList<Float> normals = new ArrayList<>();
+        ArrayList<Vector3f> normals = new ArrayList<>();
+        ArrayList<Float> indexedNormals = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String nextLine = reader.readLine();
@@ -39,12 +40,22 @@ public class OBJHandler {
                             } else {
                                 indices.add(Integer.parseInt(slashSplit[0])-1);
                             }
+                            if (slashSplit.length == 4) {
+                                Vector3f vectorNormal = normals.get(Integer.parseInt(slashSplit[3]));
+                                indexedNormals.add(vectorNormal.getX());
+                                indexedNormals.add(vectorNormal.getY());
+                                indexedNormals.add(vectorNormal.getZ());
+
+                            }
                         }
                     }
                     case "vt" -> {
 //                        uvs.add(Float.parseFloat(split[1]));
 //                        uvs.add(Float.parseFloat(split[2]));
 
+                    }
+                    case "vn" -> {
+                        normals.add(new Vector3f(Float.parseFloat(split[1]), Float.parseFloat(split[2]), Float.parseFloat(split[3])));
                     }
                 }
 
@@ -57,6 +68,7 @@ public class OBJHandler {
         Vector3f[] outVerts = new Vector3f[vertices.size()];
         float[] outUVs = new float[uvs.size()];
         int[] outIndices = new int[indices.size()];
+        float[] outNormals = new float[indexedNormals.size()];
 
         for (int i=0; i< uvs.size(); i++) {
             outUVs[i] = uvs.get(i);
@@ -64,8 +76,11 @@ public class OBJHandler {
         for (int i=0; i< indices.size(); i++) {
             outIndices[i] = indices.get(i);
         }
+        for (int i=0; i< indexedNormals.size(); i++) {
+            outNormals[i] = indexedNormals.get(i);
+        }
 
-        return new SceneObject(id, vertices.toArray(outVerts), outUVs, outIndices, new int[]{});
+        return new SceneObject(id, vertices.toArray(outVerts), outUVs, outIndices, outNormals);
     }
 
 }

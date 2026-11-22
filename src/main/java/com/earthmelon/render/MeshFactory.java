@@ -5,6 +5,7 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
+import com.earthmelon.engine.SceneObject;
 import com.earthmelon.engine.Triangle;
 import com.earthmelon.engine.Window;
 import com.earthmelon.math.Vector3f;
@@ -64,6 +65,7 @@ public class MeshFactory {
         GL15.glBufferData(GL15.GL_ELEMENT_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
     }
 
+    @Deprecated
     public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices) {
         float[] normals = generateNormals(positions);
         int vao = genVAO();
@@ -75,7 +77,21 @@ public class MeshFactory {
         return new BasicMesh(vao,indices.length);
     }
 
-    private static float[] generateNormals(float[] positions) {
+    public static BasicMesh createMesh(SceneObject object) {
+        float[] positions = Vector3f.toFloat(object.vertices);
+        float[] UVs = object.uvs;
+        float[] normals = object.normals;
+        int[] indices = object.indices;
+        int vao = genVAO();
+        storeData(0,3, positions);
+        storeData(1,2,UVs);
+        storeData(2, 3, normals);
+        bindIndices(indices);
+        GL30.glBindVertexArray(0);
+        return new BasicMesh(vao,indices.length);
+    }
+
+    public static float[] generateNormals(float[] positions) {
         float[] normals = new float[positions.length];
         Vector3f[] vectors = Vector3f.fromFloat(positions);
         for (int i=0; i< vectors.length; i+=9) {

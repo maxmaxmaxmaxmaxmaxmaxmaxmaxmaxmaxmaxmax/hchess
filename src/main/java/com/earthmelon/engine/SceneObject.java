@@ -20,10 +20,10 @@ public class SceneObject {
     String id;
     public Vector3f position;
 
-    Vector3f[] vertices;
-    float[] uvs;
-    int[] indices;
-    Vector3f[] normals;
+    public Vector3f[] vertices;
+    public float[] uvs;
+    public int[] indices;
+    public float[] normals;
 
     Transform transform;
     Vector3f[] transformedVertices;
@@ -45,16 +45,19 @@ public class SceneObject {
         HChess.SCENE_OBJECTS.put(id, this);
     }
 
-    public SceneObject(String id, Vector3f[] vertices, float[] uvs, int[] indices, int[] normals) {
+    public SceneObject(String id, Vector3f[] vertices, float[] uvs, int[] indices, float[] normals) {
         this.id = id;
         this.vertices = vertices;
         this.uvs = uvs;
         this.indices = indices;
+        this.normals =
+//                normals.length > 0 ? normals :
+                MeshFactory.generateNormals(Vector3f.toFloat(vertices));
 
         this.position = new Vector3f(calculateCentre(vertices, 0),calculateCentre(vertices, 1),calculateCentre(vertices, 2));
         this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
 
-        mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(colour);
+        mesh = MeshFactory.createMesh(this).setTint(colour);
 
         attachTransform();
         if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
@@ -96,7 +99,7 @@ public class SceneObject {
         position.plus(getTransform().getTranslation());
         if (!(this instanceof Light)) {
             applyTransformation(Arrays.copyOf(vertices, vertices.length));
-            mesh = MeshFactory.createMesh(Vector3f.toFloat(transformedVertices), uvs, indices).setTint(colour);
+            mesh = MeshFactory.createMesh(this).setTint(colour);
         }
     }
 

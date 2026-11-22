@@ -21,6 +21,7 @@ public class HChess {
 
     public static void calculateKeyInput(int key, int action) {
         Vector3f moveDir = new Vector3f(0,0,0);
+        System.out.println(key);
         if (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT) {
             switch (key) {
                 case GLFW.GLFW_KEY_A -> moveDir = new Vector3f(cameraMoveSpeed, 0, 0);
@@ -41,11 +42,12 @@ public class HChess {
     public void run() {
         window = Window.createWindow(1280, 800);
         Light light = new Light("light", new Vector3f(0.5f, 20.5f, -0.5f));
-        teapot = OBJHandler.importFromOBJ("teapot", "Untitled.obj").setColour(Colour.BLUE);
-        teapot.getTransform().translate(new Vector3f(5, 10, 20));
-        iphone = OBJHandler.importFromOBJ("iphone", "iphone_13_toilet.obj").setColour(Colour.RED);
-        ship = OBJHandler.importFromOBJ("ship", "teapot.obj").setColour(Colour.GREEN);
-        ship.getTransform().scale(new Vector3f(1, 1, 2)).translate(new Vector3f(7, 0 ,0));
+        teapot = OBJHandler.importFromOBJ("teapot", "cube.obj").setColour(Colour.BLUE);
+        teapot.getTransform().translate(new Vector3f(0, 0, -40));
+//        iphone = OBJHandler.importFromOBJ("iphone", "iphone_13_toilet.obj").setColour(Colour.RED);
+//        iphone.getTransform().translate(new Vector3f(0,0,-20));
+//        ship = OBJHandler.importFromOBJ("ship", "teapot.obj").setColour(Colour.GREEN);
+//        ship.getTransform().scale(new Vector3f(1, 1, 2)).translate(new Vector3f(7, 0 ,0));
 
         System.out.println(teapot.position);
 
@@ -61,8 +63,8 @@ public class HChess {
             render.render();
 
             teapot.getTransform().rotate(new Vector3f(0.0f, 0.01f, 0));
-            iphone.getTransform().rotate(new Vector3f(0.01f, 0, 0.001f));
-            ship.getTransform().rotate(new Vector3f(.1f, 0.01f, 0.1f));
+//            iphone.getTransform().rotate(new Vector3f(0.01f, 0, 0.001f));
+//            ship.getTransform().rotate(new Vector3f(.1f, 0.01f, 0.1f));
 
             window.update();
             render.cleanup();
