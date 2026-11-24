@@ -78,17 +78,13 @@ public class MeshFactory {
     }
 
     public static BasicMesh createMesh(SceneObject object) {
-        float[] positions = Vector3f.toFloat(object.vertices);
-        float[] UVs = object.uvs;
-        float[] normals = object.normals;
-        int[] indices = object.indices;
         int vao = genVAO();
-        storeData(0,3, positions);
-        storeData(1,2,UVs);
-        storeData(2, 3, normals);
-        bindIndices(indices);
+        storeData(0,3, Vector3f.toFloat(object.transformedVertices));
+        storeData(1,2,object.uvs);
+        storeData(2, 3, object.normals);
+        bindIndices(object.indices);
         GL30.glBindVertexArray(0);
-        return new BasicMesh(vao,indices.length);
+        return new BasicMesh(vao,object.indices.length);
     }
 
     public static float[] generateNormals(float[] positions) {

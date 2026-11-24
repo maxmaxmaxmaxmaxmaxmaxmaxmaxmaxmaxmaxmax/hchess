@@ -26,7 +26,7 @@ public class SceneObject {
     public float[] normals;
 
     Transform transform;
-    Vector3f[] transformedVertices;
+    public Vector3f[] transformedVertices;
 
     BasicMesh mesh;
     Colour colour = Colour.GREY;

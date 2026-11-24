@@ -95,6 +95,9 @@ public class Window {
         GL11.glEnable(GL11.GL_CULL_FACE);
         GL11.glFrontFace(GL11.GL_CCW);
 
+        // Depth buffer
+        GL11.glEnable(GL11.GL_DEPTH_TEST);
+
         GL11.glEnable(GL11.GL_BLEND); // Enabled blending
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); // selects blending method
         GL11.glEnable(GL11.GL_ALPHA_TEST); // allows alpha channels or transperancy
