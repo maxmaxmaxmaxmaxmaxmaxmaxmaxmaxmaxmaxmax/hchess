@@ -1,9 +1,7 @@
 package com.earthmelon.render.meshes;
 
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
-import com.earthmelon.render.Texture;
 import com.earthmelon.render.shader.Tintable;
 
 import java.util.Arrays;
@@ -18,7 +16,7 @@ public class TextMesh extends Mesh2D implements Tintable {
     }
 
     public static Mesh2D drawChar(char c, Vector3f pos, float textSize) {
-        Mesh2D letter = MeshFactory.createQuadAtlas(pos, textSize, 256, (c-1) % 32, (c-1) / 32, 8);
+        Mesh2D letter = MeshFactory.create2DQuadAtlas(pos, textSize, 256, (c-1) % 32, (c-1) / 32, 8);
         return letter.addTexture("hfont.png");
     }
 
@@ -26,7 +24,7 @@ public class TextMesh extends Mesh2D implements Tintable {
         int col = 0;
         int row = 0;
         float kerning = textSize / 1.5f;
-        Mesh2D[] out = new TextMesh[s.length()];
+        Mesh2D[] out = new Mesh2D[s.length()];
         char[] chars = s.toCharArray();
         for (int i=0; i< out.length; i++) {
             if (2 * (row-2) * textSize > height) {

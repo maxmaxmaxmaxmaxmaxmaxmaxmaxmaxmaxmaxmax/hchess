@@ -7,7 +7,6 @@ import java.util.List; //List and ArrayLists are containers for storing data, in
 
 import com.earthmelon.engine.SceneObject;
 import com.earthmelon.engine.Triangle;
-import com.earthmelon.engine.Window;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.meshes.Mesh2D;
@@ -23,7 +22,7 @@ public class MeshFactory {
     private static List<Integer> vbos = new ArrayList<Integer>();
     private static List<Integer> textures = new ArrayList<>();
 
-    private static MeshFactory instance = new MeshFactory();
+    private static final MeshFactory instance = new MeshFactory();
 
     public static MeshFactory getInstance() {
         return instance;
@@ -112,9 +111,11 @@ public class MeshFactory {
         return vao;
     }
 
+
+    // TODO: Convert position vectors to vec2s here and in shader
     public static Mesh2D create2DQuad(Vector3f pos, float scaleX, float scaleY) {
         int vao = genVAO();
-        int[] indices = {0,1,2,1,2,3};
+        int[] indices = {0,2,1,1,2,3};
         Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scaleX,0,0), pos.plus(0,-scaleY,0), pos.plus(scaleX,-scaleY,0)};
         float[] uvs = {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1};
         float[] positions = Vector3f.toFloat(vertices);
@@ -125,14 +126,20 @@ public class MeshFactory {
         return new Mesh2D(vao, indices.length);
     }
 
-    public static Mesh2D createQuadAtlas(Vector3f pos, float scale, int atlusSize, int hpos, int vpos, int textureSize) {
-        float aspect_ratio = Window.aspectRatio;
-        float sizeRatio = (float) textureSize / atlusSize;
-        float hratio = (float) textureSize * hpos / atlusSize;
-        float vratio = (float) textureSize * vpos / atlusSize;
+    /**
+     *
+     * @param atlasSize is the nxn side length of the image file of the atlas.
+     * @param hpos is the column the wanted character is in.
+     * @param vpos is the row the wanted character is in.
+     * @param textureSize is the nxn grid size of one tile in the atlas.
+     */
+    public static Mesh2D create2DQuadAtlas(Vector3f pos, float scale, int atlasSize, int hpos, int vpos, int textureSize) {
+        float sizeRatio = (float) textureSize / atlasSize;
+        float hratio = (float) textureSize * hpos / atlasSize;
+        float vratio = (float) textureSize * vpos / atlasSize;
         int vao = genVAO();
-        int[] indices = {0,1,2,1,2,3};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,-scale*aspect_ratio,0), pos.plus(scale,-scale*aspect_ratio,0)};
+        int[] indices = {0,2,1,1,2,3};
+        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,-scale,0), pos.plus(scale,-scale,0)};
         float[] uvs = {hratio, vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, sizeRatio + vratio};

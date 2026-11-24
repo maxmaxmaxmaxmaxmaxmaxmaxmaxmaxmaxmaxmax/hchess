@@ -2,10 +2,11 @@ package com.earthmelon.render.meshes;
 
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
+import com.earthmelon.render.Renderable;
 import com.earthmelon.render.Texture;
 import com.earthmelon.render.shader.Tintable;
 
-public class Mesh2D extends Mesh implements Tintable {
+public class Mesh2D extends Mesh implements Tintable, Renderable {
 
     protected static Colour colour = Colour.BLACK;
 
@@ -29,5 +30,11 @@ public class Mesh2D extends Mesh implements Tintable {
     public Mesh2D setTint(Colour tint) {
         colour = tint;
         return this;
+    }
+
+
+    @Override
+    public Mesh[] getRenderables() {
+        return new Mesh[]{this};
     }
 }

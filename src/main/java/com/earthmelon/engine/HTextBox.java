@@ -3,7 +3,6 @@ package com.earthmelon.engine;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
-import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.Mesh2D;
 import com.earthmelon.render.meshes.TextMesh;
 import com.earthmelon.render.Renderable;
@@ -30,13 +29,17 @@ public class HTextBox implements Renderable, Tintable {
         background = MeshFactory.create2DQuad(position, width, height).setTint(Colour.GREY);
     }
 
+    // TODO: fix background being on same z-layer as text.
     @Override
-    public Mesh[] getRenderables() {
+    public Mesh2D[] getRenderables() {
         if (text == null) {
-            return new Mesh[]{background};
+            return new Mesh2D[]{background};
         }
-        return  Stream.concat(Arrays.stream(new Mesh[]{background}), Arrays.stream(text))
-                .toArray(Mesh[]::new);
+        return
+//                Stream.concat(Arrays.stream(new Mesh2D[]{background}),
+                        Arrays.stream(text)
+//                        )
+                .toArray(Mesh2D[]::new);
     }
 
     public HTextBox setText(String text, float size) {
