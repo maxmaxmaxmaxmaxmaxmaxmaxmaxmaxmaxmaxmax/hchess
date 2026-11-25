@@ -1,6 +1,5 @@
-package com.earthmelon.render;
+package com.earthmelon.engine.object;
 
-import com.earthmelon.engine.SceneObject;
 import com.earthmelon.math.Vector3f;
 
 public class Transform {

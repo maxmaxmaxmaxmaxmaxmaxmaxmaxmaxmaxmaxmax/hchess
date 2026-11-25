@@ -1,5 +1,7 @@
 package com.earthmelon.engine;
 
+import com.earthmelon.engine.object.OBJHandler;
+import com.earthmelon.engine.object.SceneObject;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.Render;

@@ -5,8 +5,8 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List; //List and ArrayLists are containers for storing data, in this case the VBO/VAO IDs
 
-import com.earthmelon.engine.SceneObject;
-import com.earthmelon.engine.Triangle;
+import com.earthmelon.engine.object.SceneObject;
+import com.earthmelon.engine.object.Triangle;
 import com.earthmelon.math.Vector2f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;

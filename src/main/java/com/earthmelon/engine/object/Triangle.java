@@ -1,4 +1,4 @@
-package com.earthmelon.engine;
+package com.earthmelon.engine.object;
 
 import com.earthmelon.math.Vector3f;
 

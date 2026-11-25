@@ -1,6 +1,6 @@
 package com.earthmelon.render;
 
-import com.earthmelon.engine.SceneObject;
+import com.earthmelon.engine.object.SceneObject;
 import com.earthmelon.engine.UIElement;
 import com.earthmelon.render.meshes.Mesh;
 import com.earthmelon.render.meshes.Mesh2D;
@@ -29,7 +29,7 @@ public class Render {
     public void render() {
         render(UIElement.fpsCounter.getRenderables());
         for (SceneObject obj : SCENE_OBJECTS.values()) {
-            render(obj.getMesh());
+            render(obj.getMeshes());
         }
     }
 

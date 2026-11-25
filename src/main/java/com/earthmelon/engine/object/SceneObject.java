@@ -1,16 +1,17 @@
-package com.earthmelon.engine;
+package com.earthmelon.engine.object;
 
+import com.earthmelon.engine.HChess;
+import com.earthmelon.engine.Light;
 import com.earthmelon.math.Matrix4f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.math.Vector4f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
-import com.earthmelon.render.Transform;
 import com.earthmelon.render.meshes.BasicMesh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.HashMap;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -28,17 +29,21 @@ public class SceneObject {
     Transform transform;
     public Vector3f[] transformedVertices;
 
-    BasicMesh mesh;
+    HashMap<BasicMesh, Material> materials;
+
+    BasicMesh[] meshes;
     Colour colour = Colour.GREY;
 
     /**
-     * Used for when there is no associated mesh.
+     * Used for when there is no associated meshes.
      * @param id
      * @param position
      */
     public SceneObject(String id, Vector3f position) {
         this.id = id;
         this.position = position;
+
+        this.meshes = new BasicMesh[0];
 
         attachTransform();
         if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
@@ -50,14 +55,14 @@ public class SceneObject {
         this.vertices = vertices;
         this.uvs = uvs;
         this.indices = indices;
-        this.normals =
-//                normals.length > 0 ? normals :
-                MeshFactory.generateNormals(Vector3f.toFloat(vertices));
+        this.normals = normals.length > 0 ? normals : MeshFactory.generateNormals(Vector3f.toFloat(vertices));
 
         this.position = new Vector3f(calculateCentre(vertices, 0),calculateCentre(vertices, 1),calculateCentre(vertices, 2));
         this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
 
-        mesh = MeshFactory.createMesh(this).setTint(colour);
+        this.meshes = new BasicMesh[1];
+
+        meshes[0] = MeshFactory.createMesh(this).setTint(colour);
 
         attachTransform();
         if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
@@ -99,7 +104,7 @@ public class SceneObject {
         position.plus(getTransform().getTranslation());
         if (!(this instanceof Light)) {
             applyTransformation(Arrays.copyOf(vertices, vertices.length));
-            mesh = MeshFactory.createMesh(this).setTint(colour);
+            meshes[0] = MeshFactory.createMesh(this).setTint(colour);
         }
     }
 
@@ -126,8 +131,8 @@ public class SceneObject {
         transformedVertices = rotated.toArray(transformedVertices);
     }
 
-    public BasicMesh getMesh() {
-        return mesh;
+    public BasicMesh[] getMeshes() {
+        return meshes;
     }
 
     public SceneObject setColour(Colour colour) {

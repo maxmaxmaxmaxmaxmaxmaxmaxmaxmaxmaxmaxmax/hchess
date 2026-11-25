@@ -6,8 +6,6 @@ import com.earthmelon.render.shader.Tintable;
 
 public class BasicMesh extends Mesh implements Renderable, Tintable {
 
-    //Todo: add colouring of individual faces.
-
     private Colour colour = Colour.WHITE;
 
     public BasicMesh(int vao, int vertex) {
