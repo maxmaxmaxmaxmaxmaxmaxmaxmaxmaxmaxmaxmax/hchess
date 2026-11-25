@@ -1,5 +1,6 @@
 package com.earthmelon.render.meshes;
 
+import com.earthmelon.math.Vector2f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.MeshFactory;
 import com.earthmelon.render.shader.Tintable;
@@ -15,12 +16,12 @@ public class TextMesh extends Mesh2D implements Tintable {
         super(vao, vertices);
     }
 
-    public static Mesh2D drawChar(char c, Vector3f pos, float textSize) {
+    public static Mesh2D drawChar(char c, Vector2f pos, float textSize) {
         Mesh2D letter = MeshFactory.create2DQuadAtlas(pos, textSize, 256, (c-1) % 32, (c-1) / 32, 8);
         return letter.addTexture("hfont.png");
     }
 
-    public static Mesh2D[] drawString(String s, Vector3f pos, float width, float height, float textSize) {
+    public static Mesh2D[] drawString(String s, Vector2f pos, float width, float height, float textSize) {
         int col = 0;
         int row = 0;
         float kerning = textSize / 1.5f;
@@ -34,18 +35,18 @@ public class TextMesh extends Mesh2D implements Tintable {
             col++;
             if (ith == '\n' || (col+1) * kerning > width) {
                 out[i] = drawChar(ith, pos, textSize);
-                pos = pos.plus(-col * kerning, - 2 * textSize, 0);
+                pos = pos.plus(-col * kerning, - 2 * textSize);
                 col = 0;
                 row++;
             }
             else if (belowLineLetters.contains(String.valueOf(ith))) {
-                pos = pos.plus(0, -textSize / 2, 0);
+                pos = pos.plus(0, -textSize / 2);
                 out[i] = drawChar(ith, pos, textSize).setTint(colour);
-                pos = pos.plus(0, textSize / 2, 0);
+                pos = pos.plus(0, textSize / 2);
             } else {
                 out[i] = drawChar(ith, pos, textSize).setTint(colour);
             }
-            pos = pos.plus(kerning, 0,0);
+            pos = pos.plus(kerning, 0);
         }
         return out;
     }

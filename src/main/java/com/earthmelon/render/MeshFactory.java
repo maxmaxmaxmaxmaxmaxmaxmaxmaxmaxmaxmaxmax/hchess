@@ -7,6 +7,7 @@ import java.util.List; //List and ArrayLists are containers for storing data, in
 
 import com.earthmelon.engine.SceneObject;
 import com.earthmelon.engine.Triangle;
+import com.earthmelon.math.Vector2f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
 import com.earthmelon.render.meshes.Mesh2D;
@@ -113,13 +114,13 @@ public class MeshFactory {
 
 
     // TODO: Convert position vectors to vec2s here and in shader
-    public static Mesh2D create2DQuad(Vector3f pos, float scaleX, float scaleY) {
+    public static Mesh2D create2DQuad(Vector2f pos, float scaleX, float scaleY) {
         int vao = genVAO();
         int[] indices = {0,2,1,1,2,3};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scaleX,0,0), pos.plus(0,-scaleY,0), pos.plus(scaleX,-scaleY,0)};
+        Vector2f[] vertices = new Vector2f[]{pos, pos.plus(scaleX,0), pos.plus(0,-scaleY), pos.plus(scaleX,-scaleY)};
         float[] uvs = {0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1};
-        float[] positions = Vector3f.toFloat(vertices);
-        storeData(0,3,positions);
+        float[] positions = Vector2f.toFloat(vertices);
+        storeData(0,2,positions);
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
@@ -133,18 +134,18 @@ public class MeshFactory {
      * @param vpos is the row the wanted character is in.
      * @param textureSize is the nxn grid size of one tile in the atlas.
      */
-    public static Mesh2D create2DQuadAtlas(Vector3f pos, float scale, int atlasSize, int hpos, int vpos, int textureSize) {
+    public static Mesh2D create2DQuadAtlas(Vector2f pos, float scale, int atlasSize, int hpos, int vpos, int textureSize) {
         float sizeRatio = (float) textureSize / atlasSize;
         float hratio = (float) textureSize * hpos / atlasSize;
         float vratio = (float) textureSize * vpos / atlasSize;
         int vao = genVAO();
         int[] indices = {0,2,1,1,2,3};
-        Vector3f[] vertices = new Vector3f[]{pos, pos.plus(scale,0,0), pos.plus(0,-scale,0), pos.plus(scale,-scale,0)};
+        Vector2f[] vertices = new Vector2f[]{pos, pos.plus(scale,0), pos.plus(0,-scale), pos.plus(scale,-scale)};
         float[] uvs = {hratio, vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, vratio,
                 hratio, sizeRatio + vratio, hratio + sizeRatio, sizeRatio + vratio};
-        float[] positions = Vector3f.toFloat(vertices);
-        storeData(0,3,positions);
+        float[] positions = Vector2f.toFloat(vertices);
+        storeData(0,2,positions);
         storeData(1,2,uvs);
         bindIndices(indices);
         GL30.glBindVertexArray(0);

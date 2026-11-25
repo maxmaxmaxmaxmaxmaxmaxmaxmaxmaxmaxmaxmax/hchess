@@ -1,10 +1,10 @@
 package com.earthmelon.engine;
 
-import com.earthmelon.math.Vector3f;
+import com.earthmelon.math.Vector2f;
 
 public class UIElement {
 
-    public static HTextBox fpsCounter = new HTextBox(new Vector3f(-1, 1, 0), 0.15f, 0.15f);
+    public static HTextBox fpsCounter = new HTextBox(new Vector2f(-1, 1), 0.15f, 0.15f);
     static long time = System.currentTimeMillis();
     static int frames =0;
 

@@ -21,7 +21,6 @@ public class HChess {
 
     public static void calculateKeyInput(int key, int action) {
         Vector3f moveDir = new Vector3f(0,0,0);
-        System.out.println(key);
         if (action == GLFW.GLFW_PRESS || action == GLFW.GLFW_REPEAT) {
             switch (key) {
                 case GLFW.GLFW_KEY_A -> moveDir = new Vector3f(cameraMoveSpeed, 0, 0);
@@ -48,8 +47,6 @@ public class HChess {
         iphone.getTransform().translate(new Vector3f(0,0,-20));
         ship = OBJHandler.importFromOBJ("ship", "teapot.obj").setColour(Colour.GREEN);
         ship.getTransform().scale(new Vector3f(1, 1, 2)).translate(new Vector3f(7, 0 ,0));
-
-        System.out.println(teapot.position);
 
         loop();
         window.terminate();

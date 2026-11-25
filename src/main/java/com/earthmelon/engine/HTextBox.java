@@ -1,5 +1,6 @@
 package com.earthmelon.engine;
 
+import com.earthmelon.math.Vector2f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
@@ -14,7 +15,7 @@ import java.util.stream.Stream;
 
 // Todo: make this work with scene object
 public class HTextBox implements Renderable, Tintable {
-    Vector3f position;
+    Vector2f position;
     float width;
     float height;
 
@@ -22,7 +23,7 @@ public class HTextBox implements Renderable, Tintable {
 
     Mesh2D background;
 
-    public HTextBox(Vector3f position, float width, float height) {
+    public HTextBox(Vector2f position, float width, float height) {
         this.position = position;
         this.width = width;
         this.height = height;

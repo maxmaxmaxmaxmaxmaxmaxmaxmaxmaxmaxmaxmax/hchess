@@ -50,8 +50,8 @@ public class OBJHandler {
                         }
                     }
                     case "vt" -> {
-//                        uvs.add(Float.parseFloat(split[1]));
-//                        uvs.add(Float.parseFloat(split[2]));
+                        uvs.add(Float.parseFloat(split[1]));
+                        uvs.add(Float.parseFloat(split[2]));
 
                     }
                     case "vn" -> {
@@ -65,7 +65,6 @@ public class OBJHandler {
         } catch (IOException exception) {
             throw new IllegalArgumentException("Unknown error reading file! " + exception.getMessage());
         }
-        Vector3f[] outVerts = new Vector3f[vertices.size()];
         float[] outUVs = new float[uvs.size()];
         int[] outIndices = new int[indices.size()];
         float[] outNormals = new float[indexedNormals.size()];
@@ -80,7 +79,7 @@ public class OBJHandler {
             outNormals[i] = indexedNormals.get(i);
         }
 
-        return new SceneObject(id, vertices.toArray(outVerts), outUVs, outIndices, outNormals);
+        return new SceneObject(id, vertices.toArray(Vector3f[]::new), outUVs, outIndices, outNormals);
     }
 
 }
