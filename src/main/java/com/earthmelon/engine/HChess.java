@@ -43,11 +43,11 @@ public class HChess {
     public void run() {
         window = Window.createWindow(1280, 800);
         Light light = new Light("light", new Vector3f(0.5f, 20.5f, -0.5f));
-        teapot = OBJHandler.importFromOBJ("teapot", "cube.obj").setColour(Colour.BLUE);
+        teapot = OBJHandler.importFromOBJ("teapot", "teapot.obj").setColour(Colour.BLUE);
         teapot.getTransform().translate(new Vector3f(0, 0, -40));
         iphone = OBJHandler.importFromOBJ("iphone", "iphone_13_toilet.obj").setColour(Colour.RED);
         iphone.getTransform().translate(new Vector3f(0,0,-20));
-        ship = OBJHandler.importFromOBJ("ship", "teapot.obj").setColour(Colour.GREEN);
+        ship = OBJHandler.importFromOBJ("ship", "wow.obj").setColour(Colour.GREEN);
         ship.getTransform().scale(new Vector3f(1, 1, 2)).translate(new Vector3f(7, 0 ,0));
 
         loop();
