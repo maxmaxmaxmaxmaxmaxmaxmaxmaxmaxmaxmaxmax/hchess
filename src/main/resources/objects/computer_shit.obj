@@ -1,6 +1,6 @@
 # Blender 5.3.0
 # www.blender.org
-mtllib Computer Shit.mtl
+mtllib Computer_Shit.mtl
 o Cable_Bundle_Server
 v 0.206015 6.013785 0.765917
 v 0.206013 6.385796 0.765917

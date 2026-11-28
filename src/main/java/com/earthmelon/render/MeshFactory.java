@@ -10,7 +10,7 @@ import com.earthmelon.engine.object.Triangle;
 import com.earthmelon.math.ArrayUtils;
 import com.earthmelon.math.Vector2f;
 import com.earthmelon.math.Vector3f;
-import com.earthmelon.render.meshes.BasicMesh;
+import com.earthmelon.render.meshes.MaterialMesh;
 import com.earthmelon.render.meshes.Mesh2D;
 import org.lwjgl.BufferUtils; //For creating the FloatBuffer
 import org.lwjgl.opengl.GL11;
@@ -67,7 +67,7 @@ public class MeshFactory {
     }
 
     @Deprecated
-    public static BasicMesh createMesh(float[] positions, float[] UVs, int[] indices) {
+    public static MaterialMesh createMesh(float[] positions, float[] UVs, int[] indices) {
         float[] normals = generateNormals(positions);
         int vao = genVAO();
         storeData(0,3, positions);
@@ -75,17 +75,17 @@ public class MeshFactory {
         storeData(2, 3, normals);
         bindIndices(indices);
         GL30.glBindVertexArray(0);
-        return new BasicMesh(vao,indices.length);
+        return new MaterialMesh(vao,indices.length);
     }
 
-    public static BasicMesh createMesh(SceneObject object) {
+    public static MaterialMesh createMesh(SceneObject object) {
         int vao = genVAO();
         storeData(0,3, ArrayUtils.toPrimitive(object.transformedVertices));
         storeData(1,2,object.uvs);
         storeData(2, 3, object.normals);
-        bindIndices(object.indices);
+        bindIndices(ArrayUtils.toPrimitive(object.indices.values().toArray(Integer[]::new)));
         GL30.glBindVertexArray(0);
-        return new BasicMesh(vao,object.indices.length);
+        return new MaterialMesh(vao,object.indices.size());
     }
 
     public static float[] generateNormals(float[] positions) {
@@ -114,7 +114,6 @@ public class MeshFactory {
     }
 
 
-    // TODO: Convert position vectors to vec2s here and in shader
     public static Mesh2D create2DQuad(Vector2f pos, float scaleX, float scaleY) {
         int vao = genVAO();
         int[] indices = {0,2,1,1,2,3};

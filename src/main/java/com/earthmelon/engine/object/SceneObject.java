@@ -2,13 +2,10 @@ package com.earthmelon.engine.object;
 
 import com.earthmelon.engine.HChess;
 import com.earthmelon.engine.Light;
-import com.earthmelon.math.ArrayUtils;
-import com.earthmelon.math.Matrix4f;
-import com.earthmelon.math.Vector3f;
-import com.earthmelon.math.Vector4f;
+import com.earthmelon.math.*;
 import com.earthmelon.render.Colour;
 import com.earthmelon.render.MeshFactory;
-import com.earthmelon.render.meshes.BasicMesh;
+import com.earthmelon.render.meshes.MaterialMesh;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,15 +21,13 @@ public class SceneObject {
 
     public Vector3f[] vertices;
     public float[] uvs;
-    public int[] indices;
+    public HashMap<Material, Integer> indices;
     public float[] normals;
 
     Transform transform;
     public Vector3f[] transformedVertices;
 
-    HashMap<BasicMesh, Material> materials;
-
-    BasicMesh[] meshes;
+    MaterialMesh[] meshes;
     Colour colour = Colour.GREY;
 
     /**
@@ -44,14 +39,14 @@ public class SceneObject {
         this.id = id;
         this.position = position;
 
-        this.meshes = new BasicMesh[0];
+        this.meshes = new MaterialMesh[0];
 
         attachTransform();
         if (HChess.SCENE_OBJECTS.containsKey(id)) throw new IllegalArgumentException("Duplicate id!");
         HChess.SCENE_OBJECTS.put(id, this);
     }
 
-    public SceneObject(String id, Vector3f[] vertices, float[] uvs, int[] indices, float[] normals) {
+    public SceneObject(String id, Vector3f[] vertices, float[] uvs, HashMap<Material, Integer> indices, float[] normals) {
         this.id = id;
         this.vertices = vertices;
         this.uvs = uvs;
@@ -61,7 +56,7 @@ public class SceneObject {
         this.position = new Vector3f(calculateCentre(vertices, 0),calculateCentre(vertices, 1),calculateCentre(vertices, 2));
         this.transformedVertices = Arrays.copyOf(vertices, vertices.length);
 
-        this.meshes = new BasicMesh[1];
+        this.meshes = new MaterialMesh[1];
 
         meshes[0] = MeshFactory.createMesh(this).setTint(colour);
 
@@ -132,7 +127,7 @@ public class SceneObject {
         transformedVertices = rotated.toArray(transformedVertices);
     }
 
-    public BasicMesh[] getMeshes() {
+    public MaterialMesh[] getMeshes() {
         return meshes;
     }
 
