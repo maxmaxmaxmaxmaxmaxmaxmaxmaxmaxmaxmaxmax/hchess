@@ -2,6 +2,7 @@ package com.earthmelon.engine.object;
 
 import com.earthmelon.engine.HChess;
 import com.earthmelon.engine.Light;
+import com.earthmelon.math.ArrayUtils;
 import com.earthmelon.math.Matrix4f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.math.Vector4f;
@@ -55,7 +56,7 @@ public class SceneObject {
         this.vertices = vertices;
         this.uvs = uvs;
         this.indices = indices;
-        this.normals = normals.length > 0 ? normals : MeshFactory.generateNormals(Vector3f.toFloat(vertices));
+        this.normals = normals.length > 0 ? normals : MeshFactory.generateNormals(ArrayUtils.toPrimitive(vertices));
 
         this.position = new Vector3f(calculateCentre(vertices, 0),calculateCentre(vertices, 1),calculateCentre(vertices, 2));
         this.transformedVertices = Arrays.copyOf(vertices, vertices.length);

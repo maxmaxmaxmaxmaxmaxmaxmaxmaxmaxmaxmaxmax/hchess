@@ -1,5 +1,6 @@
 package com.earthmelon.engine.object;
 
+import com.earthmelon.math.ArrayUtils;
 import com.earthmelon.math.Vector3f;
 
 import java.io.*;
@@ -65,21 +66,11 @@ public class OBJHandler {
         } catch (IOException exception) {
             throw new IllegalArgumentException("Unknown error reading file! " + exception.getMessage());
         }
-        float[] outUVs = new float[uvs.size()];
-        int[] outIndices = new int[indices.size()];
-        float[] outNormals = new float[indexedNormals.size()];
 
-        for (int i=0; i< uvs.size(); i++) {
-            outUVs[i] = uvs.get(i);
-        }
-        for (int i=0; i< indices.size(); i++) {
-            outIndices[i] = indices.get(i);
-        }
-        for (int i=0; i< indexedNormals.size(); i++) {
-            outNormals[i] = indexedNormals.get(i);
-        }
-
-        return new SceneObject(id, vertices.toArray(Vector3f[]::new), outUVs, outIndices, outNormals);
+        return new SceneObject(id, vertices.toArray(Vector3f[]::new),
+                ArrayUtils.toPrimitive(uvs.toArray(Float[]::new)),
+                ArrayUtils.toPrimitive(indices.toArray(Integer[]::new)),
+                ArrayUtils.toPrimitive(normals.toArray(Vector3f[]::new)));
     }
 
 }

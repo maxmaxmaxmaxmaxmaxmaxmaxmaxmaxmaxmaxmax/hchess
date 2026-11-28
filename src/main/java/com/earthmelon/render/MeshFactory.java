@@ -7,6 +7,7 @@ import java.util.List; //List and ArrayLists are containers for storing data, in
 
 import com.earthmelon.engine.object.SceneObject;
 import com.earthmelon.engine.object.Triangle;
+import com.earthmelon.math.ArrayUtils;
 import com.earthmelon.math.Vector2f;
 import com.earthmelon.math.Vector3f;
 import com.earthmelon.render.meshes.BasicMesh;
@@ -79,7 +80,7 @@ public class MeshFactory {
 
     public static BasicMesh createMesh(SceneObject object) {
         int vao = genVAO();
-        storeData(0,3, Vector3f.toFloat(object.transformedVertices));
+        storeData(0,3, ArrayUtils.toPrimitive(object.transformedVertices));
         storeData(1,2,object.uvs);
         storeData(2, 3, object.normals);
         bindIndices(object.indices);

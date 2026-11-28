@@ -46,15 +46,6 @@ public class Vector3f {
 
     public Vector3f multiply(float number) {return new Vector3f(x * number, y * number, z * number);}
 
-    public static float[] toFloat(Vector3f[] vecs) {
-        float[] out = new float[3* vecs.length];
-        for (int i=0; i< vecs.length; i++) {
-            out[3*i] = vecs[i].x;
-            out[3*i+1] = vecs[i].y;
-            out[3*i+2] = vecs[i].z;
-        }
-        return out;
-    }
 
     public static Vector3f[] fromFloat(float[] floats) {
         if (floats.length % 3 != 0) {
